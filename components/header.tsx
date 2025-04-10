@@ -11,7 +11,11 @@ import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
 
 export function Header() {
+
   const { t } = useLanguage()
+
+  // if (!mounted) return null
+
   const isMobile = useMobile()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -37,7 +41,7 @@ export function Header() {
         }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="#inicio" className="flex items-center gap-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
             <Image
               src="https://avatars.githubusercontent.com/u/33111448?v=4"

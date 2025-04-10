@@ -1,7 +1,6 @@
-"use client"
+'use client'
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { AtSign, MapPin, Phone, Send } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
