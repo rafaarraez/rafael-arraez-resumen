@@ -1,43 +1,101 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
-import { Card, CardContent } from "@/components/ui-custom/card"
+import { SkillCard } from "@/components/ui-custom/SkillCard"
+import { MessageCircle, Users, Puzzle, Award, Clock } from "lucide-react"
 
-// Datos de ejemplo - reemplaza con tus habilidades reales
-const skillsData = {
+// Simplificación del objeto iconos
+import {
+  NodejsPlainWordmark,
+  NestjsOriginal,
+  NextjsOriginalWordmark,
+  ReactOriginalWordmark,
+  TypescriptOriginal,
+  JavascriptOriginal,
+  PhpOriginal,
+  LaravelOriginal,
+  PythonOriginalWordmark,
+  DjangoPlain,
+  MysqlOriginal,
+  PostgresqlOriginalWordmark,
+  MongodbOriginalWordmark,
+  RedisPlainWordmark,
+  DockerOriginalWordmark,
+  AmazonwebservicesOriginalWordmark,
+  GitOriginal,
+  GithubOriginalWordmark,
+  LinuxOriginal,
+  VscodeOriginal,
+  PostmanPlain,
+} from "devicons-react";
+
+const icons = {
+  Nodejs: NodejsPlainWordmark,
+  Nestjs: NestjsOriginal,
+  Nextjs: NextjsOriginalWordmark,
+  React: ReactOriginalWordmark,
+  Typescript: TypescriptOriginal,
+  Javascript: JavascriptOriginal,
+  Php: PhpOriginal,
+  Laravel: LaravelOriginal,
+  Python: PythonOriginalWordmark,
+  Django: DjangoPlain,
+  Mysql: MysqlOriginal,
+  Postgresql: PostgresqlOriginalWordmark,
+  MongoDB: MongodbOriginalWordmark,
+  Redis: RedisPlainWordmark,
+  Docker: DockerOriginalWordmark,
+  AWS: AmazonwebservicesOriginalWordmark,
+  Git: GitOriginal,
+  Github: GithubOriginalWordmark,
+  Linux: LinuxOriginal,
+  Vscode: VscodeOriginal,
+  Postman: PostmanPlain,
+  // Habilidades blandas
+  Communication: MessageCircle,
+  Teamwork: Users,
+  "Problem Solving": Puzzle,
+  "Time Management": Clock,
+  Leadership: Award,
+};
+type SkillCategory = "technical" | "soft" | "tools";
+
+const skillsData: Record<SkillCategory, { name: string; nameEn: string; icon: keyof typeof icons }[]> = {
   technical: [
-    { name: "Habilidad 1", nameEn: "Skill 1", level: 90, icon: "/placeholder.svg?height=80&width=80" },
-    { name: "Habilidad 2", nameEn: "Skill 2", level: 85, icon: "/placeholder.svg?height=80&width=80" },
-    { name: "Habilidad 3", nameEn: "Skill 3", level: 75, icon: "/placeholder.svg?height=80&width=80" },
-    { name: "Habilidad 4", nameEn: "Skill 4", level: 80, icon: "/placeholder.svg?height=80&width=80" },
-    { name: "Habilidad 5", nameEn: "Skill 5", level: 70, icon: "/placeholder.svg?height=80&width=80" },
+    { name: "Node.js", nameEn: "Node.js", icon: "Nodejs" },
+    { name: "NestJS", nameEn: "NestJS", icon: "Nestjs" },
+    { name: "Next.js", nameEn: "Next.js", icon: "Nextjs" },
+    { name: "React", nameEn: "React", icon: "React" },
+    { name: "TypeScript", nameEn: "TypeScript", icon: "Typescript" },
+    { name: "JavaScript", nameEn: "JavaScript", icon: "Javascript" },
+    { name: "PHP", nameEn: "PHP", icon: "Php" },
+    { name: "Laravel", nameEn: "Laravel", icon: "Laravel" },
+    { name: "Python", nameEn: "Python", icon: "Python" },
+    { name: "Django", nameEn: "Django", icon: "Django" },
+    { name: "SQL", nameEn: "SQL", icon: "Mysql" },
+    { name: "PostgreSQL", nameEn: "PostgreSQL", icon: "Postgresql" },
+    { name: "MongoDB", nameEn: "MongoDB", icon: "MongoDB" },
+    { name: "Redis", nameEn: "Redis", icon: "Redis" },
   ],
   soft: [
-    { name: "Comunicación", nameEn: "Communication", level: 95, icon: "/placeholder.svg?height=80&width=80" },
-    { name: "Trabajo en equipo", nameEn: "Teamwork", level: 90, icon: "/placeholder.svg?height=80&width=80" },
-    {
-      name: "Resolución de problemas",
-      nameEn: "Problem Solving",
-      level: 85,
-      icon: "/placeholder.svg?height=80&width=80",
-    },
-    { name: "Liderazgo", nameEn: "Leadership", level: 80, icon: "/placeholder.svg?height=80&width=80" },
-    { name: "Gestión del tiempo", nameEn: "Time Management", level: 85, icon: "/placeholder.svg?height=80&width=80" },
+    { name: "Comunicación", nameEn: "Communication", icon: "Communication" },
+    { name: "Trabajo en equipo", nameEn: "Teamwork", icon: "Teamwork" },
+    { name: "Resolución de problemas", nameEn: "Problem Solving", icon: "Problem Solving" },
+    { name: "Gestión del tiempo", nameEn: "Time Management", icon: "Time Management" },
+    { name: "Liderazgo", nameEn: "Leadership", icon: "Leadership" },
   ],
   tools: [
-    { name: "Herramienta 1", nameEn: "Tool 1", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 2", nameEn: "Tool 2", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 3", nameEn: "Tool 3", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 4", nameEn: "Tool 4", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 5", nameEn: "Tool 5", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 6", nameEn: "Tool 6", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 7", nameEn: "Tool 7", icon: "/placeholder.svg?height=60&width=60" },
-    { name: "Herramienta 8", nameEn: "Tool 8", icon: "/placeholder.svg?height=60&width=60" },
-  ],
-}
+    { name: "Docker", nameEn: "Docker", icon: "Docker" },
+    { name: "AWS", nameEn: "AWS", icon: "AWS" },
+    { name: "Git", nameEn: "Git", icon: "Git" },
+    { name: "GitHub", nameEn: "GitHub", icon: "Github" },
+    { name: "Linux", nameEn: "Linux", icon: "Linux" },
+    { name: "VS Code", nameEn: "VS Code", icon: "Vscode" },
+    { name: "Postman", nameEn: "Postman", icon: "Postman" },
+  ]
+};
 
 export function Skills() {
   const { t, language } = useLanguage()
@@ -74,34 +132,6 @@ export function Skills() {
     }
   }, [])
 
-  // Función para renderizar estrellas basadas en el nivel de habilidad
-  const renderStars = (level: number) => {
-    const maxStars = 5
-    const filledStars = Math.round((level / 100) * maxStars)
-
-    return (
-      <div className="flex gap-1">
-        {[...Array(maxStars)].map((_, i) => (
-          <svg
-            key={i}
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill={i < filledStars ? "currentColor" : "none"}
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={i < filledStars ? "text-purple-600" : "text-gray-400 dark:text-gray-600"}
-          >
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-          </svg>
-        ))}
-      </div>
-    )
-  }
-
   return (
     <section
       id="habilidades"
@@ -118,101 +148,24 @@ export function Skills() {
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("skills.description")}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div
-            ref={(el) => {
-              cardRefs.current[0] = el
-            }}
-            className="opacity-0"
-            style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
-          >
-            <Card className="h-full">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-6 text-center">{t("skills.technical")}</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  {skillsData.technical.map((skill, index) => (
-                    <div key={index} className="flex flex-col items-center text-center">
-                      <div className="mb-3 bg-gray-200 dark:bg-gray-800 p-4 rounded-full">
-                        <Image
-                          src={skill.icon || "/placeholder.svg"}
-                          alt={language === "es" ? skill.name : skill.nameEn}
-                          width={50}
-                          height={50}
-                          className="rounded-full"
-                        />
-                      </div>
-                      <h4 className="font-medium mb-1">{language === "es" ? skill.name : skill.nameEn}</h4>
-                      {renderStars(skill.level)}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div
-            ref={(el) => {
-              cardRefs.current[1] = el
-            }}
-            className="opacity-0"
-            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-          >
-            <Card className="h-full">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-6 text-center">{t("skills.soft")}</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  {skillsData.soft.map((skill, index) => (
-                    <div key={index} className="flex flex-col items-center text-center">
-                      <div className="mb-3 bg-gray-200 dark:bg-gray-800 p-4 rounded-full">
-                        <Image
-                          src={skill.icon || "/placeholder.svg"}
-                          alt={language === "es" ? skill.name : skill.nameEn}
-                          width={50}
-                          height={50}
-                          className="rounded-full"
-                        />
-                      </div>
-                      <h4 className="font-medium mb-1">{language === "es" ? skill.name : skill.nameEn}</h4>
-                      {renderStars(skill.level)}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div
-            ref={(el) => {
-              cardRefs.current[2] = el
-            }}
-            className="md:col-span-2 opacity-0"
-            style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
-          >
-            <Card>
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-6 text-center">{t("skills.tools")}</h3>
-                <div className="flex flex-wrap gap-6 justify-center">
-                  {skillsData.tools.map((tool, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      <div className="mb-2 bg-gray-200 dark:bg-gray-800 p-3 rounded-full transition-transform hover:scale-110">
-                        <Image
-                          src={tool.icon || "/placeholder.svg"}
-                          alt={language === "es" ? tool.name : tool.nameEn}
-                          width={40}
-                          height={40}
-                          className="rounded-full"
-                        />
-                      </div>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
-                        {language === "es" ? tool.name : tool.nameEn}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="flex gap-2 max-w-5xl mx-auto">
+          {(["technical", "soft", "tools"] as Array<keyof typeof skillsData>).map((category, idx) => (
+            <div
+              key={category}
+              ref={(el) => { cardRefs.current[idx] = el }}
+              className={`opacity-0 ${idx === 2 ? 'w-full md:w-1/2' : 'w-full md:w-1/2'}`}
+              style={{ animationDelay: `${0.3 + 0.1 * idx}s`, animationFillMode: "forwards" }}
+            >
+              <SkillCard
+                title={t(`skills.${category}`)}
+                skills={skillsData[category]}
+                icons={icons}
+                language={language}
+              />
+            </div>
+          ))}
         </div>
+
       </div>
     </section>
   )
