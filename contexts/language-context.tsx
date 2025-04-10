@@ -23,7 +23,9 @@ const translations = {
     // Hero
     "hero.greeting": "Hola, soy",
     "hero.description":
-      "Software Engineer. Ayudo a empresas a lograr sus objetivos mediante soluciones innovadoras y efectivas.",
+      `Ingeniero de Software enfocado en el desarrollo backend de aplicaciones web escalables y de alto rendimiento.
+    
+    🚀 Transformo ideas en productos digitales robustos.`,
     "hero.cta.work": "Ver mi trabajo",
     "hero.cta.cv": "Descargar CV",
 
@@ -57,10 +59,6 @@ const translations = {
     "contact.form.message": "Mensaje",
     "contact.form.submit": "Enviar mensaje",
     "contact.form.sending": "Enviando...",
-    "contact.info.title": "Información de contacto",
-    "contact.info.email": "Email",
-    "contact.info.phone": "Teléfono",
-    "contact.info.location": "Ubicación",
     "contact.info.follow": "Sígueme",
 
     // Footer
@@ -77,7 +75,9 @@ const translations = {
     // Hero
     "hero.greeting": "Hello, I'm",
     "hero.description":
-      "Software Engineer. I help companies achieve their goals through innovative and effective solutions.",
+      `A Software Engineer focused on building scalable and high-performance backend applications.
+
+    🚀 I turn ideas into robust digital products.`,
     "hero.cta.work": "View my work",
     "hero.cta.cv": "Download CV",
 
@@ -110,10 +110,6 @@ const translations = {
     "contact.form.message": "Message",
     "contact.form.submit": "Send message",
     "contact.form.sending": "Sending...",
-    "contact.info.title": "Contact information",
-    "contact.info.email": "Email",
-    "contact.info.phone": "Phone",
-    "contact.info.location": "Location",
     "contact.info.follow": "Follow me",
 
     // Footer
