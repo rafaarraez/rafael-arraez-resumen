@@ -132,6 +132,9 @@ export function Skills() {
     }
   }, [])
 
+  const mainCategories: Array<keyof typeof skillsData> = ["technical", "soft"];
+  const toolsCategory: Array<keyof typeof skillsData> = ["tools"];
+
   return (
     <section
       id="habilidades"
@@ -148,22 +151,43 @@ export function Skills() {
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("skills.description")}</p>
         </div>
 
-        <div className="flex gap-2 max-w-5xl mx-auto">
-          {(["technical", "soft", "tools"] as Array<keyof typeof skillsData>).map((category, idx) => (
-            <div
-              key={category}
-              ref={(el) => { cardRefs.current[idx] = el }}
-              className={`opacity-0 ${idx === 2 ? 'w-full md:w-1/2' : 'w-full md:w-1/2'}`}
-              style={{ animationDelay: `${0.3 + 0.1 * idx}s`, animationFillMode: "forwards" }}
-            >
-              <SkillCard
-                title={t(`skills.${category}`)}
-                skills={skillsData[category]}
-                icons={icons}
-                language={language}
-              />
-            </div>
-          ))}
+        <div className="flex flex-col gap-16 max-w-5xl mx-auto">
+          {/* Grid con dos columnas para technical y soft */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {mainCategories.map((category, idx) => (
+              <div
+                key={category}
+                ref={(el) => { cardRefs.current[idx] = el }}
+                className="opacity-0"
+              >
+                <SkillCard
+                  title={t(`skills.${category}`)}
+                  skills={skillsData[category]}
+                  icons={icons}
+                  language={language}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Grid con una sola columna para tools */}
+          <div className="grid grid-cols-1 gap-8">
+            {toolsCategory.map((category, idx) => (
+              <div
+                key={category}
+                ref={(el) => { cardRefs.current[mainCategories.length + idx] = el }}
+                className="opacity-0"
+                style={{ animationDelay: `${0.3 + 0.1 * idx}s`, animationFillMode: "forwards" }}
+              >
+                <SkillCard
+                  title={t(`skills.${category}`)}
+                  skills={skillsData[category]}
+                  icons={icons}
+                  language={language}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>
