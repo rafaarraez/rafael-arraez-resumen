@@ -62,7 +62,8 @@ export function Hero() {
             {t("hero.description")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            <Button size="lg" className="rounded-full">
+            <Button
+              onClick={() => (window.open('https://github.com/rafaarraez', "_blank"))} size="lg" className="rounded-full">
               {t("hero.cta.work")}
             </Button>
             <Button onClick={() => {
