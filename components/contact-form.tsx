@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { AtSign, MapPin, Phone, Send } from "lucide-react"
+import { Send } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Button } from "@/components/ui-custom/button"
@@ -10,15 +10,36 @@ import { Card, CardContent } from "@/components/ui-custom/card"
 import { Input } from "@/components/ui-custom/input"
 import { Label } from "@/components/ui-custom/label"
 import { Textarea } from "@/components/ui-custom/textarea"
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { celebrate } from "@/lib/utils"
+
+interface ContactFormState {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  errors: {
+    name?: string;
+    email?: string;
+    message?: string;
+    subject?: string;
+  };
+  submitted: boolean;
+}
 
 export function ContactForm() {
   const { t } = useLanguage()
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  })
+  const initialState = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    errors: {},
+    submitted: false,
+  }
+  const [formData, setFormData] = useState<ContactFormState>(initialState);
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -68,20 +89,50 @@ export function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Aquí iría la lógica para enviar el formulario
-    // Por ejemplo, usando fetch para enviar a una API
+    e.preventDefault();
+    const newErrors: ContactFormState['errors'] = {};
 
-    // Simulando un envío
-    setTimeout(() => {
-      alert("¡Mensaje enviado con éxito!")
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      })
+    if (!formData.name) {
+      newErrors.name = t('contact.form.nameRequired');
+    }
+
+    if (!formData.email) {
+      newErrors.email = t('contact.form.emailRequired');
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      newErrors.email = t('contact.form.emailInvalid');
+    }
+
+    if (!formData.subject) {
+      newErrors.subject = t('contact.form.subjectRequired');
+    }
+
+    if (!formData.message) {
+      newErrors.message = t('contact.form.messageRequired');
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setFormData({ ...formData, errors: newErrors, submitted: false });
+    } else {
+      try {
+        const response = await axios.post('/api/send', {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        });
+
+        if (response.status === 200) {
+          setFormData({ ...initialState, submitted: true });
+          toast.success(t('contact.success.emailSent'));
+          celebrate();
+        } else {
+          toast.error(`${t('contact.error.emailSend')} ${response.status}`);
+        }
+      } catch (error) {
+        toast.error(`${t('contact.error.general')} ${error}`);
+      }
       setIsSubmitting(false)
-    }, 1500)
+    }
   }
 
   return (

@@ -60,6 +60,19 @@ const translations = {
     "contact.form.submit": "Enviar mensaje",
     "contact.form.sending": "Enviando...",
     "contact.info.follow": "Sígueme",
+    "contact.error.missingApiKey": "Falta la clave de API. Proporciona la clave RESEND_API_KEY en tus variables de entorno.",
+    "contact.error.emailSend": "Error en el envío del correo.",
+    "contact.error.general": "Ha ocurrido un error inesperado. Por favor, intenta nuevamente más tarde.",
+    "contact.success.emailSent": "Correo enviado con éxito.",
+    //form
+    "form.nameRequired": "El campo nombre es obligatorio",
+    "form.emailRequired": "El campo email es obligatorio",
+    "form.emailInvalid": "El email no es válido",
+    "form.subjectRequired": "El campo asunto es obligatorio",
+    "form.messageRequired": "El campo mensaje es obligatorio",
+    // Config
+    "config.envSetup": "Por favor, asegúrate de que las variables de entorno estén configuradas correctamente.",
+    "config.toEmail": "TO_EMAIL no está configurado. Por favor, verifica tu configuración.",
 
     // Footer
     "footer.rights": "Todos los derechos reservados.",
@@ -111,6 +124,19 @@ const translations = {
     "contact.form.submit": "Send message",
     "contact.form.sending": "Sending...",
     "contact.info.follow": "Follow me",
+    "contact.error.missingApiKey": "Missing API key. Please provide the RESEND_API_KEY in your environment variables.",
+    "contact.error.emailSend": "Error in sending the email.",
+    "contact.error.general": "An unexpected error occurred. Please try again later.",
+    "contact.success.emailSent": "Email sent successfully.",
+    //form
+    "form.nameRequired": "The name field is required",
+    "form.emailRequired": "The email field is required",
+    "form.emailInvalid": "The email is not valid",
+    "form.subjectRequired": "The subject field is required",
+    "form.messageRequired": "The message field is required",
+    // Config
+    "config.envSetup": "Please ensure that the environment variables are set up correctly.",
+    "config.toEmail": "TO_EMAIL is not set. Please check your configuration.",
 
     // Footer
     "footer.rights": "All rights reserved.",
