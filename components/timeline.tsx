@@ -42,6 +42,14 @@ const timelineDataES = [
   },
   {
     id: 5,
+    title: "Ingeniero en Computación",
+    company: "Universidad José Antonio Páez",
+    period: "2014 - 2019",
+    description: "Graduado en la carrera de Ingeniería en Computación, con un enfoque en desarrollo de software y gestión bases de datos",
+    type: "education",
+  },
+  {
+    id: 6,
     title: "FullStack Developer",
     company: "Impulsa Creativos",
     period: "Jul 2018 - Dic 2019",
@@ -86,6 +94,14 @@ const timelineDataEN = [
   },
   {
     id: 5,
+    title: "Bachelor of Computer Engineering",
+    company: "Universidad José Antonio Páez",
+    period: "2014 - 2019",
+    description: "Graduated in Computer Engineering with a focus on software development and database management.",
+    type: "education",
+  },
+  {
+    id: 6,
     title: "FullStack Developer",
     company: "Impulsa Creativos",
     period: "Jul 2018 - Dec 2019",
