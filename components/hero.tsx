@@ -68,8 +68,8 @@ export function Hero() {
             <Button onClick={() => {
               const file =
                 language === "es"
-                  ? "/Rafael Arraez Resumen [ES].pdf"
-                  : "/Rafael Arraez Resumen [EN].pdf";
+                  ? "/Rafael Arraez Resumen - [ES].pdf"
+                  : "/Rafael Arraez Resumen - [EN].pdf";
               window.open(file, "_blank");
             }} size="lg" variant="outline" className="rounded-full">
               {t("hero.cta.cv")}
