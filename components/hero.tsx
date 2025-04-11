@@ -7,7 +7,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui-custom/button"
 
 export function Hero() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const heroRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -65,7 +65,13 @@ export function Hero() {
             <Button size="lg" className="rounded-full">
               {t("hero.cta.work")}
             </Button>
-            <Button size="lg" variant="outline" className="rounded-full">
+            <Button onClick={() => {
+              const file =
+                language === "es"
+                  ? "/Rafael Arraez Resumen [ES].pdf"
+                  : "/Rafael Arraez Resumen [EN].pdf";
+              window.open(file, "_blank");
+            }} size="lg" variant="outline" className="rounded-full">
               {t("hero.cta.cv")}
             </Button>
           </div>
