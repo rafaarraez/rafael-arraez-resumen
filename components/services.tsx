@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Code, Lightbulb, PenTool, Presentation } from "lucide-react"
+import { Code, Lightbulb, PlugZap, LayoutPanelTop } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui-custom/card"
@@ -10,48 +10,49 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 const servicesDataES = [
   {
     icon: <Code className="h-10 w-10 text-purple-600" />,
-    title: "Servicio 1",
-    description: "Descripción detallada del servicio que ofreces, destacando los beneficios para tus clientes.",
+    title: "Arquitectura y Desarrollo Backend",
+    description: `Diseño e implementación de arquitecturas escalables y eficientes, 
+    utilizando tecnologías como Node.js, NestJS, Laravel y Django. Ideal para productos digitales que 
+    requieren alto rendimiento y buena organización del código.`,
   },
   {
-    icon: <PenTool className="h-10 w-10 text-purple-600" />,
-    title: "Servicio 2",
-    description: "Descripción detallada del servicio que ofreces, destacando los beneficios para tus clientes.",
+    icon: <PlugZap className="h-10 w-10 text-purple-600" />,
+    title: "APIs y Microservicios",
+    description: `Construcción de APIs RESTful y microservicios robustos y seguros, conectando distintas 
+    plataformas o servicios entre sí. Trabajo con PostgreSQL, Redis, Docker y AWS para garantizar 
+    escalabilidad y mantenibilidad.`,
   },
   {
-    icon: <Presentation className="h-10 w-10 text-purple-600" />,
-    title: "Servicio 3",
-    description: "Descripción detallada del servicio que ofreces, destacando los beneficios para tus clientes.",
-  },
-  {
-    icon: <Lightbulb className="h-10 w-10 text-purple-600" />,
-    title: "Servicio 4",
-    description: "Descripción detallada del servicio que ofreces, destacando los beneficios para tus clientes.",
+    icon: <LayoutPanelTop className="h-10 w-10 text-purple-600" />,
+    title: "Integración Web Full-Stack",
+    description: `Integración completa entre frontend y backend, asegurando una comunicación fluida entre componentes. 
+    Ideal para productos que usan Next.js o React en el frontend y requieren una lógica sólida detrás.`,
   },
 ]
 
 const servicesDataEN = [
   {
     icon: <Code className="h-10 w-10 text-purple-600" />,
-    title: "Service 1",
-    description: "Detailed description of the service you offer, highlighting the benefits for your clients.",
+    title: "Backend Architecture and Development",
+    description: `Design and implementation of scalable and efficient architectures, 
+    using technologies like Node.js, NestJS, Laravel, and Django. Perfect for digital products 
+    that require high performance and well-structured codebases.`,
   },
   {
-    icon: <PenTool className="h-10 w-10 text-purple-600" />,
-    title: "Service 2",
-    description: "Detailed description of the service you offer, highlighting the benefits for your clients.",
+    icon: <PlugZap className="h-10 w-10 text-purple-600" />,
+    title: "APIs and Microservices",
+    description: `Development of robust and secure RESTful APIs and microservices, 
+    connecting various platforms and services. I work with PostgreSQL, Redis, Docker, and AWS 
+    to ensure scalability and maintainability.`,
   },
   {
-    icon: <Presentation className="h-10 w-10 text-purple-600" />,
-    title: "Service 3",
-    description: "Detailed description of the service you offer, highlighting the benefits for your clients.",
-  },
-  {
-    icon: <Lightbulb className="h-10 w-10 text-purple-600" />,
-    title: "Service 4",
-    description: "Detailed description of the service you offer, highlighting the benefits for your clients.",
+    icon: <LayoutPanelTop className="h-10 w-10 text-purple-600" />,
+    title: "Full-Stack Web Integration",
+    description: `End-to-end integration between frontend and backend, ensuring smooth communication 
+    across components. Ideal for products using Next.js or React on the frontend backed by solid logic.`,
   },
 ]
+
 
 export function Services() {
   const { t, language } = useLanguage()
@@ -106,7 +107,7 @@ export function Services() {
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("services.description")}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {servicesData.map((service, index) => (
             <div
               key={index}
