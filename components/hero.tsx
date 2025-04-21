@@ -87,7 +87,7 @@ export function Hero() {
 
       <button
         onClick={scrollToNextSection}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+        className="absolute bottom-10 transform -translate-x-1/2 animate-bounce"
         aria-label="Scroll down"
       >
         <ArrowDown className="h-8 w-8 text-purple-600" />
