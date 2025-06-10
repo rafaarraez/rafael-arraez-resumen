@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
 import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { FloatingParticles } from "@/components/effects/floating-particles"
+import { CustomCursor } from "@/components/effects/custom-cursor"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -23,7 +25,11 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <FloatingParticles />
+            <CustomCursor />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
         <Toaster
           position="top-right"
