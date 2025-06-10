@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui-custom/button"
 import { Input } from "@/components/ui-custom/input"
 import { ArrowDown, Copy, Check, Mail } from "lucide-react"
+import { TypewriterEffect } from "@/components/effects/typewriter-effect"
 
 export function Hero() {
   const { t, language } = useLanguage()
@@ -58,16 +59,29 @@ export function Hero() {
     en: "Let's stay in touch!",
   }
 
+  // Textos para el efecto de máquina de escribir
+  const typewriterTexts = {
+    es: ["Rafael Arraez", "Desarrollador Full Stack", "Ingeniero de Software", "Backend Dev"],
+    en: ["Rafael Arraez", "Full Stack Developer", "Software Engineer", "Backend Dev"],
+  }
+
   return (
     <section
       id="inicio"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center pt-16 opacity-0"
+      className="relative min-h-screen flex items-center justify-center pt-16 opacity-0 overflow-hidden"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
     >
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/50 to-white dark:from-gray-950/80 dark:via-gray-950/50 dark:to-gray-950 z-10" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
+      </div>
+
+      {/* Formas geométricas flotantes sin parallax */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-purple-500/10 rounded-full blur-xl" />
+        <div className="absolute top-40 right-20 w-24 h-24 bg-blue-500/10 rounded-full blur-lg" />
+        <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl" />
       </div>
 
       <div className="container mx-auto px-4 z-10">
@@ -88,7 +102,13 @@ export function Hero() {
           <div className="flex-1 text-center lg:text-left space-y-8 sm:my-9 xl:my-0 order-2 lg:order-1">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="block">{t("hero.greeting")}</span>
-              <span className="text-purple-600">Rafael Arraez.</span>
+              <TypewriterEffect
+                texts={typewriterTexts[language as keyof typeof typewriterTexts]}
+                className="text-purple-600"
+                speed={150}
+                deleteSpeed={100}
+                pauseTime={3000}
+              />
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0">
               {t("hero.description")}
