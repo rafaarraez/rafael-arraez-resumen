@@ -100,7 +100,7 @@ const skillColors: Record<string, string> = {
   // Technical - colores representativos de cada tecnología
   "Node.js": "bg-green-600 hover:bg-green-700",
   NestJS: "bg-red-600 hover:bg-red-700",
-  "Next.js": "bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200",
+  "Next.js": "bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200",
   React: "bg-blue-500 hover:bg-blue-600",
   TypeScript: "bg-blue-700 hover:bg-blue-800",
   JavaScript: "bg-yellow-500 hover:bg-yellow-600 text-black",
@@ -129,7 +129,7 @@ const skillColors: Record<string, string> = {
   Docker: "bg-blue-600 hover:bg-blue-700",
   AWS: "bg-orange-600 hover:bg-orange-700",
   Git: "bg-orange-700 hover:bg-orange-800",
-  GitHub: "bg-gray-800 hover:bg-gray-900",
+  GitHub: "bg-gray-800 text-white hover:bg-gray-900",
   Linux: "bg-yellow-600 hover:bg-yellow-700 text-black",
   "VS Code": "bg-blue-500 hover:bg-blue-600",
   Postman: "bg-orange-500 hover:bg-orange-600",
