@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { Menu, X, User } from "lucide-react"
+import { Menu, Home, Clock, Code2, Briefcase, Mail } from "lucide-react"
 import { Button } from "@/components/ui-custom/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
+import Image from "next/image"
 
 export function Header() {
   const { t } = useLanguage()
@@ -28,10 +28,21 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Bloquear el scroll cuando el menú está abierto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMenuOpen])
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-
   const scrollToNextSection = (section: string) => {
     const nextSection = document.getElementById(section)
     if (nextSection) {
@@ -39,9 +50,23 @@ export function Header() {
     }
   }
 
-  const closeMenu = () => {
-    setIsMenuOpen(false)
+  // Mapeo de iconos para los elementos de navegación
+  const navIcons = {
+    home: <Home className="w-5 h-5" />,
+    timeline: <Clock className="w-5 h-5" />,
+    skills: <Code2 className="w-5 h-5" />,
+    services: <Briefcase className="w-5 h-5" />,
+    contact: <Mail className="w-5 h-5" />,
   }
+
+  // Elementos de navegación
+  const navItems = [
+    { key: "home", href: "inicio", label: t("nav.home"), icon: navIcons.home },
+    { key: "timeline", href: "trayectoria", label: t("nav.timeline"), icon: navIcons.timeline },
+    { key: "skills", href: "habilidades", label: t("nav.skills"), icon: navIcons.skills },
+    { key: "services", href: "servicios", label: t("nav.services"), icon: navIcons.services },
+    { key: "contact", href: "contacto", label: t("nav.contact"), icon: navIcons.contact },
+  ]
 
   if (!mounted) {
     // Renderizado inicial que coincide con el servidor
@@ -53,7 +78,7 @@ export function Header() {
           }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3">
+          <button onClick={() => { scrollToNextSection('inicio'); }} className="flex items-center gap-3">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
                 <Image
@@ -66,7 +91,7 @@ export function Header() {
               </div>
             </div>
             <span className="font-bold text-xl">Rafael Arraez</span>
-          </Link>
+          </button>
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -79,21 +104,11 @@ export function Header() {
 
             {/* Navegación desktop - oculta en móvil usando CSS */}
             <nav className="hidden md:flex items-center gap-6 ml-6">
-              <Link href="#inicio" className="hover:text-purple-600 transition-colors">
-                {t("nav.home")}
-              </Link>
-              <Link href="#trayectoria" className="hover:text-purple-600 transition-colors">
-                {t("nav.timeline")}
-              </Link>
-              <Link href="#habilidades" className="hover:text-purple-600 transition-colors">
-                {t("nav.skills")}
-              </Link>
-              <Link href="#servicios" className="hover:text-purple-600 transition-colors">
-                {t("nav.services")}
-              </Link>
-              <Link href="#contacto" className="hover:text-purple-600 transition-colors">
-                {t("nav.contact")}
-              </Link>
+              {navItems.map((item) => (
+                <button onClick={() => { scrollToNextSection(item.href); }} key={item.key} className="hover:text-purple-600 transition-colors">
+                  {item.label}
+                </button>
+              ))}
             </nav>
           </div>
         </div>
@@ -109,7 +124,7 @@ export function Header() {
         }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3">
+        <button onClick={() => { scrollToNextSection('inicio'); }} className="flex items-center gap-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
               <Image
@@ -122,58 +137,142 @@ export function Header() {
             </div>
           </div>
           <span className="font-bold text-xl">Rafael Arraez</span>
-        </Link>
+        </button>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <LanguageToggle />
 
           {/* Botón de menú móvil */}
-          <Button variant="ghost" size="icon" onClick={toggleMenu} className="z-50">
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleMenu}
+            className="md:hidden z-[60] relative overflow-hidden group w-10 h-10"
+          >
+            <div
+              className={`absolute inset-0 bg-purple-600/10 dark:bg-purple-600/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ${isMenuOpen ? "scale-100" : ""
+                }`}
+            />
+            <div className="relative w-6 h-6 flex items-center justify-center">
+              <span
+                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen
+                  ? "rotate-45 translate-y-0"
+                  : "-translate-y-1.5"
+                  }`}
+              />
+              <span
+                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen
+                  ? "opacity-0 scale-0"
+                  : "opacity-100 scale-100"
+                  }`}
+              />
+              <span
+                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen
+                  ? "-rotate-45 translate-y-0"
+                  : "translate-y-1.5"
+                  }`}
+              />
+            </div>
           </Button>
 
           {/* Navegación desktop */}
-          <nav className="hidden md:flex items-center gap-6 ml-6">
-            <button onClick={() => { scrollToNextSection('inicio'); toggleMenu(); }} className="hover:text-purple-600 transition-colors">
-              {t("nav.home")}
-            </button>
-            <button onClick={() => { scrollToNextSection('trayectoria'); toggleMenu(); }} className="hover:text-purple-600 transition-colors">
-              {t("nav.timeline")}
-            </button>
-            <button onClick={() => { scrollToNextSection('habilidades'); toggleMenu(); }} className="hover:text-purple-600 transition-colors">
-              {t("nav.skills")}
-            </button>
-            <button onClick={() => { scrollToNextSection('servicios'); toggleMenu(); }} className="hover:text-purple-600 transition-colors">
-              {t("nav.services")}
-            </button>
-            <button onClick={() => { scrollToNextSection('contacto'); toggleMenu(); }} className="hover:text-purple-600 transition-colors">
-              {t("nav.contact")}
-            </button>
+          <nav className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <button onClick={() => { scrollToNextSection(item.href); }} key={item.key} className="hover:text-purple-600 transition-colors relative group">
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 group-hover:w-full transition-all duration-300" />
+              </button>
+            ))}
           </nav>
 
-          {/* Menú móvil overlay */}
-          {isMenuOpen && (
-            <div className="fixed inset-0 bg-white/95 dark:bg-gray-950/95 flex flex-col items-center justify-center h-screen">
-              <nav className="flex flex-col items-center gap-8 text-xl font-semibold">
-                <button onClick={() => scrollToNextSection('inicio')} className="hover:text-purple-600 transition-colors">
-                  {t("nav.home")}
-                </button>
-                <button onClick={() => scrollToNextSection('trayectoria')} className="hover:text-purple-600 transition-colors">
-                  {t("nav.timeline")}
-                </button>
-                <button onClick={() => scrollToNextSection('habilidades')} className="hover:text-purple-600 transition-colors">
-                  {t("nav.skills")}
-                </button>
-                <button onClick={() => scrollToNextSection('servicios')} className="hover:text-purple-600 transition-colors">
-                  {t("nav.services")}
-                </button>
-                <button onClick={() => scrollToNextSection('contacto')} className="hover:text-purple-600 transition-colors">
-                  {t("nav.contact")}
-                </button>
+          {/* Menú móvil overlay con animaciones */}
+          <div
+            className={`fixed inset-0 md:hidden z-50 transition-all duration-500 h-screen ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none delay-300"
+              }`}
+          >
+            {/* Fondo con blur y gradiente */}
+            <div
+              className={`absolute inset-0 bg-white/80 dark:bg-gray-950/90 backdrop-blur-lg transition-opacity duration-500 ${isMenuOpen ? "opacity-100" : "opacity-0"
+                }`}
+            />
+
+            {/* Formas decorativas */}
+            <div
+              className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-purple-500/20 to-blue-500/20 rounded-full blur-3xl transition-all duration-700 ${isMenuOpen
+                ? "opacity-70 translate-x-1/3 -translate-y-1/3"
+                : "opacity-0 translate-x-full -translate-y-full"
+                }`}
+            />
+            <div
+              className={`absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-pink-500/20 to-purple-500/20 rounded-full blur-3xl transition-all duration-700 ${isMenuOpen
+                ? "opacity-70 -translate-x-1/3 translate-y-1/3"
+                : "opacity-0 -translate-x-full translate-y-full"
+                }`}
+            />
+
+            {/* Contenido del menú */}
+            <div className="relative h-full flex flex-col justify-center items-center p-8">
+              {/* Logo pequeño en la parte superior */}
+              <div
+                className={`absolute top-8 left-1/2 transform -translate-x-1/2 transition-all duration-500 ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+                  }`}
+              >
+                <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-purple-600">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                    <Image
+                      src="https://avatars.githubusercontent.com/u/33111448?v=4"
+                      alt="Profile Photo"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Navegación MOVIL */}
+              <nav className="flex flex-col items-center gap-6 w-full max-w-xs">
+                {navItems.map((item, index) => (
+                  <button onClick={() => { scrollToNextSection(item.href); toggleMenu(); }}
+                    key={item.key}
+                    className={`flex items-center gap-3 text-xl font-medium w-full px-6 py-3 rounded-xl relative overflow-hidden group transition-all duration-300 ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                      }`}
+                    style={{
+                      transitionDelay: isMenuOpen ? `${index * 100}ms` : "0ms",
+                    }}
+                  >
+                    {/* Fondo hover */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 rounded-xl scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+
+                    {/* Icono con círculo */}
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-purple-600 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
+                      <div className="relative z-10 w-10 h-10 flex items-center justify-center rounded-full bg-purple-100 dark:bg-gray-800 text-purple-600 dark:text-purple-400 group-hover:text-white transition-colors duration-300">
+                        {item.icon}
+                      </div>
+                    </div>
+
+                    {/* Texto */}
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                      {item.label}
+                    </span>
+
+                    {/* Indicador de flecha */}
+                    <span className="ml-auto opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      →
+                    </span>
+                  </button>
+                ))}
               </nav>
+
+              {/* Decoración inferior */}
+              <div
+                className={`absolute bottom-8 w-32 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-700 ${isMenuOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                  }`}
+              />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </header>
