@@ -10,6 +10,14 @@ import { useMobile } from "@/hooks/use-mobile"
 // Data for the Spanish version of the timeline
 const timelineDataES = [
   {
+    id: 0,
+    title: "Desarrollador WordPress Freelance",
+    company: "Freelance",
+    period: "Febrero 2023 - Actualidad",
+    description: "Desde 2023, trabajo en la creación de tiendas online con WooCommerce, desarrollo de plugins a medida, personalización de temas y diseño de landing pages optimizadas para conversión, rendimiento y SEO. Trabajo con maquetadores como Elementor y WPBakery, enfocándome siempre en ofrecer soluciones a medida, rápidas y adaptadas a cada cliente.",
+    type: "work",
+  },
+  {
     id: 1,
     title: "Senior Software Engineer",
     company: "Magellan",
@@ -60,6 +68,14 @@ const timelineDataES = [
 ]
 // Data for the English version of the timeline
 const timelineDataEN = [
+  {
+    id: 0,
+    title: "Freelance WordPress Developer",
+    company: "Freelance",
+    period: "February 2023 - Present",
+    description: "Since 2023, I’ve been building custom online stores with WooCommerce, developing tailored plugins, customizing themes, and designing high-converting landing pages optimized for performance, SEO, and mobile. I work with page builders like Elementor and WPBakery, always focused on delivering fast, custom solutions that match each client's needs.",
+    type: "work",
+  },
   {
     id: 1,
     title: "Senior Software Engineer",
