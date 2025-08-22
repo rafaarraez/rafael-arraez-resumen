@@ -2,9 +2,10 @@ import { ContactForm } from "@/components/contact-form"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
+import { Projects } from "@/components/projects"
 import { Services } from "@/components/services"
 import { Skills } from "@/components/skills"
-import { Timeline } from "@/components/timeline"
+import { Experience } from "@/components/experience"
 
 export default function Home() {
   return (
@@ -12,9 +13,9 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Timeline />
+        <Projects />
+        <Experience />
         <Skills />
-        <Services />
         <ContactForm />
       </main>
       <Footer />

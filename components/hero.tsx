@@ -1,18 +1,30 @@
-'use client'
+"use client"
+
+import type React from "react"
 
 import { useEffect, useRef, useState } from "react"
+import { ArrowDown, Copy, Check, Mail, User, ExternalLink, Github, Linkedin } from "lucide-react"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui-custom/button"
-import { Input } from "@/components/ui-custom/input"
-import { ArrowDown, Copy, Check, Mail } from "lucide-react"
-import { TypewriterEffect } from "@/components/effects/typewriter-effect"
+import { Badge } from "@/components/ui-custom/badge"
+
+// Definir las formas con posiciones iniciales fijas
+const shapes = [
+  { baseX: 120, baseY: 160, size: 32, color: "bg-purple-500/10", blur: "blur-xl" },
+  { baseX: -140, baseY: 200, size: 24, color: "bg-blue-500/10", blur: "blur-lg", right: true },
+  { baseX: "25%", baseY: -200, size: 40, color: "bg-cyan-500/10", blur: "blur-2xl", bottom: true },
+  { baseX: "66%", baseY: "33%", size: 20, color: "bg-pink-500/10", blur: "blur-lg" },
+  { baseX: -100, baseY: "75%", size: 28, color: "bg-yellow-500/10", blur: "blur-xl", right: true, bottom: true },
+]
 
 export function Hero() {
   const { t, language } = useLanguage()
-  const heroRef = useRef<HTMLDivElement>(null)
   const [copied, setCopied] = useState(false)
   const [email] = useState("rafa.arraez.gue@gmail.com")
+  const heroRef = useRef<HTMLDivElement>(null)
+  const shapesRef = useRef<(HTMLDivElement | null)[]>([])
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,6 +49,60 @@ export function Hero() {
     }
   }, [])
 
+  // Seguir el mouse para el efecto de repulsión
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect()
+        setMousePosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        })
+      }
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
+
+  // Efecto de repulsión para las formas
+  useEffect(() => {
+    shapesRef.current.forEach((shape, index) => {
+      if (!shape) return
+
+      const shapeRect = shape.getBoundingClientRect()
+      const heroRect = heroRef.current?.getBoundingClientRect()
+
+      if (!heroRect) return
+
+      // Calcular el centro de la forma
+      const shapeX = shapeRect.left - heroRect.left + shapeRect.width / 2
+      const shapeY = shapeRect.top - heroRect.top + shapeRect.height / 2
+
+      // Calcular la distancia entre el mouse y la forma
+      const dx = mousePosition.x - shapeX
+      const dy = mousePosition.y - shapeY
+      const distance = Math.sqrt(dx * dx + dy * dy)
+
+      // Aplicar repulsión si está dentro del radio
+      const repulsionRadius = 200
+      const repulsionStrength = 60
+
+      if (distance < repulsionRadius) {
+        const repulsionForce = (repulsionRadius - distance) / repulsionRadius
+        const angle = Math.atan2(dy, dx)
+        const offsetX = -Math.cos(angle) * repulsionForce * repulsionStrength
+        const offsetY = -Math.sin(angle) * repulsionForce * repulsionStrength
+
+        shape.style.transform = `translate(${offsetX}px, ${offsetY}px)`
+        shape.style.transition = "transform 0.3s ease-out"
+      } else {
+        shape.style.transform = "translate(0px, 0px)"
+        shape.style.transition = "transform 0.5s ease-out"
+      }
+    })
+  }, [mousePosition])
+
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(email)
@@ -48,44 +114,57 @@ export function Hero() {
   }
 
   const scrollToNextSection = () => {
-    const nextSection = document.getElementById("trayectoria")
+    const nextSection = document.getElementById("proyectos")
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" })
     }
-  }
-
-  const contactMessage = {
-    es: "¡Mantengámonos en contacto!",
-    en: "Let's stay in touch!",
-  }
-
-  // Textos para el efecto de máquina de escribir
-  const typewriterTexts = {
-    es: ["Rafael Arraez", "Desarrollador Full Stack", "Ingeniero de Software", "Backend Dev"],
-    en: ["Rafael Arraez", "Full Stack Developer", "Software Engineer", "Backend Dev"],
   }
 
   return (
     <section
       id="inicio"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center pt-16 opacity-0 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center py-16 mt-8 opacity-0 overflow-hidden"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
     >
-      <div className="absolute inset-0 z-0">
+      {/* Fondo sin parallax */}
+      {/* <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/50 to-white dark:from-gray-950/80 dark:via-gray-950/50 dark:to-gray-950 z-10" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
-      </div>
+      </div> */}
 
-      {/* Formas geométricas flotantes sin parallax */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-purple-500/10 rounded-full blur-xl" />
-        <div className="absolute top-40 right-20 w-24 h-24 bg-blue-500/10 rounded-full blur-lg" />
-        <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl" />
+      {/* Formas geométricas flotantes con efecto de repulsión */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {shapes.map((shape, index) => {
+          // Determinar la posición base
+          const style: React.CSSProperties = {}
+
+          if (shape.right) {
+            style.right = shape.baseX
+          } else {
+            style.left = shape.baseX
+          }
+
+          if (shape.bottom) {
+            style.bottom = shape.baseY
+          } else {
+            style.top = shape.baseY
+          }
+
+          return (
+            <div
+              key={index}
+              ref={(el) => { shapesRef.current[index] = el }}
+              className={`absolute w-${shape.size} h-${shape.size} ${shape.color} rounded-full ${shape.blur}`}
+              style={style}
+            />
+          )
+        })}
       </div>
 
       <div className="container mx-auto px-4 z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
+        <div className="flex flex-col lg:flex-row items-center gap-12  mx-auto">
+          {/* Foto de perfil sin parallax */}
           <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 order-1 lg:order-2">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 blur-2xl opacity-20 animate-pulse" />
             <div className="relative h-full w-full rounded-full border-2 mt-4 xl:my-0 border-purple-600/50 overflow-hidden">
@@ -99,97 +178,148 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="flex-1 text-center lg:text-left space-y-8 sm:my-9 xl:my-0 order-2 lg:order-1">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="block">{t("hero.greeting")}</span>
-              <TypewriterEffect
-                texts={typewriterTexts[language as keyof typeof typewriterTexts]}
-                className="text-purple-600"
-                speed={150}
-                deleteSpeed={100}
-                pauseTime={3000}
-              />
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0">
-              {t("hero.description")}
-            </p>
+          {/* Contenido de texto */}
+          <div className="flex-1 text-center lg:text-left space-y-8 order-2 lg:order-1">
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="block text-gray-900 dark:text-white">{t("hero.name")}</span>
+                <span className="block text-purple-600 text-3xl md:text-4xl lg:text-5xl mt-2">{t("hero.title")}</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 font-medium">{t("hero.subtitle")}</p>
+
+              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                {t("hero.description")}
+              </p>
+            </div>
+
+            {/* Key metrics */}
+            {/* <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <Badge variant="outline" className="px-4 py-2 text-sm font-semibold">
+                {t("hero.experience")}
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2 text-sm font-semibold">
+                {t("hero.transactions")}
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2 text-sm font-semibold">
+                {t("hero.cost_optimization")}
+              </Badge>
+            </div> */}
+
+            {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <Button
-                onClick={() => (window.open('https://github.com/rafaarraez', "_blank"))} size="lg" className="rounded-full">
-                {t("hero.cta.work")}
+                size="lg"
+                className="rounded-lg px-8 hover:scale-105 transition-transform duration-200"
+                onClick={() => document.getElementById("proyectos")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                {t("hero.cta.projects")}
               </Button>
-              <Button onClick={() => {
-                const file =
-                  language === "es"
-                    ? "/Rafael Arraez Resumen - [ES] Software Engineer.pdf"
-                    : "/Rafael Arraez Resumen - [EN] Software Engineer.pdf";
-                window.open(file, "_blank");
-              }} size="lg" variant="outline" className="rounded-full">
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-lg px-8 hover:scale-105 transition-transform duration-200 bg-transparent"
+                onClick={() => window.open("/cv-rafael-arraez.pdf", "_blank")}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
                 {t("hero.cta.cv")}
               </Button>
             </div>
-            {/* Separador visual */}
-            <div className="flex items-center gap-4 max-w-md mx-auto lg:mx-0">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
-              <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                {contactMessage[language as keyof typeof contactMessage]}
-              </span>
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
-            </div>
 
-            {/* Input de correo elegante */}
-            <div className="max-w-md mx-auto lg:mx-0">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
-                <div className="relative flex items-center bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden">
-                  <div className="flex items-center pl-4 pr-2">
-                    <Mail className="h-4 w-4 text-gray-400" />
+            {/* Email Contact Section - Redesigned */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 justify-center lg:justify-start">
+                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-1 max-w-16"></div>
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                  {language === "es" ? "Contacto directo" : "Direct contact"}
+                </span>
+                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-1 max-w-16"></div>
+              </div>
+
+              {/* Beautiful Email Input */}
+              <div className="max-w-md mx-auto lg:mx-0">
+                <div className="group relative">
+                  {/* Glow effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
+
+                  {/* Main container */}
+                  <div className="relative flex items-center bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden">
+                    {/* Email icon */}
+                    <div className="flex items-center pl-4 pr-3">
+                      <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                        <Mail className="h-4 w-4 text-purple-600" />
+                      </div>
+                    </div>
+
+                    {/* Email text */}
+                    <div className="flex-1 py-4 pr-2">
+                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">
+                        {language === "es" ? "Email" : "Email"}
+                      </div>
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-0.5">{email}</div>
+                    </div>
+
+                    {/* Copy button */}
+                    <Button
+                      onClick={copyEmail}
+                      size="sm"
+                      className={`m-2 rounded-xl px-4 py-2 transition-all duration-300 ${copied
+                        ? "bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/25"
+                        : "bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-600/25 hover:shadow-purple-600/40"
+                        }`}
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="h-4 w-4 mr-2" />
+                          {language === "es" ? "¡Copiado!" : "Copied!"}
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-4 w-4 mr-2" />
+                          {language === "es" ? "Copiar" : "Copy"}
+                        </>
+                      )}
+                    </Button>
                   </div>
-                  <Input
-                    value={email}
-                    readOnly
-                    className="border-0 bg-transparent focus:ring-0 text-sm py-3 px-2 rounded-none"
-                    placeholder="Correo de contacto"
-                  />
-                  <Button
-                    onClick={copyEmail}
-                    size="sm"
-                    className={`m-1 rounded-full transition-all duration-300 ${copied
-                      ? "bg-green-500 hover:bg-green-600 text-white"
-                      : "bg-purple-600 hover:bg-purple-700 text-white"
-                      }`}
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="h-4 w-4 mr-1" />
-                        {language === "es" ? "¡Copiado!" : "Copied!"}
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="h-4 w-4 mr-1" />
-                        {language === "es" ? "Copiar" : "Copy"}
-                      </>
-                    )}
-                  </Button>
                 </div>
               </div>
             </div>
 
-            {/* Texto de ayuda sutil */}
-            <p className="text-xs text-gray-500 dark:text-gray-400 text-center lg:text-left max-w-md mx-auto lg:mx-0">
-              {language === "es"
-                ? "Copia mi correo para contacto directo y rápido"
-                : "Copy my email for direct and quick contact"}
-            </p>
+            {/* Social Links & Remote Status */}
+            <div className="flex flex-wrap gap-6 justify-center lg:justify-start items-center">
+              <div className="flex gap-4">
+                <a
+                  href="https://linkedin.com/in/rafael-arraez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-3 bg-gray-100 dark:bg-gray-800 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                >
+                  <Linkedin className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-purple-600 transition-colors" />
+                </a>
+                <a
+                  href="https://github.com/rafael-arraez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-3 bg-gray-100 dark:bg-gray-800 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                >
+                  <Github className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-purple-600 transition-colors" />
+                </a>
+              </div>
+
+              <div className="flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-green-700 dark:text-green-400">
+                  {language === "es" ? "Disponible para trabajo remoto" : "Available for remote work"}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Botón de scroll hacia abajo */}
-
       <button
         onClick={scrollToNextSection}
-        className="absolute bottom-10 transform hidden xl:block -translate-x-1/2 animate-bounce"
+        className="absolute bottom-14 transform hidden xl:block -translate-x-1/2 animate-bounce"
         aria-label="Scroll down"
       >
         <ArrowDown className="h-8 w-8 text-purple-600" />

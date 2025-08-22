@@ -23,7 +23,7 @@ import {
   Send,
 } from "lucide-react"
 
-type SkillCategory = "technical" | "soft" | "tools"
+type SkillCategory = "technical" | "cloud" | "tools"
 
 // Mapeo de iconos personalizados y de Lucide
 const icons = {
@@ -42,6 +42,7 @@ const icons = {
   Postgresql: Database,
   MongoDB: Database,
   Redis: Database,
+  Vuejs: Globe,
 
   // Soft Skills
   Communication: MessageCircle,
@@ -58,40 +59,48 @@ const icons = {
   Linux: Terminal,
   Vscode: Code2,
   Postman: Send,
+  Jest: Code2,
+  NewRelic: Code2,
+  OpenAI: Code2,
+  HubSpot: Code2,
+  Salesforce: Code2,
 }
 
-const skillsData: Record<SkillCategory, { name: string; nameEn: string; icon: keyof typeof icons }[]> = {
+const skillsData: Record<
+  SkillCategory,
+  { name: string; nameEn: string; icon: keyof typeof icons; years: string; level: string }[]
+> = {
   technical: [
-    { name: "Node.js", nameEn: "Node.js", icon: "Nodejs" },
-    { name: "NestJS", nameEn: "NestJS", icon: "Nestjs" },
-    { name: "Next.js", nameEn: "Next.js", icon: "Nextjs" },
-    { name: "React", nameEn: "React", icon: "React" },
-    { name: "TypeScript", nameEn: "TypeScript", icon: "Typescript" },
-    { name: "JavaScript", nameEn: "JavaScript", icon: "Javascript" },
-    { name: "PHP", nameEn: "PHP", icon: "Php" },
-    { name: "Laravel", nameEn: "Laravel", icon: "Laravel" },
-    { name: "Python", nameEn: "Python", icon: "Python" },
-    { name: "Django", nameEn: "Django", icon: "Django" },
-    { name: "SQL", nameEn: "SQL", icon: "Mysql" },
-    { name: "PostgreSQL", nameEn: "PostgreSQL", icon: "Postgresql" },
-    { name: "MongoDB", nameEn: "MongoDB", icon: "MongoDB" },
-    { name: "Redis", nameEn: "Redis", icon: "Redis" },
+    { name: "NestJS", nameEn: "NestJS", icon: "Nestjs", years: "4+ años", level: "Expert" },
+    { name: "TypeScript", nameEn: "TypeScript", icon: "Typescript", years: "5+ años", level: "Expert" },
+    { name: "Node.js", nameEn: "Node.js", icon: "Nodejs", years: "6+ años", level: "Expert" },
+    { name: "PostgreSQL", nameEn: "PostgreSQL", icon: "Postgresql", years: "6+ años", level: "Advanced" },
+    { name: "Python", nameEn: "Python", icon: "Python", years: "2+ años", level: "Intermediate" },
+    { name: "Django", nameEn: "Django", icon: "Django", years: "1+ año", level: "Intermediate" },
+    { name: "PHP", nameEn: "PHP", icon: "Php", years: "4+ años", level: "Advanced" },
+    { name: "Laravel", nameEn: "Laravel", icon: "Laravel", years: "4+ años", level: "Advanced" },
+    { name: "Next.js", nameEn: "Next.js", icon: "Nextjs", years: "3+ años", level: "Advanced" },
+    { name: "React", nameEn: "React", icon: "React", years: "4+ años", level: "Advanced" },
+    { name: "Vue.js", nameEn: "Vue.js", icon: "Vuejs", years: "3+ años", level: "Advanced" },
+    { name: "Redis", nameEn: "Redis", icon: "Redis", years: "3+ años", level: "Intermediate" },
   ],
-  soft: [
-    { name: "Comunicación", nameEn: "Communication", icon: "Communication" },
-    { name: "Trabajo en equipo", nameEn: "Teamwork", icon: "Teamwork" },
-    { name: "Resolución de problemas", nameEn: "Problem Solving", icon: "Problem Solving" },
-    { name: "Gestión del tiempo", nameEn: "Time Management", icon: "Time Management" },
-    { name: "Liderazgo", nameEn: "Leadership", icon: "Leadership" },
+  cloud: [
+    { name: "AWS Lambda", nameEn: "AWS Lambda", icon: "AWS", years: "3+ años", level: "Advanced" },
+    { name: "API Gateway", nameEn: "API Gateway", icon: "AWS", years: "3+ años", level: "Advanced" },
+    { name: "DynamoDB", nameEn: "DynamoDB", icon: "AWS", years: "2+ años", level: "Intermediate" },
+    { name: "S3", nameEn: "S3", icon: "AWS", years: "4+ años", level: "Advanced" },
+    { name: "RDS", nameEn: "RDS", icon: "AWS", years: "3+ años", level: "Advanced" },
+    { name: "SQS/SNS", nameEn: "SQS/SNS", icon: "AWS", years: "2+ años", level: "Intermediate" },
+    { name: "Docker", nameEn: "Docker", icon: "Docker", years: "4+ años", level: "Advanced" },
+    { name: "GitHub Actions", nameEn: "GitHub Actions", icon: "Github", years: "3+ años", level: "Advanced" },
   ],
   tools: [
-    { name: "Docker", nameEn: "Docker", icon: "Docker" },
-    { name: "AWS", nameEn: "AWS", icon: "AWS" },
-    { name: "Git", nameEn: "Git", icon: "Git" },
-    { name: "GitHub", nameEn: "GitHub", icon: "Github" },
-    { name: "Linux", nameEn: "Linux", icon: "Linux" },
-    { name: "VS Code", nameEn: "VS Code", icon: "Vscode" },
-    { name: "Postman", nameEn: "Postman", icon: "Postman" },
+    { name: "Jest", nameEn: "Jest", icon: "Vscode", years: "4+ años", level: "Advanced" },
+    { name: "Git", nameEn: "Git", icon: "Git", years: "6+ años", level: "Expert" },
+    { name: "New Relic", nameEn: "New Relic", icon: "NewRelic", years: "2+ años", level: "Intermediate" },
+    { name: "OpenAI API", nameEn: "OpenAI API", icon: "OpenAI", years: "1+ año", level: "Intermediate" },
+    { name: "HubSpot API", nameEn: "HubSpot API", icon: "HubSpot", years: "1+ año", level: "Advanced" },
+    { name: "Salesforce API", nameEn: "Salesforce API", icon: "Salesforce", years: "1+ año", level: "Advanced" },
   ],
 }
 
@@ -100,7 +109,7 @@ const skillColors: Record<string, string> = {
   // Technical - colores representativos de cada tecnología
   "Node.js": "bg-green-600 hover:bg-green-700",
   NestJS: "bg-red-600 hover:bg-red-700",
-  "Next.js": "bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200",
+  "Next.js": "bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200",
   React: "bg-blue-500 hover:bg-blue-600",
   TypeScript: "bg-blue-700 hover:bg-blue-800",
   JavaScript: "bg-yellow-500 hover:bg-yellow-600 text-black",
@@ -112,6 +121,7 @@ const skillColors: Record<string, string> = {
   PostgreSQL: "bg-blue-800 hover:bg-blue-900",
   MongoDB: "bg-green-500 hover:bg-green-600",
   Redis: "bg-red-700 hover:bg-red-800",
+  Vuejs: "bg-green-500 hover:bg-green-600",
 
   // Soft Skills - colores cálidos y profesionales
   Comunicación: "bg-emerald-500 hover:bg-emerald-600",
@@ -129,10 +139,15 @@ const skillColors: Record<string, string> = {
   Docker: "bg-blue-600 hover:bg-blue-700",
   AWS: "bg-orange-600 hover:bg-orange-700",
   Git: "bg-orange-700 hover:bg-orange-800",
-  GitHub: "bg-gray-800 text-white hover:bg-gray-900",
+  GitHub: "bg-gray-800 hover:bg-gray-900",
   Linux: "bg-yellow-600 hover:bg-yellow-700 text-black",
   "VS Code": "bg-blue-500 hover:bg-blue-600",
   Postman: "bg-orange-500 hover:bg-orange-600",
+  Jest: "bg-blue-500 hover:bg-blue-600",
+  NewRelic: "bg-red-500 hover:bg-red-600",
+  "OpenAI API": "bg-green-500 hover:bg-green-600",
+  "HubSpot API": "bg-blue-500 hover:bg-blue-600",
+  "Salesforce API": "bg-yellow-500 hover:bg-yellow-600 text-black",
 }
 
 export function Skills() {
@@ -171,7 +186,7 @@ export function Skills() {
   }, [])
 
   const renderSkillPill = (
-    skill: { name: string; nameEn: string; icon: keyof typeof icons },
+    skill: { name: string; nameEn: string; icon: keyof typeof icons; years: string; level: string },
     index: number
   ) => {
     const IconComponent = icons[skill.icon]
@@ -181,14 +196,25 @@ export function Skills() {
     return (
       <div
         key={skill.name}
-        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-default ${colorClass}`}
+        className={`group relative inline-flex flex-col items-center gap-2 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-default ${colorClass}`}
         style={{
           animationDelay: `${index * 0.1}s`,
           animationFillMode: "forwards",
         }}
       >
-        <IconComponent className="h-4 w-4" />
-        <span>{skillName}</span>
+        <div className="flex items-center gap-2">
+          <IconComponent className="h-4 w-4" />
+          <span>{skillName}</span>
+        </div>
+        <div className="text-xs opacity-90">
+          <div>{skill.years}</div>
+          <div className="font-semibold">{skill.level}</div>
+        </div>
+
+        {/* Tooltip on hover */}
+        <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+          {skill.years} • {skill.level}
+        </div>
       </div>
     )
   }
@@ -220,7 +246,7 @@ export function Skills() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
                   <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
-                  {t("skills.technical")}
+                  {t("skills.backend")}
                 </h3>
                 <div className="flex flex-wrap gap-3 justify-center">
                   {skillsData.technical.map((skill, index) => renderSkillPill(skill, index))}
@@ -229,7 +255,7 @@ export function Skills() {
             </Card>
           </div>
 
-          {/* Habilidades Blandas */}
+          {/* Habilidades en la Nube */}
           <div
             ref={(el) => { cardRefs.current[1] = el }}
             className="opacity-0"
@@ -238,11 +264,11 @@ export function Skills() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
-                  <div className="w-3 h-3 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full"></div>
-                  {t("skills.soft")}
+                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+                  {t("skills.cloud")}
                 </h3>
                 <div className="flex flex-wrap gap-3 justify-center">
-                  {skillsData.soft.map((skill, index) => renderSkillPill(skill, index))}
+                  {skillsData.cloud.map((skill, index) => renderSkillPill(skill, index))}
                 </div>
               </CardContent>
             </Card>
@@ -258,7 +284,7 @@ export function Skills() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
                   <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full"></div>
-                  {t("skills.tools")}
+                  APIs & Tools
                 </h3>
                 <div className="flex flex-wrap gap-3 justify-center">
                   {skillsData.tools.map((skill, index) => renderSkillPill(skill, index))}

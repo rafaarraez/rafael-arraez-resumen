@@ -53,18 +53,18 @@ export function Header() {
   // Mapeo de iconos para los elementos de navegación
   const navIcons = {
     home: <Home className="w-5 h-5" />,
-    timeline: <Clock className="w-5 h-5" />,
+    projects: <Clock className="w-5 h-5" />,
+    experience: <Clock className="w-5 h-5" />,
     skills: <Code2 className="w-5 h-5" />,
-    services: <Briefcase className="w-5 h-5" />,
     contact: <Mail className="w-5 h-5" />,
   }
 
   // Elementos de navegación
   const navItems = [
     { key: "home", href: "inicio", label: t("nav.home"), icon: navIcons.home },
-    { key: "timeline", href: "trayectoria", label: t("nav.timeline"), icon: navIcons.timeline },
+    { key: "projects", href: "proyectos", label: t("nav.projects"), icon: navIcons.projects },
+    { key: "experience", href: "experiencia", label: t("nav.experience"), icon: navIcons.experience },
     { key: "skills", href: "habilidades", label: t("nav.skills"), icon: navIcons.skills },
-    { key: "services", href: "servicios", label: t("nav.services"), icon: navIcons.services },
     { key: "contact", href: "contacto", label: t("nav.contact"), icon: navIcons.contact },
   ]
 

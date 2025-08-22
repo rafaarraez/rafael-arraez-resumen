@@ -15,64 +15,60 @@ const translations = {
   es: {
     // Header
     "nav.home": "Inicio",
-    "nav.timeline": "Trayectoria",
+    "nav.projects": "Proyectos",
+    "nav.experience": "Experiencia",
     "nav.skills": "Habilidades",
-    "nav.services": "Servicios",
     "nav.contact": "Contacto",
 
     // Hero
-    "hero.greeting": "Hola, soy",
+    "hero.name": "Rafael Arraez",
+    "hero.title": "Software Backend Engineer",
+    "hero.subtitle": "TypeScript, NestJS, AWS, PostgreSQL | Remote-first",
     "hero.description":
-      `Ingeniero de Software enfocado en el desarrollo backend de aplicaciones web escalables y de alto rendimiento.
-    
-    🚀 Transformo ideas en productos digitales robustos.`,
-    "hero.cta.work": "Ver mi trabajo",
+      "Ingeniero de Software con +6 años de experiencia desarrollando y escalando plataformas backend. Especialista en integraciones complejas y arquitecturas serverless de alto rendimiento, gestionando sistemas de +1M transacciones mensuales.",
+    "hero.cta.projects": "Ver Proyectos",
     "hero.cta.cv": "Descargar CV",
+    "hero.experience": "+6 años de experiencia",
+    "hero.transactions": "+1M transacciones/mes",
+    "hero.cost_optimization": "30% reducción de costos",
 
-    // Timeline
-    "timeline.badge": "Mi Trayectoria",
-    "timeline.title": "Experiencia Profesional",
-    "timeline.description":
-      "Un recorrido por mi carrera profesional, destacando mis principales logros y experiencias.",
+    // Projects
+    "projects.badge": "Proyectos Destacados",
+    "projects.title": "Sistemas que he Construido",
+    "projects.description": "Proyectos reales con impacto medible en performance, escalabilidad y conversión.",
+
+    // Experience
+    "experience.badge": "Experiencia Profesional",
+    "experience.title": "Mi Trayectoria",
+    "experience.description": "6+ años construyendo sistemas backend escalables en empresas de USA, Chile y Venezuela.",
 
     // Skills
-    "skills.badge": "Mis Habilidades",
-    "skills.title": "Competencias Profesionales",
+    "skills.badge": "Stack Tecnológico",
+    "skills.title": "Tecnologías y Herramientas",
     "skills.description":
-      "Un conjunto de habilidades técnicas y personales que he desarrollado a lo largo de mi carrera.",
-    "skills.technical": "Habilidades Técnicas",
-    "skills.soft": "Habilidades Blandas",
-    "skills.tools": "Herramientas y Tecnologías",
-
-    // Services
-    "services.badge": "Mis Servicios",
-    "services.title": "Lo Que Puedo Ofrecer",
-    "services.description": "Servicios profesionales diseñados para ayudar a tu empresa a alcanzar sus objetivos.",
+      "Especializado en backend con NestJS/TypeScript y cloud con AWS. Experiencia full-stack cuando es necesario.",
+    "skills.backend": "Backend & APIs",
+    "skills.cloud": "Cloud & DevOps",
+    "skills.databases": "Bases de Datos",
+    "skills.frontend": "Frontend",
 
     // Contact
     "contact.badge": "Contacto",
-    "contact.title": "¿Hablamos?",
-    "contact.description": "Estoy disponible para nuevos proyectos y oportunidades. No dudes en contactarme.",
+    "contact.title": "¿Hablamos de tu próximo proyecto?",
+    "contact.description":
+      "Disponible para oportunidades remotas. Especializado en backend escalable y integraciones complejas.",
     "contact.form.name": "Nombre",
     "contact.form.email": "Email",
     "contact.form.subject": "Asunto",
     "contact.form.message": "Mensaje",
     "contact.form.submit": "Enviar mensaje",
     "contact.form.sending": "Enviando...",
-    "contact.info.follow": "Sígueme",
-    "contact.error.missingApiKey": "Falta la clave de API. Proporciona la clave RESEND_API_KEY en tus variables de entorno.",
-    "contact.error.emailSend": "Error en el envío del correo.",
-    "contact.error.general": "Ha ocurrido un error inesperado. Por favor, intenta nuevamente más tarde.",
-    "contact.success.emailSent": "Correo enviado con éxito.",
-    //form
-    "form.nameRequired": "El campo nombre es obligatorio",
-    "form.emailRequired": "El campo email es obligatorio",
-    "form.emailInvalid": "El email no es válido",
-    "form.subjectRequired": "El campo asunto es obligatorio",
-    "form.messageRequired": "El campo mensaje es obligatorio",
-    // Config
-    "config.envSetup": "Por favor, asegúrate de que las variables de entorno estén configuradas correctamente.",
-    "config.toEmail": "TO_EMAIL no está configurado. Por favor, verifica tu configuración.",
+    "contact.info.title": "Información de contacto",
+    "contact.info.email": "Email",
+    "contact.info.phone": "Teléfono",
+    "contact.info.location": "Ubicación",
+    "contact.info.availability": "Disponibilidad",
+    "contact.info.follow": "Sígueme en mis redes sociales",
 
     // Footer
     "footer.rights": "Todos los derechos reservados.",
@@ -80,64 +76,61 @@ const translations = {
   en: {
     // Header
     "nav.home": "Home",
-    "nav.timeline": "Timeline",
+    "nav.projects": "Projects",
+    "nav.experience": "Experience",
     "nav.skills": "Skills",
-    "nav.services": "Services",
     "nav.contact": "Contact",
 
     // Hero
-    "hero.greeting": "Hello, I'm",
+    "hero.name": "Rafael Arraez",
+    "hero.title": "Software Backend Engineer",
+    "hero.subtitle": "TypeScript, NestJS, AWS, PostgreSQL | Remote-first",
     "hero.description":
-      `A Software Engineer focused on building scalable and high-performance backend applications.
-
-    🚀 I turn ideas into robust digital products.`,
-    "hero.cta.work": "View my work",
+      "Software Engineer with +6 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
+    "hero.cta.projects": "View Projects",
     "hero.cta.cv": "Download CV",
+    "hero.experience": "+6 years experience",
+    "hero.transactions": "+1M transactions/month",
+    "hero.cost_optimization": "30% cost reduction",
 
-    // Timeline
-    "timeline.badge": "My Journey",
-    "timeline.title": "Professional Experience",
-    "timeline.description":
-      "A journey through my professional career, highlighting my main achievements and experiences.",
+    // Projects
+    "projects.badge": "Featured Projects",
+    "projects.title": "Systems I've Built",
+    "projects.description": "Real projects with measurable impact on performance, scalability, and conversion.",
+
+    // Experience
+    "experience.badge": "Professional Experience",
+    "experience.title": "My Journey",
+    "experience.description":
+      "6+ years building scalable backend systems in companies across USA, Chile, and Venezuela.",
 
     // Skills
-    "skills.badge": "My Skills",
-    "skills.title": "Professional Competencies",
-    "skills.description": "A set of technical and personal skills that I have developed throughout my career.",
-    "skills.technical": "Technical Skills",
-    "skills.soft": "Soft Skills",
-    "skills.tools": "Tools & Technologies",
-
-    // Services
-    "services.badge": "My Services",
-    "services.title": "What I Can Offer",
-    "services.description": "Professional services designed to help your company achieve its goals.",
+    "skills.badge": "Tech Stack",
+    "skills.title": "Technologies & Tools",
+    "skills.description":
+      "Specialized in backend with NestJS/TypeScript and cloud with AWS. Full-stack experience when needed.",
+    "skills.backend": "Backend & APIs",
+    "skills.cloud": "Cloud & DevOps",
+    "skills.databases": "Databases",
+    "skills.frontend": "Frontend",
 
     // Contact
     "contact.badge": "Contact",
-    "contact.title": "Let's Talk?",
-    "contact.description": "I'm available for new projects and opportunities. Feel free to contact me.",
+    "contact.title": "Let's talk about your next project?",
+    "contact.description":
+      "Available for remote opportunities. Specialized in scalable backend and complex integrations.",
     "contact.form.name": "Name",
     "contact.form.email": "Email",
     "contact.form.subject": "Subject",
     "contact.form.message": "Message",
     "contact.form.submit": "Send message",
     "contact.form.sending": "Sending...",
-    "contact.info.follow": "Follow me",
-    "contact.error.missingApiKey": "Missing API key. Please provide the RESEND_API_KEY in your environment variables.",
-    "contact.error.emailSend": "Error in sending the email.",
-    "contact.error.general": "An unexpected error occurred. Please try again later.",
-    "contact.success.emailSent": "Email sent successfully.",
-    //form
-    "form.nameRequired": "The name field is required",
-    "form.emailRequired": "The email field is required",
-    "form.emailInvalid": "The email is not valid",
-    "form.subjectRequired": "The subject field is required",
-    "form.messageRequired": "The message field is required",
-    // Config
-    "config.envSetup": "Please ensure that the environment variables are set up correctly.",
-    "config.toEmail": "TO_EMAIL is not set. Please check your configuration.",
-
+    "contact.info.title": "Contact information",
+    "contact.info.email": "Email",
+    "contact.info.phone": "Phone",
+    "contact.info.location": "Location",
+    "contact.info.availability": "Availability",
+    "contact.info.follow": "Follow me on social media",
     // Footer
     "footer.rights": "All rights reserved.",
   },
