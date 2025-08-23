@@ -51,6 +51,12 @@ const translations = {
     "skills.cloud": "Cloud & DevOps",
     "skills.databases": "Bases de Datos",
     "skills.frontend": "Frontend",
+    "skills.years": "años",
+    "skills.year": "año",
+    "skills.expert": "Experto",
+    "skills.advanced": "Avanzado",
+    "skills.intermediate": "Intermedio",
+    "skills.beginner": "Principiante",
 
     // Contact
     "contact.badge": "Contacto",
@@ -113,6 +119,12 @@ const translations = {
     "skills.cloud": "Cloud & DevOps",
     "skills.databases": "Databases",
     "skills.frontend": "Frontend",
+    "skills.years": "years",
+    "skills.year": "year",
+    "skills.expert": "Expert",
+    "skills.advanced": "Advanced",
+    "skills.intermediate": "Intermediate",
+    "skills.beginner": "Beginner",
 
     // Contact
     "contact.badge": "Contact",
