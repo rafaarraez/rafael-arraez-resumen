@@ -21,7 +21,7 @@ const experienceDataES = [
       "Desarrollé módulos Django + OpenAI GPT con +25% conversión",
       "Implementé CI/CD con GitHub Actions, reduciendo fallas 40%",
     ],
-    technologies: ["NestJS", "TypeScript", "Django", "PostgreSQL", "AWS", "OpenAI GPT"],
+    technologies: ["Django", "TypeScript", "PostgreSQL", "AWS", "OpenAI GPT"],
     type: "work",
   },
   {
@@ -69,7 +69,7 @@ const experienceDataES = [
       "Refactoricé PostgreSQL, reduciendo latencia consultas 30%",
       "Implementé dashboard métricas tiempo real",
     ],
-    technologies: ["Laravel", "Vue.js", "PostgreSQL", "Redis", "SMS/Email APIs"],
+    technologies: ["Laravel", "Vue.js", "PostgreSQL"],
     type: "work",
   },
   {
@@ -96,12 +96,10 @@ const experienceDataES = [
     location: "Valencia, Venezuela",
     description: "Formación en ingeniería de software, algoritmos, estructuras de datos y desarrollo web.",
     achievements: [
-      "Graduado con honores en Ingeniería en Computación",
-      "Proyecto de grado: Sistema de gestión académica web",
+      "Proyecto de grado: Sistema verificación de identidad biometrico",
       "Especialización en desarrollo web y bases de datos",
-      "Participación en hackathons y competencias de programación",
     ],
-    technologies: ["Java", "C++", "PHP", "MySQL", "JavaScript", "HTML/CSS"],
+    technologies: ["Java", "Python", "PHP", "MySQL", "JavaScript", "HTML/CSS"],
     type: "education",
   },
 ]
@@ -120,7 +118,7 @@ const experienceDataEN = [
       "Developed Django + OpenAI GPT modules with +25% conversion",
       "Implemented CI/CD with GitHub Actions, reducing failures by 40%",
     ],
-    technologies: ["NestJS", "TypeScript", "Django", "PostgreSQL", "AWS", "OpenAI GPT"],
+    technologies: ["Django", "TypeScript", "PostgreSQL", "AWS", "OpenAI GPT"],
     type: "work",
   },
   {
@@ -168,7 +166,7 @@ const experienceDataEN = [
       "Refactored PostgreSQL, reducing query latency by 30%",
       "Implemented real-time metrics dashboard",
     ],
-    technologies: ["Laravel", "Vue.js", "PostgreSQL", "Redis", "SMS/Email APIs"],
+    technologies: ["Laravel", "Vue.js", "PostgreSQL"],
     type: "work",
   },
   {
@@ -195,12 +193,10 @@ const experienceDataEN = [
     location: "Valencia, Venezuela",
     description: "Training in software engineering, algorithms, data structures and web development.",
     achievements: [
-      "Graduated with honors in Computer Engineering",
-      "Thesis project: Web academic management system",
+      "Thesis project: Biometric identity verification system",
       "Specialization in web development and databases",
-      "Participation in hackathons and programming competitions",
     ],
-    technologies: ["Java", "C++", "PHP", "MySQL", "JavaScript", "HTML/CSS"],
+    technologies: ["Java", "Python", "PHP", "MySQL", "JavaScript", "HTML/CSS"],
     type: "education",
   },
 ]
