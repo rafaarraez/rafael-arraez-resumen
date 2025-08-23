@@ -5,11 +5,6 @@ import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Card, CardContent } from "@/components/ui-custom/card"
 import {
-  MessageCircle,
-  Users,
-  Lightbulb,
-  Clock,
-  Target,
   Server,
   Globe,
   Code2,
@@ -44,13 +39,6 @@ const icons = {
   Redis: Database,
   Vuejs: Globe,
 
-  // Soft Skills
-  Communication: MessageCircle,
-  Teamwork: Users,
-  "Problem Solving": Lightbulb,
-  "Time Management": Clock,
-  Leadership: Target,
-
   // Tools
   Docker: Container,
   AWS: Cloud,
@@ -68,86 +56,77 @@ const icons = {
 
 const skillsData: Record<
   SkillCategory,
-  { name: string; nameEn: string; icon: keyof typeof icons; years: string; level: string }[]
+  { name: string; nameEn: string; icon: keyof typeof icons; years: number; level: string }[]
 > = {
   technical: [
-    { name: "NestJS", nameEn: "NestJS", icon: "Nestjs", years: "4+ años", level: "Expert" },
-    { name: "TypeScript", nameEn: "TypeScript", icon: "Typescript", years: "5+ años", level: "Expert" },
-    { name: "Node.js", nameEn: "Node.js", icon: "Nodejs", years: "6+ años", level: "Expert" },
-    { name: "PostgreSQL", nameEn: "PostgreSQL", icon: "Postgresql", years: "6+ años", level: "Advanced" },
-    { name: "Python", nameEn: "Python", icon: "Python", years: "2+ años", level: "Intermediate" },
-    { name: "Django", nameEn: "Django", icon: "Django", years: "1+ año", level: "Intermediate" },
-    { name: "PHP", nameEn: "PHP", icon: "Php", years: "4+ años", level: "Advanced" },
-    { name: "Laravel", nameEn: "Laravel", icon: "Laravel", years: "4+ años", level: "Advanced" },
-    { name: "Next.js", nameEn: "Next.js", icon: "Nextjs", years: "3+ años", level: "Advanced" },
-    { name: "React", nameEn: "React", icon: "React", years: "4+ años", level: "Advanced" },
-    { name: "Vue.js", nameEn: "Vue.js", icon: "Vuejs", years: "3+ años", level: "Advanced" },
-    { name: "Redis", nameEn: "Redis", icon: "Redis", years: "3+ años", level: "Intermediate" },
+    { name: "NestJS", nameEn: "NestJS", icon: "Nestjs", years: 4, level: "expert" },
+    { name: "TypeScript", nameEn: "TypeScript", icon: "Typescript", years: 5, level: "expert" },
+    { name: "Node.js", nameEn: "Node.js", icon: "Nodejs", years: 6, level: "expert" },
+    { name: "PostgreSQL", nameEn: "PostgreSQL", icon: "Postgresql", years: 6, level: "advanced" },
+    { name: "Python", nameEn: "Python", icon: "Python", years: 2, level: "intermediate" },
+    { name: "Django", nameEn: "Django", icon: "Django", years: 1, level: "intermediate" },
+    { name: "PHP", nameEn: "PHP", icon: "Php", years: 4, level: "advanced" },
+    { name: "Laravel", nameEn: "Laravel", icon: "Laravel", years: 4, level: "advanced" },
+    { name: "Next.js", nameEn: "Next.js", icon: "Nextjs", years: 3, level: "advanced" },
+    { name: "React", nameEn: "React", icon: "React", years: 4, level: "advanced" },
+    { name: "Vue.js", nameEn: "Vue.js", icon: "Vuejs", years: 3, level: "advanced" },
+    { name: "Redis", nameEn: "Redis", icon: "Redis", years: 3, level: "intermediate" },
   ],
   cloud: [
-    { name: "AWS Lambda", nameEn: "AWS Lambda", icon: "AWS", years: "3+ años", level: "Advanced" },
-    { name: "API Gateway", nameEn: "API Gateway", icon: "AWS", years: "3+ años", level: "Advanced" },
-    { name: "DynamoDB", nameEn: "DynamoDB", icon: "AWS", years: "2+ años", level: "Intermediate" },
-    { name: "S3", nameEn: "S3", icon: "AWS", years: "4+ años", level: "Advanced" },
-    { name: "RDS", nameEn: "RDS", icon: "AWS", years: "3+ años", level: "Advanced" },
-    { name: "SQS/SNS", nameEn: "SQS/SNS", icon: "AWS", years: "2+ años", level: "Intermediate" },
-    { name: "Docker", nameEn: "Docker", icon: "Docker", years: "4+ años", level: "Advanced" },
-    { name: "GitHub Actions", nameEn: "GitHub Actions", icon: "Github", years: "3+ años", level: "Advanced" },
+    { name: "AWS Lambda", nameEn: "AWS Lambda", icon: "AWS", years: 3, level: "advanced" },
+    { name: "API Gateway", nameEn: "API Gateway", icon: "AWS", years: 3, level: "advanced" },
+    { name: "DynamoDB", nameEn: "DynamoDB", icon: "AWS", years: 2, level: "intermediate" },
+    { name: "S3", nameEn: "S3", icon: "AWS", years: 4, level: "advanced" },
+    { name: "RDS", nameEn: "RDS", icon: "AWS", years: 3, level: "advanced" },
+    { name: "SQS/SNS", nameEn: "SQS/SNS", icon: "AWS", years: 2, level: "intermediate" },
+    { name: "Docker", nameEn: "Docker", icon: "Docker", years: 4, level: "advanced" },
+    { name: "GitHub Actions", nameEn: "GitHub Actions", icon: "Github", years: 3, level: "advanced" },
   ],
   tools: [
-    { name: "Jest", nameEn: "Jest", icon: "Vscode", years: "4+ años", level: "Advanced" },
-    { name: "Git", nameEn: "Git", icon: "Git", years: "6+ años", level: "Expert" },
-    { name: "New Relic", nameEn: "New Relic", icon: "NewRelic", years: "2+ años", level: "Intermediate" },
-    { name: "OpenAI API", nameEn: "OpenAI API", icon: "OpenAI", years: "1+ año", level: "Intermediate" },
-    { name: "HubSpot API", nameEn: "HubSpot API", icon: "HubSpot", years: "1+ año", level: "Advanced" },
-    { name: "Salesforce API", nameEn: "Salesforce API", icon: "Salesforce", years: "1+ año", level: "Advanced" },
+    { name: "Jest", nameEn: "Jest", icon: "Vscode", years: 4, level: "advanced" },
+    { name: "Git", nameEn: "Git", icon: "Git", years: 6, level: "expert" },
+    { name: "New Relic", nameEn: "New Relic", icon: "NewRelic", years: 2, level: "intermediate" },
+    { name: "OpenAI API", nameEn: "OpenAI API", icon: "OpenAI", years: 1, level: "intermediate" },
+    { name: "HubSpot API", nameEn: "HubSpot API", icon: "HubSpot", years: 1, level: "advanced" },
+    { name: "Salesforce API", nameEn: "Salesforce API", icon: "Salesforce", years: 1, level: "advanced" },
   ],
 }
 
-// Colores específicos para cada tecnología
+// Colores mejorados para mejor contraste en ambos temas
 const skillColors: Record<string, string> = {
-  // Technical - colores representativos de cada tecnología
-  "Node.js": "bg-green-600 hover:bg-green-700",
-  NestJS: "bg-red-600 hover:bg-red-700",
-  "Next.js": "bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200",
-  React: "bg-blue-500 hover:bg-blue-600",
-  TypeScript: "bg-blue-700 hover:bg-blue-800",
-  JavaScript: "bg-yellow-500 hover:bg-yellow-600 text-black",
-  PHP: "bg-purple-600 hover:bg-purple-700",
-  Laravel: "bg-red-500 hover:bg-red-600",
-  Python: "bg-blue-600 hover:bg-blue-700",
-  Django: "bg-green-700 hover:bg-green-800",
-  SQL: "bg-orange-600 hover:bg-orange-700",
-  PostgreSQL: "bg-blue-800 hover:bg-blue-900",
-  MongoDB: "bg-green-500 hover:bg-green-600",
-  Redis: "bg-red-700 hover:bg-red-800",
-  Vuejs: "bg-green-500 hover:bg-green-600",
+  // Technical - colores con mejor contraste
+  "Node.js": "bg-green-600 text-white hover:bg-green-700",
+  NestJS: "bg-red-600 text-white hover:bg-red-700",
+  "Next.js": "bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200",
+  React: "bg-blue-600 text-white hover:bg-blue-700",
+  TypeScript: "bg-blue-700 text-white hover:bg-blue-800",
+  JavaScript: "bg-yellow-600 text-gray-900 hover:bg-yellow-700",
+  PHP: "bg-purple-700 text-white hover:bg-purple-800",
+  Laravel: "bg-red-600 text-white hover:bg-red-700",
+  Python: "bg-blue-700 text-white hover:bg-blue-800",
+  Django: "bg-green-800 text-white hover:bg-green-900",
+  PostgreSQL: "bg-blue-800 text-white hover:bg-blue-900",
+  MongoDB: "bg-green-600 text-white hover:bg-green-700",
+  Redis: "bg-red-700 text-white hover:bg-red-800",
+  "Vue.js": "bg-green-600 text-white hover:bg-green-700",
 
-  // Soft Skills - colores cálidos y profesionales
-  Comunicación: "bg-emerald-500 hover:bg-emerald-600",
-  Communication: "bg-emerald-500 hover:bg-emerald-600",
-  "Trabajo en equipo": "bg-orange-500 hover:bg-orange-600",
-  Teamwork: "bg-orange-500 hover:bg-orange-600",
-  "Resolución de problemas": "bg-amber-500 hover:bg-amber-600",
-  "Problem Solving": "bg-amber-500 hover:bg-amber-600",
-  "Gestión del tiempo": "bg-indigo-500 hover:bg-indigo-600",
-  "Time Management": "bg-indigo-500 hover:bg-indigo-600",
-  Liderazgo: "bg-red-500 hover:bg-red-600",
-  Leadership: "bg-red-500 hover:bg-red-600",
+  // Cloud & DevOps - colores distintivos
+  "AWS Lambda": "bg-orange-600 text-white hover:bg-orange-700",
+  "API Gateway": "bg-orange-700 text-white hover:bg-orange-800",
+  DynamoDB: "bg-orange-800 text-white hover:bg-orange-900",
+  S3: "bg-orange-600 text-white hover:bg-orange-700",
+  RDS: "bg-orange-700 text-white hover:bg-orange-800",
+  "SQS/SNS": "bg-orange-800 text-white hover:bg-orange-900",
+  Docker: "bg-blue-600 text-white hover:bg-blue-700",
+  "GitHub Actions": "bg-gray-800 text-white hover:bg-gray-900",
 
-  // Tools - colores representativos
-  Docker: "bg-blue-600 hover:bg-blue-700",
-  AWS: "bg-orange-600 hover:bg-orange-700",
-  Git: "bg-orange-700 hover:bg-orange-800",
-  GitHub: "bg-gray-800 hover:bg-gray-900",
-  Linux: "bg-yellow-600 hover:bg-yellow-700 text-black",
-  "VS Code": "bg-blue-500 hover:bg-blue-600",
-  Postman: "bg-orange-500 hover:bg-orange-600",
-  Jest: "bg-blue-500 hover:bg-blue-600",
-  NewRelic: "bg-red-500 hover:bg-red-600",
-  "OpenAI API": "bg-green-500 hover:bg-green-600",
-  "HubSpot API": "bg-blue-500 hover:bg-blue-600",
-  "Salesforce API": "bg-yellow-500 hover:bg-yellow-600 text-black",
+  // Tools - colores variados
+  Jest: "bg-red-600 text-white hover:bg-red-700",
+  Git: "bg-orange-700 text-white hover:bg-orange-800",
+  "New Relic": "bg-teal-600 text-white hover:bg-teal-700",
+  "OpenAI API": "bg-green-700 text-white hover:bg-green-800",
+  "HubSpot API": "bg-orange-600 text-white hover:bg-orange-700",
+  "Salesforce API": "bg-blue-700 text-white hover:bg-blue-800",
 }
 
 export function Skills() {
@@ -186,12 +165,18 @@ export function Skills() {
   }, [])
 
   const renderSkillPill = (
-    skill: { name: string; nameEn: string; icon: keyof typeof icons; years: string; level: string },
+    skill: { name: string; nameEn: string; icon: keyof typeof icons; years: number; level: string },
     index: number
   ) => {
     const IconComponent = icons[skill.icon]
     const skillName = language === "es" ? skill.name : skill.nameEn
-    const colorClass = skillColors[skillName] || "bg-gray-600 hover:bg-gray-700"
+    const colorClass = skillColors[skillName] || "bg-gray-700 text-white hover:bg-gray-800"
+
+    // Formatear años con traducción
+    const yearsText = skill.years === 1 ? `1 ${t("skills.year")}` : `${skill.years}+ ${t("skills.years")}`
+
+    // Traducir nivel
+    const levelText = t(`skills.${skill.level}`)
 
     return (
       <div
@@ -204,16 +189,21 @@ export function Skills() {
       >
         <div className="flex items-center gap-2">
           <IconComponent className="h-4 w-4" />
-          <span>{skillName}</span>
+          <span className="font-semibold">{skillName}</span>
         </div>
-        <div className="text-xs opacity-90">
-          <div>{skill.years}</div>
-          <div className="font-semibold">{skill.level}</div>
+        <div className="text-xs opacity-90 text-center">
+          <div className="font-medium">{yearsText}</div>
+          <div className="font-bold">{levelText}</div>
         </div>
 
         {/* Tooltip on hover */}
-        <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-          {skill.years} • {skill.level}
+        <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10 shadow-lg">
+          <div className="font-semibold">{skillName}</div>
+          <div>
+            {yearsText} • {levelText}
+          </div>
+          {/* Arrow */}
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>
         </div>
       </div>
     )
