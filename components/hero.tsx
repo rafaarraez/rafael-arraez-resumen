@@ -215,11 +215,18 @@ export function Hero() {
               >
                 {t("hero.cta.projects")}
               </Button>
+
               <Button
                 size="lg"
                 variant="outline"
                 className="rounded-lg px-8 hover:scale-105 transition-transform duration-200 bg-transparent"
-                onClick={() => window.open("/cv-rafael-arraez.pdf", "_blank")}
+                onClick={() => {
+                  if (language === "es") {
+                    window.open("/Rafael Arraez Resumen - [ES] Software Engineer.pdf", "_blank")
+                  } else {
+                    window.open("/Rafael Arraez Resumen - [EN] Software Engineer.pdf", "_blank")
+                  }
+                }}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 {t("hero.cta.cv")}
@@ -297,7 +304,7 @@ export function Hero() {
                   <Linkedin className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-purple-600 transition-colors" />
                 </a>
                 <a
-                  href="https://github.com/rafael-arraez"
+                  href="https://github.com/rafaarraez"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group p-3 bg-gray-100 dark:bg-gray-800 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110 hover:shadow-lg"
