@@ -1,23 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
 import { Menu, Home, Clock, Code2, Briefcase, Mail } from "lucide-react"
 import { Button } from "@/components/ui-custom/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
+import { SectionId } from "@/lib/sections"
 
 export function Header() {
-  const { t } = useLanguage()
+  const { t, mounted } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,11 +57,11 @@ export function Header() {
 
   // Elementos de navegación
   const navItems = [
-    { key: "home", href: "inicio", label: t("nav.home"), icon: navIcons.home },
-    { key: "projects", href: "proyectos", label: t("nav.projects"), icon: navIcons.projects },
-    { key: "experience", href: "experiencia", label: t("nav.experience"), icon: navIcons.experience },
-    { key: "skills", href: "habilidades", label: t("nav.skills"), icon: navIcons.skills },
-    { key: "contact", href: "contacto", label: t("nav.contact"), icon: navIcons.contact },
+    { key: "home", href: SectionId.home, label: t("nav.home"), icon: navIcons.home },
+    { key: "projects", href: SectionId.projects, label: t("nav.projects"), icon: navIcons.projects },
+    { key: "experience", href: SectionId.experience, label: t("nav.experience"), icon: navIcons.experience },
+    { key: "skills", href: SectionId.skills, label: t("nav.skills"), icon: navIcons.skills },
+    { key: "contact", href: SectionId.contact, label: t("nav.contact"), icon: navIcons.contact },
   ]
 
   if (!mounted) {
@@ -78,7 +74,7 @@ export function Header() {
           }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <button onClick={() => { scrollToNextSection('inicio'); }} className="flex items-center gap-3">
+          <button onClick={() => { scrollToNextSection(SectionId.home); }} className="flex items-center gap-3">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
                 <Image
@@ -124,7 +120,7 @@ export function Header() {
         }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <button onClick={() => { scrollToNextSection('inicio'); }} className="flex items-center gap-3">
+        <button onClick={() => { scrollToNextSection(SectionId.home); }} className="flex items-center gap-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
               <Image

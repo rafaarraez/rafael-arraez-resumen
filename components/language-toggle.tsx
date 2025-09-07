@@ -14,23 +14,34 @@ import {
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
+  const menuId = "language-menu"
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild onClick={() => setIsOpen(!isOpen)}>
-        <Button variant="ghost" size="icon" className="rounded-full">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-full"
+          aria-haspopup="menu"
+          aria-expanded={isOpen}
+          aria-controls={menuId}
+          aria-label="Change language"
+        >
           <Globe className="h-5 w-5" />
           <span className="sr-only">Change language</span>
         </Button>
       </DropdownMenuTrigger>
       {isOpen && (
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent id={menuId} align="end">
           <DropdownMenuItem
             onClick={() => {
               setLanguage("es")
               setIsOpen(false)
             }}
             className={language === "es" ? "bg-gray-100 dark:bg-gray-800" : ""}
+            role="menuitemradio"
+            aria-checked={language === "es"}
           >
             Español
           </DropdownMenuItem>
@@ -40,6 +51,8 @@ export function LanguageToggle() {
               setIsOpen(false)
             }}
             className={language === "en" ? "bg-gray-100 dark:bg-gray-800" : ""}
+            role="menuitemradio"
+            aria-checked={language === "en"}
           >
             English
           </DropdownMenuItem>

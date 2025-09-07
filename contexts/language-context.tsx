@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 
-type Language = "es" | "en"
+export type Language = "es" | "en"
 
 type LanguageContextType = {
   language: Language
@@ -19,6 +19,7 @@ const translations = {
     "nav.experience": "Experiencia",
     "nav.skills": "Habilidades",
     "nav.contact": "Contacto",
+    "nav.services": "Servicios",
 
     // Hero
     "hero.name": "Rafael Arraez",
@@ -36,11 +37,15 @@ const translations = {
     "projects.badge": "Proyectos Destacados",
     "projects.title": "Sistemas que he Construido",
     "projects.description": "Proyectos reales con impacto medible en performance, escalabilidad y conversión.",
+    "projects.stack": "Stack Tecnológico:",
+    "projects.achievements": "Logros Clave:",
 
     // Experience
     "experience.badge": "Experiencia Profesional",
     "experience.title": "Mi Trayectoria",
     "experience.description": "6+ años construyendo sistemas backend escalables en empresas de USA, Chile y Venezuela.",
+    "experience.achievements": "Logros Clave:",
+    "experience.technologies": "Tecnologías:",
 
     // Skills
     "skills.badge": "Stack Tecnológico",
@@ -51,12 +56,18 @@ const translations = {
     "skills.cloud": "Cloud & DevOps",
     "skills.databases": "Bases de Datos",
     "skills.frontend": "Frontend",
+    "skills.tools": "APIs y Herramientas",
     "skills.years": "años",
     "skills.year": "año",
     "skills.expert": "Experto",
     "skills.advanced": "Avanzado",
     "skills.intermediate": "Intermedio",
     "skills.beginner": "Principiante",
+
+    // Services
+    "services.badge": "Servicios",
+    "services.title": "¿Cómo puedo ayudarte?",
+    "services.description": "Arquitectura backend, APIs y microservicios, e integración full-stack para productos escalables.",
 
     // Contact
     "contact.badge": "Contacto",
@@ -69,6 +80,14 @@ const translations = {
     "contact.form.message": "Mensaje",
     "contact.form.submit": "Enviar mensaje",
     "contact.form.sending": "Enviando...",
+    "contact.form.nameRequired": "El nombre es obligatorio",
+    "contact.form.emailRequired": "El email es obligatorio",
+    "contact.form.emailInvalid": "El email no es válido",
+    "contact.form.subjectRequired": "El asunto es obligatorio",
+    "contact.form.messageRequired": "El mensaje es obligatorio",
+    "contact.success.emailSent": "Tu mensaje ha sido enviado con éxito.",
+    "contact.error.emailSend": "Error al enviar el correo.",
+    "contact.error.general": "Ocurrió un error.",
     "contact.info.title": "Información de contacto",
     "contact.info.email": "Email",
     "contact.info.phone": "Teléfono",
@@ -86,6 +105,7 @@ const translations = {
     "nav.experience": "Experience",
     "nav.skills": "Skills",
     "nav.contact": "Contact",
+    "nav.services": "Services",
 
     // Hero
     "hero.name": "Rafael Arraez",
@@ -103,12 +123,16 @@ const translations = {
     "projects.badge": "Featured Projects",
     "projects.title": "Systems I've Built",
     "projects.description": "Real projects with measurable impact on performance, scalability, and conversion.",
+    "projects.stack": "Tech Stack:",
+    "projects.achievements": "Key Achievements:",
 
     // Experience
     "experience.badge": "Professional Experience",
     "experience.title": "My Journey",
     "experience.description":
       "6+ years building scalable backend systems in companies across USA, Chile, and Venezuela.",
+    "experience.achievements": "Key Achievements:",
+    "experience.technologies": "Technologies:",
 
     // Skills
     "skills.badge": "Tech Stack",
@@ -119,12 +143,18 @@ const translations = {
     "skills.cloud": "Cloud & DevOps",
     "skills.databases": "Databases",
     "skills.frontend": "Frontend",
+    "skills.tools": "APIs & Tools",
     "skills.years": "years",
     "skills.year": "year",
     "skills.expert": "Expert",
     "skills.advanced": "Advanced",
     "skills.intermediate": "Intermediate",
     "skills.beginner": "Beginner",
+
+    // Services
+    "services.badge": "Services",
+    "services.title": "How can I help?",
+    "services.description": "Backend architecture, APIs and microservices, and full-stack integration for scalable products.",
 
     // Contact
     "contact.badge": "Contact",
@@ -137,16 +167,25 @@ const translations = {
     "contact.form.message": "Message",
     "contact.form.submit": "Send message",
     "contact.form.sending": "Sending...",
+    "contact.form.nameRequired": "Name is required",
+    "contact.form.emailRequired": "Email is required",
+    "contact.form.emailInvalid": "Email is invalid",
+    "contact.form.subjectRequired": "Subject is required",
+    "contact.form.messageRequired": "Message is required",
+    "contact.success.emailSent": "Your message has been sent successfully.",
+    "contact.error.emailSend": "Error sending email.",
+    "contact.error.general": "An error occurred.",
     "contact.info.title": "Contact information",
     "contact.info.email": "Email",
     "contact.info.phone": "Phone",
     "contact.info.location": "Location",
     "contact.info.availability": "Availability",
     "contact.info.follow": "Follow me on social media",
+
     // Footer
     "footer.rights": "All rights reserved.",
   },
-}
+} as const
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
@@ -163,12 +202,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const storedLang = localStorage.getItem("lang") as Language
-    if (storedLang) {
-      setLanguage(storedLang)
-    }
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = language
+    }
+  }, [language])
 
   const updateLanguage = (lang: Language) => {
     setLanguage(lang)

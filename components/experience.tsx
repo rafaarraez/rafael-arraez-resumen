@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui-custom/card"
 import { useMobile } from "@/hooks/use-mobile"
+import { SectionId } from "@/lib/sections"
 
 const experienceDataES = [
   {
@@ -332,7 +333,7 @@ export function Experience() {
                 <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{item.description}</p>
 
                 <div>
-                  <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Logros Clave:</h4>
+                  <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t("experience.achievements")}</h4>
                   <ul className="space-y-1">
                     {item.achievements.map((achievement, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400">
@@ -344,7 +345,7 @@ export function Experience() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Tecnologías:</h4>
+                  <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t("experience.technologies")}</h4>
                   <div className="flex flex-wrap gap-1">
                     {item.technologies.map((tech) => (
                       <Badge key={tech} variant="outline" className="text-xs px-2 py-0.5">
@@ -402,7 +403,7 @@ export function Experience() {
                   <p className="text-gray-600 text-left dark:text-gray-400 leading-relaxed">{item.description}</p>
 
                   <div>
-                    <h4 className="text-smv text-left font-semibold mb-3 text-gray-700 dark:text-gray-300">Logros Clave:</h4>
+                    <h4 className="text-sm text-left font-semibold mb-3 text-gray-700 dark:text-gray-300">{t("experience.achievements")}</h4>
                     <ul className="space-y-2">
                       {item.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex text-left items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
@@ -414,7 +415,7 @@ export function Experience() {
                   </div>
 
                   <div>
-                    <h4 className="text-sm text-left font-semibold mb-3 text-gray-700 dark:text-gray-300">Tecnologías:</h4>
+                    <h4 className="text-sm text-left font-semibold mb-3 text-gray-700 dark:text-gray-300">{t("experience.technologies")}</h4>
                     <div className="flex flex-wrap gap-2">
                       {item.technologies.map((tech) => (
                         <Badge key={tech} variant="outline" className="text-xs">
@@ -453,7 +454,7 @@ export function Experience() {
 
   return (
     <section
-      id="experiencia"
+      id={SectionId.experience}
       ref={sectionRef}
       className="py-20 opacity-0"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}

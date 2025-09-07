@@ -8,15 +8,34 @@ import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui-custom/button"
 import { Badge } from "@/components/ui-custom/badge"
+import { SectionId } from "@/lib/sections"
 
 // Definir las formas con posiciones iniciales fijas
-const shapes = [
+type Shape = {
+  baseX: number | string
+  baseY: number | string
+  size: 20 | 24 | 28 | 32 | 40
+  color: string
+  blur: string
+  right?: boolean
+  bottom?: boolean
+}
+const shapes: Shape[] = [
   { baseX: 120, baseY: 160, size: 32, color: "bg-purple-500/10", blur: "blur-xl" },
   { baseX: -140, baseY: 200, size: 24, color: "bg-blue-500/10", blur: "blur-lg", right: true },
   { baseX: "25%", baseY: -200, size: 40, color: "bg-cyan-500/10", blur: "blur-2xl", bottom: true },
   { baseX: "66%", baseY: "33%", size: 20, color: "bg-pink-500/10", blur: "blur-lg" },
   { baseX: -100, baseY: "75%", size: 28, color: "bg-yellow-500/10", blur: "blur-xl", right: true, bottom: true },
 ]
+
+// Tailwind-safe width/height classes for shapes
+const sizeClassMap: Record<number, string> = {
+  20: "w-20 h-20",
+  24: "w-24 h-24",
+  28: "w-28 h-28",
+  32: "w-32 h-32",
+  40: "w-40 h-40",
+}
 
 export function Hero() {
   const { t, language } = useLanguage()
@@ -114,7 +133,7 @@ export function Hero() {
   }
 
   const scrollToNextSection = () => {
-    const nextSection = document.getElementById("proyectos")
+    const nextSection = document.getElementById(SectionId.projects)
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" })
     }
@@ -122,7 +141,7 @@ export function Hero() {
 
   return (
     <section
-      id="inicio"
+      id={SectionId.home}
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center py-16 mt-8 opacity-0 overflow-hidden"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
@@ -155,7 +174,7 @@ export function Hero() {
             <div
               key={index}
               ref={(el) => { shapesRef.current[index] = el }}
-              className={`absolute w-${shape.size} h-${shape.size} ${shape.color} rounded-full ${shape.blur}`}
+              className={`absolute ${sizeClassMap[shape.size] || ""} ${shape.color} rounded-full ${shape.blur}`}
               style={style}
             />
           )
@@ -211,7 +230,7 @@ export function Hero() {
               <Button
                 size="lg"
                 className="rounded-lg px-8 hover:scale-105 transition-transform duration-200"
-                onClick={() => document.getElementById("proyectos")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => document.getElementById(SectionId.projects)?.scrollIntoView({ behavior: "smooth" })}
               >
                 {t("hero.cta.projects")}
               </Button>

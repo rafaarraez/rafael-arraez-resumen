@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui-custom/textarea"
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { celebrate } from "@/lib/utils"
+import { SectionId } from "@/lib/sections"
 
 interface ContactFormState {
   name: string;
@@ -137,7 +138,7 @@ export function ContactForm() {
 
   return (
     <section
-      id="contacto"
+      id={SectionId.contact}
       ref={sectionRef}
       className="py-20 bg-gray-100 dark:bg-gray-900 opacity-0"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
@@ -175,7 +176,7 @@ export function ContactForm() {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="tu@email.com"
+                      placeholder={t("contact.form.email")}
                       required
                     />
                   </div>

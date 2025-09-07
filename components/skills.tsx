@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Card, CardContent } from "@/components/ui-custom/card"
+import { SectionId } from "@/lib/sections"
 import {
   Server,
   Globe,
@@ -211,7 +212,7 @@ export function Skills() {
 
   return (
     <section
-      id="habilidades"
+      id={SectionId.skills}
       ref={sectionRef}
       className="py-16 bg-gray-50 dark:bg-gray-900/50 opacity-0"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
@@ -274,7 +275,7 @@ export function Skills() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
                   <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full"></div>
-                  APIs & Tools
+                  {t("skills.tools")}
                 </h3>
                 <div className="flex flex-wrap gap-3 justify-center">
                   {skillsData.tools.map((skill, index) => renderSkillPill(skill, index))}

@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Button } from "@/components/ui-custom/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui-custom/card"
+import { SectionId } from "@/lib/sections"
 
 const projectsDataES = [
   {
@@ -220,7 +221,7 @@ export function Projects() {
 
   return (
     <section
-      id="proyectos"
+      id={SectionId.projects}
       ref={sectionRef}
       className="py-20 bg-gray-50 dark:bg-gray-900/50 opacity-0"
       style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
@@ -271,7 +272,7 @@ export function Projects() {
 
                   {/* Technologies */}
                   <div>
-                    <h4 className="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-300">Stack Tecnológico:</h4>
+                    <h4 className="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-300">{t("projects.stack")}</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech) => (
                         <Badge key={tech} variant="outline" className="text-xs">
@@ -283,7 +284,7 @@ export function Projects() {
 
                   {/* Achievements */}
                   <div>
-                    <h4 className="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-300">Logros Clave:</h4>
+                    <h4 className="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-300">{t("projects.achievements")}</h4>
                     <ul className="space-y-2">
                       {project.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
@@ -308,7 +309,7 @@ export function Projects() {
           </p>
           <Button
             size="lg"
-            onClick={() => document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById(SectionId.contact)?.scrollIntoView({ behavior: "smooth" })}
             className="rounded-lg px-8"
           >
             {language === "es" ? "Hablemos" : "Let's Talk"}
