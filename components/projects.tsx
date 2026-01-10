@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Database, Cloud, Zap, Users, TrendingUp } from "lucide-react"
+import { Database, Cloud, Zap, Users, TrendingUp, Activity } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Button } from "@/components/ui-custom/button"
@@ -11,80 +11,140 @@ import { SectionId } from "@/lib/sections"
 const projectsDataES = [
   {
     id: 1,
-    title: "Sistema de Integraciones CRM",
-    company: "Magellan",
-    period: "2024",
+    title: "Plataforma de Asistencia en Tiempo Real",
+    company: "SilverConnect",
+    period: "2025",
     description:
-      "Integraciones en tiempo real entre HubSpot, Salesforce y SalesLoft, sincronizando millones de contactos con arquitectura event-driven.",
-    technologies: ["NestJS", "TypeScript", "PostgreSQL", "AWS Lambda", "SQS", "HubSpot API", "Salesforce API"],
-    achievements: [
-      "Sincronización de +2M contactos en tiempo real",
-      "Reducción 15% tiempo respuesta dashboards",
-      "Arquitectura event-driven escalable",
-      "Zero downtime deployments",
+      "Plataforma de asistencia y gestión de sesiones en tiempo real, diseñada con microservicios backend de alta disponibilidad y flujos event-driven.",
+    technologies: [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "WebSockets",
+      "Docker",
+      "GitHub Actions",
+      "GCP",
     ],
-    icon: <Database className="h-6 w-6" />,
+    achievements: [
+      "Reducción de ≈30% en incidentes operativos mediante arquitectura modular y validaciones robustas",
+      "Gestión de sesiones de asistencia en tiempo real con sincronización inmediata de estados",
+      "Implementación de APIs REST seguras con JWT y control de acceso por roles",
+      "Optimización de consultas PostgreSQL reduciendo hasta 40% los tiempos de respuesta",
+      "Observabilidad y auditoría completa mediante logs estructurados y métricas",
+    ],
+    icon: <Activity className="h-6 w-6" />,
     metrics: {
-      performance: "+15% faster",
-      scale: "2M+ contacts",
-      uptime: "99.9%",
+      stability: "-30% incidentes",
+      performance: "-40% latencia",
+      realtime: "WebSockets",
     },
   },
   {
     id: 2,
-    title: "Plataforma E-commerce Multi-tienda",
-    company: "WiTi",
-    period: "2022-2024",
+    title: "Sistema de Integraciones CRM",
+    company: "Magellan",
+    period: "2024",
     description:
-      "Sistema de control de pedidos multi-tienda procesando +1M transacciones mensuales con alta disponibilidad y trazabilidad completa.",
-    technologies: ["NestJS", "AWS", "PostgreSQL", "Redis", "Docker", "GitHub Actions", "Jest"],
-    achievements: [
-      "+1M transacciones procesadas/mes",
-      "85% cobertura de pruebas",
-      "Sistema de roles y permisos avanzado",
-      "Mentoría equipo de 3 developers",
+      "Integraciones en tiempo real entre HubSpot, Salesforce y SalesLoft, sincronizando millones de contactos mediante una arquitectura event-driven.",
+    technologies: [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "AWS Lambda",
+      "SQS",
+      "HubSpot API",
+      "Salesforce API",
     ],
-    icon: <Cloud className="h-6 w-6" />,
+    achievements: [
+      "Sincronización en tiempo real de +2M contactos",
+      "Reducción del 15% en el tiempo de respuesta de dashboards",
+      "Arquitectura event-driven altamente escalable",
+      "Despliegues sin downtime (zero downtime deployments)",
+    ],
+    icon: <Database className="h-6 w-6" />,
     metrics: {
-      transactions: "1M+/month",
-      coverage: "85% tests",
-      team: "3 devs mentored",
+      performance: "-15% tiempo respuesta",
+      scale: "2M+ contactos",
+      uptime: "99.9%",
     },
   },
   {
     id: 3,
+    title: "Plataforma E-commerce Multi-tienda",
+    company: "WiTi",
+    period: "2022 - 2024",
+    description:
+      "Sistema de control de pedidos multi-tienda procesando más de 1M de transacciones mensuales, con alta disponibilidad y trazabilidad completa.",
+    technologies: [
+      "NestJS",
+      "AWS",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "GitHub Actions",
+      "Jest",
+    ],
+    achievements: [
+      "+1M transacciones procesadas por mes",
+      "85% de cobertura de pruebas automatizadas",
+      "Sistema avanzado de roles y permisos",
+      "Mentoría técnica a un equipo de 3 desarrolladores",
+    ],
+    icon: <Cloud className="h-6 w-6" />,
+    metrics: {
+      transactions: "1M+/mes",
+      coverage: "85% tests",
+      team: "3 devs mentoreados",
+    },
+  },
+  {
+    id: 4,
     title: "Email Marketing con IA",
     company: "Magellan",
     period: "2024",
     description:
-      "Módulos de email marketing automatizado usando Django + OpenAI GPT para personalización de contenido y optimización de conversión.",
-    technologies: ["Django", "Python", "OpenAI GPT", "PostgreSQL", "Celery", "Redis"],
+      "Módulos de email marketing automatizado usando Django y OpenAI GPT para personalización de contenido y optimización de conversión.",
+    technologies: [
+      "Django",
+      "Python",
+      "OpenAI GPT",
+      "PostgreSQL",
+      "Celery",
+      "Redis",
+    ],
     achievements: [
-      "+25% tasa de conversión",
-      "Personalización automática con IA",
-      "Procesamiento asíncrono escalable",
-      "A/B testing integrado",
+      "Incremento del 25% en la tasa de conversión",
+      "Personalización automática de contenido con IA",
+      "Procesamiento asíncrono altamente escalable",
+      "Sistema de A/B testing integrado",
     ],
     icon: <Zap className="h-6 w-6" />,
     metrics: {
       conversion: "+25%",
       automation: "100% IA",
-      processing: "Async",
+      processing: "Asíncrono",
     },
   },
   {
-    id: 4,
+    id: 5,
     title: "Sistema Omnicanal de Soporte",
     company: "AKB Fintech",
-    period: "2020-2021",
+    period: "2020 - 2021",
     description:
-      "Plataforma de soporte técnico con asignación automática de tickets, envíos masivos SMS/email y dashboard de métricas en tiempo real.",
-    technologies: ["Laravel", "Vue.js", "PostgreSQL", "Redis", "SMS APIs", "Email APIs"],
+      "Plataforma de soporte técnico con asignación automática de tickets, envíos masivos de SMS/email y dashboard de métricas en tiempo real.",
+    technologies: [
+      "Laravel",
+      "Vue.js",
+      "PostgreSQL",
+      "Redis",
+      "SMS APIs",
+      "Email APIs",
+    ],
     achievements: [
-      "Asignación automática de tickets",
-      "+35% entregabilidad SMS/email",
-      "30% reducción latencia consultas",
-      "Dashboard tiempo real",
+      "Asignación automática de tickets de soporte",
+      "Incremento del 35% en la entregabilidad de SMS y email",
+      "Reducción del 30% en la latencia de consultas",
+      "Dashboard de métricas en tiempo real",
     ],
     icon: <Users className="h-6 w-6" />,
     metrics: {
@@ -93,43 +153,90 @@ const projectsDataES = [
       automation: "100%",
     },
   },
-]
+];
+
 
 const projectsDataEN = [
   {
     id: 1,
+    title: "Real-Time Attendance Platform",
+    company: "SilverConnect",
+    period: "2025",
+    description:
+      "Real-time attendance and session management platform built with high-availability backend microservices and event-driven workflows.",
+    technologies: [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "WebSockets",
+      "Docker",
+      "GitHub Actions",
+      "GCP",
+    ],
+    achievements: [
+      "≈30% reduction in operational incidents through modular architecture and robust validations",
+      "Real-time attendance session management with immediate state synchronization",
+      "Secure REST APIs implementation using JWT and role-based access control",
+      "PostgreSQL query optimization reducing response times by up to 40%",
+      "Full observability and auditing via structured logs and metrics",
+    ],
+    icon: <Activity className="h-6 w-6" />,
+    metrics: {
+      stability: "-30% incidents",
+      performance: "-40% latency",
+      realtime: "WebSockets",
+    },
+  },
+  {
+    id: 2,
     title: "CRM Integration System",
     company: "Magellan",
     period: "2024",
     description:
-      "Real-time integrations between HubSpot, Salesforce and SalesLoft, synchronizing millions of contacts with event-driven architecture.",
-    technologies: ["NestJS", "TypeScript", "PostgreSQL", "AWS Lambda", "SQS", "HubSpot API", "Salesforce API"],
+      "Real-time integrations between HubSpot, Salesforce, and SalesLoft, synchronizing millions of contacts using an event-driven architecture.",
+    technologies: [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "AWS Lambda",
+      "SQS",
+      "HubSpot API",
+      "Salesforce API",
+    ],
     achievements: [
-      "2M+ contacts real-time sync",
-      "15% faster dashboard response",
-      "Scalable event-driven architecture",
-      "Zero downtime deployments",
+      "Real-time synchronization of 2M+ contacts",
+      "15% reduction in dashboard response times",
+      "Highly scalable event-driven architecture",
+      "Zero-downtime deployments",
     ],
     icon: <Database className="h-6 w-6" />,
     metrics: {
-      performance: "+15% faster",
+      performance: "-15% response time",
       scale: "2M+ contacts",
       uptime: "99.9%",
     },
   },
   {
-    id: 2,
+    id: 3,
     title: "Multi-store E-commerce Platform",
     company: "WiTi",
-    period: "2022-2024",
+    period: "2022 - 2024",
     description:
-      "Multi-store order control system processing +1M monthly transactions with high availability and complete traceability.",
-    technologies: ["NestJS", "AWS", "PostgreSQL", "Redis", "Docker", "GitHub Actions", "Jest"],
+      "Multi-store order management system processing over 1M transactions per month, with high availability and full traceability.",
+    technologies: [
+      "NestJS",
+      "AWS",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "GitHub Actions",
+      "Jest",
+    ],
     achievements: [
-      "1M+ transactions processed/month",
-      "85% test coverage",
+      "1M+ transactions processed per month",
+      "85% automated test coverage",
       "Advanced roles and permissions system",
-      "Mentored team of 3 developers",
+      "Technical mentorship of a team of 3 developers",
     ],
     icon: <Cloud className="h-6 w-6" />,
     metrics: {
@@ -139,18 +246,25 @@ const projectsDataEN = [
     },
   },
   {
-    id: 3,
+    id: 4,
     title: "AI-Powered Email Marketing",
     company: "Magellan",
     period: "2024",
     description:
-      "Automated email marketing modules using Django + OpenAI GPT for content personalization and conversion optimization.",
-    technologies: ["Django", "Python", "OpenAI GPT", "PostgreSQL", "Celery", "Redis"],
+      "Automated email marketing modules built with Django and OpenAI GPT for content personalization and conversion optimization.",
+    technologies: [
+      "Django",
+      "Python",
+      "OpenAI GPT",
+      "PostgreSQL",
+      "Celery",
+      "Redis",
+    ],
     achievements: [
-      "+25% conversion rate",
-      "AI-powered automatic personalization",
-      "Scalable asynchronous processing",
-      "Integrated A/B testing",
+      "25% increase in conversion rate",
+      "AI-driven automatic content personalization",
+      "Highly scalable asynchronous processing",
+      "Integrated A/B testing system",
     ],
     icon: <Zap className="h-6 w-6" />,
     metrics: {
@@ -160,18 +274,25 @@ const projectsDataEN = [
     },
   },
   {
-    id: 4,
+    id: 5,
     title: "Omnichannel Support System",
     company: "AKB Fintech",
-    period: "2020-2021",
+    period: "2020 - 2021",
     description:
-      "Technical support platform with automatic ticket assignment, bulk SMS/email sending and real-time metrics dashboard.",
-    technologies: ["Laravel", "Vue.js", "PostgreSQL", "Redis", "SMS APIs", "Email APIs"],
+      "Technical support platform with automatic ticket assignment, bulk SMS/email delivery, and a real-time metrics dashboard.",
+    technologies: [
+      "Laravel",
+      "Vue.js",
+      "PostgreSQL",
+      "Redis",
+      "SMS APIs",
+      "Email APIs",
+    ],
     achievements: [
-      "Automatic ticket assignment",
-      "+35% SMS/email deliverability",
-      "30% query latency reduction",
-      "Real-time dashboard",
+      "Automatic support ticket assignment",
+      "35% increase in SMS and email deliverability",
+      "30% reduction in query latency",
+      "Real-time metrics dashboard",
     ],
     icon: <Users className="h-6 w-6" />,
     metrics: {
@@ -180,7 +301,8 @@ const projectsDataEN = [
       automation: "100%",
     },
   },
-]
+];
+
 
 export function Projects() {
   const { t, language } = useLanguage()
