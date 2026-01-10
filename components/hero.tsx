@@ -72,7 +72,7 @@ export function Hero() {
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 blur-2xl opacity-20 animate-pulse" />
             <div className="relative h-full w-full rounded-full border-2 mt-4 xl:my-0 border-purple-600/50 overflow-hidden">
               <Image
-                src="https://avatars.githubusercontent.com/u/33111448?v=4"
+                src="/rafael-arraez.png"
                 alt="Rafael Arraez."
                 fill
                 className="object-cover"

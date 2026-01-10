@@ -52,7 +52,7 @@ export function About() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl blur-2xl opacity-20" />
                 <div className="relative aspect-square rounded-2xl border-2 border-purple-600/50 overflow-hidden">
                   <Image
-                    src="https://avatars.githubusercontent.com/u/33111448?v=4"
+                    src="/rafael-arraez.png"
                     alt="Rafael Arraez"
                     fill
                     className="object-cover"

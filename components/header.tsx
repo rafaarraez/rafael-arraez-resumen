@@ -132,7 +132,7 @@ export function Header() {
             <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
                 <Image
-                  src="https://avatars.githubusercontent.com/u/33111448?v=4"
+                  src="/rafael-arraez.png"
                   alt="Profile Photo"
                   fill
                   className="object-cover"
@@ -182,7 +182,7 @@ export function Header() {
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
               <Image
-                src="https://avatars.githubusercontent.com/u/33111448?v=4"
+                src="/rafael-arraez.png"
                 alt="Profile Photo"
                 fill
                 className="object-cover"
@@ -290,7 +290,7 @@ export function Header() {
                 <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-purple-600">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
                     <Image
-                      src="https://avatars.githubusercontent.com/u/33111448?v=4"
+                      src="/rafael-arraez.png"
                       alt="Profile Photo"
                       fill
                       className="object-cover"
