@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Rafael Arraez" }],
   creator: "Rafael Arraez",
   publisher: "Rafael Arraez",
-  metadataBase: new URL("https://rafaelarraez.com"),
+  metadataBase: new URL("https://rafael-arraez.vercel.app"),
   alternates: {
     canonical: "/",
     languages: {
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     alternateLocale: ["en_US"],
-    url: "https://rafaelarraez.com",
+    url: "https://rafael-arraez.vercel.app",
     title: "Rafael Arraez - Senior Backend Engineer | NestJS, TypeScript, AWS Specialist",
     description: "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
     siteName: "Rafael Arraez Portfolio",
@@ -101,17 +101,14 @@ export default function RootLayout({
     "name": "Rafael Arraez",
     "jobTitle": "Senior Backend Engineer",
     "description": "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures.",
-    "url": "https://rafaelarraez.com",
-    "email": "rafael.arraez@example.com",
-    "telephone": "+58-424-1234567",
+    "url": "https://rafael-arraez.vercel.app",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "VE"
     },
     "sameAs": [
-      "https://github.com/rafaelarraez",
-      "https://linkedin.com/in/rafaelarraez",
-      "https://twitter.com/rafaelarraez"
+      "https://github.com/rafaarraez",
+      "https://www.linkedin.com/in/rafael-arraez",
     ],
     "knowsAbout": [
       "Backend Development",
