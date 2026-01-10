@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import { throttleRAF } from "@/lib/performance"
 
 interface Particle {
 	x: number
@@ -17,12 +19,17 @@ export function FloatingParticles() {
 	const particlesRef = useRef<Particle[]>([])
 	const mouseRef = useRef({ x: 0, y: 0 })
 	const animationRef = useRef<number | null>(null)
+	const [isVisible, setIsVisible] = useState(false)
+	const prefersReducedMotion = useReducedMotion()
 
 	useEffect(() => {
 		const canvas = canvasRef.current
 		if (!canvas) return
 
-		const ctx = canvas.getContext("2d")
+		// Don't animate if user prefers reduced motion
+		if (prefersReducedMotion) return
+
+		const ctx = canvas.getContext("2d", { alpha: true })
 		if (!ctx) return
 
 		// Configurar canvas
@@ -34,10 +41,16 @@ export function FloatingParticles() {
 		resizeCanvas()
 		window.addEventListener("resize", resizeCanvas)
 
-		// Crear partículas
+		// Crear partículas con optimización para móviles
 		const createParticles = () => {
 			const particles: Particle[] = []
-			const particleCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000))
+			const isMobile = window.innerWidth < 768
+
+			// Reducir partículas en móviles
+			const baseParticleCount = Math.floor((canvas.width * canvas.height) / 15000)
+			const particleCount = isMobile
+				? Math.min(25, Math.floor(baseParticleCount * 0.5))
+				: Math.min(50, baseParticleCount)
 
 			for (let i = 0; i < particleCount; i++) {
 				particles.push({
@@ -55,15 +68,33 @@ export function FloatingParticles() {
 
 		particlesRef.current = createParticles()
 
-		// Seguir el mouse
-		const handleMouseMove = (e: MouseEvent) => {
+		// Throttled mouse handler using RAF for 60fps
+		const throttledMouseMove = throttleRAF((e: MouseEvent) => {
 			mouseRef.current = { x: e.clientX, y: e.clientY }
-		}
+		})
 
-		window.addEventListener("mousemove", handleMouseMove)
+		window.addEventListener("mousemove", throttledMouseMove)
 
-		// Animar partículas
+		// IntersectionObserver para pausar cuando no está visible
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					setIsVisible(entry.isIntersecting)
+				})
+			},
+			{ threshold: 0.01 }
+		)
+
+		observer.observe(canvas)
+
+		// Animar partículas solo si es visible
 		const animate = () => {
+			if (!isVisible) {
+				// Continuar el loop pero no renderizar
+				animationRef.current = requestAnimationFrame(animate)
+				return
+			}
+
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
 
 			particlesRef.current.forEach((particle, index) => {
@@ -100,38 +131,65 @@ export function FloatingParticles() {
 						.padStart(2, "0")
 				ctx.fill()
 
-				// Conectar partículas cercanas
-				particlesRef.current.slice(index + 1).forEach((otherParticle) => {
-					const dx = particle.x - otherParticle.x
-					const dy = particle.y - otherParticle.y
-					const distance = Math.sqrt(dx * dx + dy * dy)
+				// Conectar partículas cercanas (solo en desktop para mejor performance)
+				if (window.innerWidth >= 768) {
+					particlesRef.current.slice(index + 1).forEach((otherParticle) => {
+						const dx = particle.x - otherParticle.x
+						const dy = particle.y - otherParticle.y
+						const distance = Math.sqrt(dx * dx + dy * dy)
 
-					if (distance < 100) {
-						ctx.beginPath()
-						ctx.moveTo(particle.x, particle.y)
-						ctx.lineTo(otherParticle.x, otherParticle.y)
-						ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - distance / 100)})`
-						ctx.lineWidth = 1
-						ctx.stroke()
-					}
-				})
+						if (distance < 100) {
+							ctx.beginPath()
+							ctx.moveTo(particle.x, particle.y)
+							ctx.lineTo(otherParticle.x, otherParticle.y)
+							ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - distance / 100)})`
+							ctx.lineWidth = 1
+							ctx.stroke()
+						}
+					})
+				}
 			})
 
 			animationRef.current = requestAnimationFrame(animate)
 		}
 
-		animate()
+		// Iniciar animación solo si está visible
+		if (isVisible) {
+			animate()
+		}
 
+		// Cleanup apropiado
 		return () => {
 			window.removeEventListener("resize", resizeCanvas)
-			window.removeEventListener("mousemove", handleMouseMove)
+			window.removeEventListener("mousemove", throttledMouseMove)
+			observer.disconnect()
+
 			if (animationRef.current) {
 				cancelAnimationFrame(animationRef.current)
+				animationRef.current = null
 			}
+
+			// Limpiar canvas
+			if (ctx) {
+				ctx.clearRect(0, 0, canvas.width, canvas.height)
+			}
+
+			// Limpiar referencias
+			particlesRef.current = []
 		}
-	}, [])
+	}, [isVisible, prefersReducedMotion])
+
+	// No renderizar canvas si el usuario prefiere movimiento reducido
+	if (prefersReducedMotion) {
+		return null
+	}
 
 	return (
-		<canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ background: "transparent" }} />
+		<canvas
+			ref={canvasRef}
+			className="fixed inset-0 pointer-events-none z-0"
+			style={{ background: "transparent" }}
+			aria-hidden="true"
+		/>
 	)
 }

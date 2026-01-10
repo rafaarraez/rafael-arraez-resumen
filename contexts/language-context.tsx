@@ -26,10 +26,10 @@ const translations = {
     "hero.title": "Software Backend Engineer",
     "hero.subtitle": "TypeScript, NestJS, AWS, PostgreSQL | Remote-first",
     "hero.description":
-      "Ingeniero de Software con +6 años de experiencia desarrollando y escalando plataformas backend. Especialista en integraciones complejas y arquitecturas serverless de alto rendimiento, gestionando sistemas de +1M transacciones mensuales.",
+      "Ingeniero de Software con +7 años de experiencia desarrollando y escalando plataformas backend. Especialista en integraciones complejas y arquitecturas serverless de alto rendimiento, gestionando sistemas de +1M transacciones mensuales.",
     "hero.cta.projects": "Ver Proyectos",
     "hero.cta.cv": "Descargar CV",
-    "hero.experience": "+6 años de experiencia",
+    "hero.experience": "+7 años de experiencia",
     "hero.transactions": "+1M transacciones/mes",
     "hero.cost_optimization": "30% reducción de costos",
 
@@ -64,6 +64,14 @@ const translations = {
     "skills.intermediate": "Intermedio",
     "skills.beginner": "Principiante",
 
+    // About
+    "about.greeting": "¡Hola! Soy Rafael",
+    "about.bio1": "Soy un ingeniero de software apasionado por construir sistemas backend robustos y escalables.",
+    "about.bio2": "Me motiva resolver problemas técnicos desafiantes, desde optimizar consultas que procesan millones de registros hasta diseñar APIs que escalan sin esfuerzo.",
+    "about.bio3": "Cuando no estoy programando, me gusta mantenerme al día con las últimas tecnologías y compartir conocimiento con la comunidad.",
+    "about.philosophy.title": "Mi Filosofía de Trabajo",
+    "about.highlights.title": "Destacados Profesionales",
+
     // Services
     "services.badge": "Servicios",
     "services.title": "¿Cómo puedo ayudarte?",
@@ -74,6 +82,7 @@ const translations = {
     "contact.title": "¿Hablamos de tu próximo proyecto?",
     "contact.description":
       "Disponible para oportunidades remotas. Especializado en backend escalable y integraciones complejas.",
+    "contact.subtitle": "Me encantaría saber de ti. Cuéntame sobre tu proyecto y exploremos juntos las posibilidades.",
     "contact.form.name": "Nombre",
     "contact.form.email": "Email",
     "contact.form.subject": "Asunto",
@@ -95,6 +104,17 @@ const translations = {
     "contact.info.availability": "Disponibilidad",
     "contact.info.follow": "Sígueme en mis redes sociales",
 
+    // Testimonials
+    "testimonials.badge": "Testimonios",
+    "testimonials.title": "Lo que dicen de mí",
+    "testimonials.description": "Testimonios de colegas y líderes técnicos con quienes he trabajado.",
+
+    // Certifications
+    "certifications.badge": "Certificaciones",
+    "certifications.title": "Certificaciones Profesionales",
+    "certifications.description": "Certificaciones y capacitaciones en tecnologías backend y cloud.",
+    "certifications.viewCredential": "Ver Credencial",
+
     // Footer
     "footer.rights": "Todos los derechos reservados.",
   },
@@ -112,10 +132,10 @@ const translations = {
     "hero.title": "Software Backend Engineer",
     "hero.subtitle": "TypeScript, NestJS, AWS, PostgreSQL | Remote-first",
     "hero.description":
-      "Software Engineer with +6 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
+      "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
     "hero.cta.projects": "View Projects",
     "hero.cta.cv": "Download CV",
-    "hero.experience": "+6 years experience",
+    "hero.experience": "+7 years experience",
     "hero.transactions": "+1M transactions/month",
     "hero.cost_optimization": "30% cost reduction",
 
@@ -151,6 +171,14 @@ const translations = {
     "skills.intermediate": "Intermediate",
     "skills.beginner": "Beginner",
 
+    // About
+    "about.greeting": "Hi! I'm Rafael",
+    "about.bio1": "I'm a software engineer passionate about building robust and scalable backend systems.",
+    "about.bio2": "I'm motivated by solving challenging technical problems, from optimizing queries that process millions of records to designing APIs that scale effortlessly.",
+    "about.bio3": "When I'm not coding, I enjoy keeping up with the latest technologies and sharing knowledge with the developer community.",
+    "about.philosophy.title": "My Work Philosophy",
+    "about.highlights.title": "Professional Highlights",
+
     // Services
     "services.badge": "Services",
     "services.title": "How can I help?",
@@ -161,6 +189,7 @@ const translations = {
     "contact.title": "Let's talk about your next project?",
     "contact.description":
       "Available for remote opportunities. Specialized in scalable backend and complex integrations.",
+    "contact.subtitle": "I'd love to hear from you. Tell me about your project and let's explore the possibilities together.",
     "contact.form.name": "Name",
     "contact.form.email": "Email",
     "contact.form.subject": "Subject",
@@ -181,6 +210,17 @@ const translations = {
     "contact.info.location": "Location",
     "contact.info.availability": "Availability",
     "contact.info.follow": "Follow me on social media",
+
+    // Testimonials
+    "testimonials.badge": "Testimonials",
+    "testimonials.title": "What Others Say",
+    "testimonials.description": "Testimonials from colleagues and technical leaders I've worked with.",
+
+    // Certifications
+    "certifications.badge": "Certifications",
+    "certifications.title": "Professional Certifications",
+    "certifications.description": "Certifications and training in backend and cloud technologies.",
+    "certifications.viewCredential": "View Credential",
 
     // Footer
     "footer.rights": "All rights reserved.",

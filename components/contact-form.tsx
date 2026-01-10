@@ -149,7 +149,10 @@ export function ContactForm() {
             {t("contact.badge")}
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("contact.title")}</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("contact.description")}</p>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-3">{t("contact.description")}</p>
+          <p className="text-purple-600 dark:text-purple-400 font-medium max-w-2xl mx-auto">
+            {t("contact.subtitle")}
+          </p>
         </div>
 
         <div className="max-w-5xl mx-auto">

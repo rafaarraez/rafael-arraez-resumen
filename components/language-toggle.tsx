@@ -22,14 +22,14 @@ export function LanguageToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full"
+          className="rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
           aria-haspopup="menu"
           aria-expanded={isOpen}
           aria-controls={menuId}
-          aria-label="Change language"
+          aria-label={language === "es" ? "Cambiar idioma" : "Change language"}
         >
-          <Globe className="h-5 w-5" />
-          <span className="sr-only">Change language</span>
+          <Globe className="h-5 w-5" aria-hidden="true" />
+          <span className="sr-only">{language === "es" ? "Cambiar idioma" : "Change language"}</span>
         </Button>
       </DropdownMenuTrigger>
       {isOpen && (

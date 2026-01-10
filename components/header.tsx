@@ -1,7 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Menu, Home, Clock, Code2, Briefcase, Mail } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Menu } from "lucide-react"
+import { Home } from "lucide-react"
+import { Clock } from "lucide-react"
+import { Code2 } from "lucide-react"
+import { Briefcase } from "lucide-react"
+import { Mail } from "lucide-react"
 import { Button } from "@/components/ui-custom/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
@@ -10,9 +15,11 @@ import Image from "next/image"
 import { SectionId } from "@/lib/sections"
 
 export function Header() {
-  const { t, mounted } = useLanguage()
+  const { t, mounted, language } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
 
 
   useEffect(() => {
@@ -34,6 +41,49 @@ export function Header() {
     return () => {
       document.body.style.overflow = ""
     }
+  }, [isMenuOpen])
+
+  // Focus trap y manejo de teclado para el menú móvil
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cerrar con Escape
+      if (e.key === "Escape") {
+        setIsMenuOpen(false)
+        menuButtonRef.current?.focus()
+        return
+      }
+
+      // Focus trap con Tab
+      if (e.key === "Tab") {
+        const focusableElements = mobileMenuRef.current?.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+
+        if (!focusableElements || focusableElements.length === 0) return
+
+        const firstElement = focusableElements[0] as HTMLElement
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+
+        if (e.shiftKey) {
+          // Shift + Tab: ir hacia atrás
+          if (document.activeElement === firstElement) {
+            e.preventDefault()
+            lastElement?.focus()
+          }
+        } else {
+          // Tab: ir hacia adelante
+          if (document.activeElement === lastElement) {
+            e.preventDefault()
+            firstElement?.focus()
+          }
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
   }, [isMenuOpen])
 
   const toggleMenu = () => {
@@ -74,7 +124,11 @@ export function Header() {
           }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <button onClick={() => { scrollToNextSection(SectionId.home); }} className="flex items-center gap-3">
+          <button
+            onClick={() => { scrollToNextSection(SectionId.home); }}
+            className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg"
+            aria-label={language === "es" ? "Ir al inicio" : "Go to home"}
+          >
             <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
                 <Image
@@ -120,7 +174,11 @@ export function Header() {
         }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <button onClick={() => { scrollToNextSection(SectionId.home); }} className="flex items-center gap-3">
+        <button
+          onClick={() => { scrollToNextSection(SectionId.home); }}
+          className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg"
+          aria-label={language === "es" ? "Ir al inicio" : "Go to home"}
+        >
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
               <Image
@@ -140,11 +198,16 @@ export function Header() {
           <LanguageToggle />
 
           {/* Botón de menú móvil */}
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
+            ref={menuButtonRef}
             onClick={toggleMenu}
-            className="md:hidden z-[60] relative overflow-hidden group w-10 h-10"
+            className="md:hidden z-[60] relative overflow-hidden group w-10 h-10 inline-flex items-center justify-center rounded-md bg-transparent text-foreground hover:bg-purple-100 dark:hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 transition-colors"
+            aria-label={isMenuOpen
+              ? (language === "es" ? "Cerrar menú" : "Close menu")
+              : (language === "es" ? "Abrir menú" : "Open menu")
+            }
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             <div
               className={`absolute inset-0 bg-purple-600/10 dark:bg-purple-600/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ${isMenuOpen ? "scale-100" : ""
@@ -170,12 +233,17 @@ export function Header() {
                   }`}
               />
             </div>
-          </Button>
+          </button>
 
           {/* Navegación desktop */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6" aria-label={language === "es" ? "Navegación principal" : "Main navigation"}>
             {navItems.map((item) => (
-              <button onClick={() => { scrollToNextSection(item.href); }} key={item.key} className="hover:text-purple-600 transition-colors relative group">
+              <button
+                onClick={() => { scrollToNextSection(item.href); }}
+                key={item.key}
+                className="hover:text-purple-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded px-2 py-1"
+                aria-label={`${item.label}`}
+              >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 group-hover:w-full transition-all duration-300" />
               </button>
@@ -184,6 +252,11 @@ export function Header() {
 
           {/* Menú móvil overlay con animaciones */}
           <div
+            ref={mobileMenuRef}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label={language === "es" ? "Menú de navegación principal" : "Main navigation menu"}
             className={`fixed inset-0 md:hidden z-50 transition-all duration-500 h-screen ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none delay-300"
               }`}
           >
@@ -228,15 +301,17 @@ export function Header() {
               </div>
 
               {/* Navegación MOVIL */}
-              <nav className="flex flex-col items-center gap-6 w-full max-w-xs">
+              <nav className="flex flex-col items-center gap-6 w-full max-w-xs" aria-label={language === "es" ? "Navegación principal móvil" : "Mobile main navigation"}>
                 {navItems.map((item, index) => (
-                  <button onClick={() => { scrollToNextSection(item.href); toggleMenu(); }}
+                  <button
+                    onClick={() => { scrollToNextSection(item.href); toggleMenu(); }}
                     key={item.key}
-                    className={`flex items-center gap-3 text-xl font-medium w-full px-6 py-3 rounded-xl relative overflow-hidden group transition-all duration-300 ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                    className={`flex items-center gap-3 text-xl font-medium w-full px-6 py-3 rounded-xl relative overflow-hidden group transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                       }`}
                     style={{
                       transitionDelay: isMenuOpen ? `${index * 100}ms` : "0ms",
                     }}
+                    aria-label={`${item.label}`}
                   >
                     {/* Fondo hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 rounded-xl scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />

@@ -5,19 +5,17 @@ import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Card, CardContent } from "@/components/ui-custom/card"
 import { SectionId } from "@/lib/sections"
-import {
-  Server,
-  Globe,
-  Code2,
-  Database,
-  Container,
-  Cloud,
-  GitBranch,
-  Github,
-  Terminal,
-  FileCode,
-  Send,
-} from "lucide-react"
+import { Server } from "lucide-react"
+import { Globe } from "lucide-react"
+import { Code2 } from "lucide-react"
+import { Database } from "lucide-react"
+import { Container } from "lucide-react"
+import { Cloud } from "lucide-react"
+import { GitBranch } from "lucide-react"
+import { Github } from "lucide-react"
+import { Terminal } from "lucide-react"
+import { FileCode } from "lucide-react"
+import { Send } from "lucide-react"
 
 type SkillCategory = "technical" | "cloud" | "tools"
 
@@ -101,7 +99,7 @@ const skillColors: Record<string, string> = {
   "Next.js": "bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200",
   React: "bg-blue-600 text-white hover:bg-blue-700",
   TypeScript: "bg-blue-700 text-white hover:bg-blue-800",
-  JavaScript: "bg-yellow-600 text-gray-900 hover:bg-yellow-700",
+  JavaScript: "bg-yellow-500 text-gray-900 hover:bg-yellow-600",
   PHP: "bg-purple-700 text-white hover:bg-purple-800",
   Laravel: "bg-red-600 text-white hover:bg-red-700",
   Python: "bg-blue-700 text-white hover:bg-blue-800",
@@ -165,6 +163,10 @@ export function Skills() {
     }
   }, [])
 
+  const getProgressWidth = (years: number, maxYears: number = 6) => {
+    return Math.min((years / maxYears) * 100, 100)
+  }
+
   const renderSkillPill = (
     skill: { name: string; nameEn: string; icon: keyof typeof icons; years: number; level: string },
     index: number
@@ -179,20 +181,33 @@ export function Skills() {
     // Traducir nivel
     const levelText = t(`skills.${skill.level}`)
 
+    const progressWidth = getProgressWidth(skill.years)
+
     return (
       <div
         key={skill.name}
-        className={`group relative inline-flex flex-col items-center gap-2 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-default ${colorClass}`}
+        className={`group relative inline-flex flex-col items-center gap-2 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-default ${colorClass} overflow-hidden`}
         style={{
           animationDelay: `${index * 0.1}s`,
           animationFillMode: "forwards",
         }}
+        role="listitem"
+        aria-label={`${skillName}: ${yearsText} of experience, ${levelText} level`}
       >
-        <div className="flex items-center gap-2">
+        {/* Animated progress bar background */}
+        <div
+          className="absolute inset-0 bg-white/20 dark:bg-black/20 origin-left transition-all duration-700 group-hover:bg-white/30 dark:group-hover:bg-black/30"
+        // style={{
+        //   width: `${progressWidth}%`,
+        //   transitionDelay: `${index * 0.05}s`
+        // }}
+        />
+
+        <div className="flex items-center gap-2 relative z-10">
           <IconComponent className="h-4 w-4" />
           <span className="font-semibold">{skillName}</span>
         </div>
-        <div className="text-xs opacity-90 text-center">
+        <div className="text-xs opacity-90 text-center relative z-10">
           <div className="font-medium">{yearsText}</div>
           <div className="font-bold">{levelText}</div>
         </div>
@@ -239,7 +254,7 @@ export function Skills() {
                   <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
                   {t("skills.backend")}
                 </h3>
-                <div className="flex flex-wrap gap-3 justify-center">
+                <div className="flex flex-wrap gap-3 justify-center" role="list">
                   {skillsData.technical.map((skill, index) => renderSkillPill(skill, index))}
                 </div>
               </CardContent>
@@ -258,7 +273,7 @@ export function Skills() {
                   <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
                   {t("skills.cloud")}
                 </h3>
-                <div className="flex flex-wrap gap-3 justify-center">
+                <div className="flex flex-wrap gap-3 justify-center" role="list">
                   {skillsData.cloud.map((skill, index) => renderSkillPill(skill, index))}
                 </div>
               </CardContent>
@@ -277,7 +292,7 @@ export function Skills() {
                   <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full"></div>
                   {t("skills.tools")}
                 </h3>
-                <div className="flex flex-wrap gap-3 justify-center">
+                <div className="flex flex-wrap gap-3 justify-center" role="list">
                   {skillsData.tools.map((skill, index) => renderSkillPill(skill, index))}
                 </div>
               </CardContent>
