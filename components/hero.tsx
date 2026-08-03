@@ -1,241 +1,123 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { ArrowDown, Copy, Check, Mail, ExternalLink, Github, Linkedin } from "lucide-react"
+import { ExternalLink, Github, Linkedin } from "lucide-react"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui-custom/button"
-import { Badge } from "@/components/ui-custom/badge"
 import { SectionId } from "@/lib/sections"
-import { GeometricShapes } from "@/components/effects/geometric-shapes"
+import { Reveal } from "@/components/effects/reveal"
+import { DecodeText } from "@/components/effects/decode-text"
+import { Magnetic } from "@/components/effects/magnetic"
+import profilePhoto from "@/public/rafael-arraez.png"
 
 export function Hero() {
   const { t, language } = useLanguage()
-  const [copied, setCopied] = useState(false)
-  const [email] = useState("rafa.arraez.gue@gmail.com")
-  const heroRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in")
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    if (heroRef.current) {
-      observer.observe(heroRef.current)
-    }
-
-    return () => {
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current)
-      }
-    }
-  }, [])
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(email)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      console.error("Error al copiar:", err)
-    }
-  }
-
-  const scrollToNextSection = () => {
-    const nextSection = document.getElementById(SectionId.projects)
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" })
-    }
-  }
 
   return (
     <section
       id={SectionId.home}
-      ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center py-16 mt-8 opacity-0 overflow-hidden"
-      style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
+      className="relative flex min-h-[100dvh] items-center overflow-hidden pt-24 pb-16"
     >
-      {/* Geometric shapes with repulsion effect */}
-      <GeometricShapes containerRef={heroRef} />
+      {/* Soft static glow, the only "atmosphere" the page needs */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[56rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px] dark:bg-emerald-500/[0.07]"
+      />
 
-      <div className="container mx-auto px-4 z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 mx-auto">
-          {/* Profile photo */}
-          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 order-1 lg:order-2">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 blur-2xl opacity-20 animate-pulse" />
-            <div className="relative h-full w-full rounded-full border-2 mt-4 xl:my-0 border-purple-600/50 overflow-hidden">
-              <Image
-                src="/rafael-arraez.png"
-                alt="Rafael Arraez."
-                fill
-                className="object-cover"
-                priority
-              />
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+          {/* Contenido */}
+          <Reveal stagger className="order-2 space-y-7 lg:order-1 lg:col-span-7">
+            <div className="glass-subtle inline-flex items-center gap-2 rounded-full px-4 py-1.5">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                {language === "es" ? "Disponible para trabajo remoto" : "Available for remote work"}
+              </span>
             </div>
-          </div>
 
-          {/* Main content */}
-          <div className="flex-1 text-center lg:text-left space-y-8 order-2 lg:order-1">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="block text-gray-900 dark:text-white">{t("hero.name")}</span>
-                <span className="block text-purple-600 text-3xl md:text-4xl lg:text-5xl mt-2">{t("hero.title")}</span>
+              <h1 className="text-5xl font-semibold tracking-tighter leading-none md:text-6xl lg:text-7xl">
+                {t("hero.name")}
               </h1>
-
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 font-medium">{t("hero.subtitle")}</p>
-
-              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                {t("hero.description")}
+              <p className="font-mono text-sm text-emerald-700 dark:text-emerald-400 md:text-base">
+                <DecodeText text={`${t("hero.title")} · ${t("hero.subtitle")}`} />
               </p>
             </div>
 
-            {/* Key metrics */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-semibold">
-                {t("hero.experience")}
-              </Badge>
-              <Badge variant="outline" className="px-4 py-2 text-sm font-semibold">
-                {t("hero.transactions")}
-              </Badge>
-              <Badge variant="outline" className="px-4 py-2 text-sm font-semibold">
-                {t("hero.cost_optimization")}
-              </Badge>
-            </div>
+            <p className="max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 md:text-lg">
+              {t("hero.description")}
+            </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Button
-                size="lg"
-                className="rounded-lg px-8 hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
-                onClick={() => document.getElementById(SectionId.projects)?.scrollIntoView({ behavior: "smooth" })}
-                aria-label={language === "es" ? "Ver proyectos destacados" : "View featured projects"}
-              >
-                {t("hero.cta.projects")}
-              </Button>
+            <div className="flex flex-wrap items-center gap-3">
+              <Magnetic>
+                <Button
+                  size="lg"
+                  onClick={() => document.getElementById(SectionId.projects)?.scrollIntoView({ behavior: "smooth" })}
+                  aria-label={language === "es" ? "Ver proyectos destacados" : "View featured projects"}
+                >
+                  {t("hero.cta.projects")}
+                </Button>
+              </Magnetic>
 
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-lg px-8 hover:scale-105 transition-transform duration-200 bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
-                onClick={() => {
-                  if (language === "es") {
-                    window.open("/Rafael Arraez Resumen - [ES] Software Engineer.pdf", "_blank")
-                  } else {
-                    window.open("/Rafael Arraez Resumen - [EN] Software Engineer.pdf", "_blank")
-                  }
-                }}
-                aria-label={language === "es" ? "Descargar currículum en PDF" : "Download resume in PDF"}
-              >
-                <ExternalLink className="w-4 h-4 mr-2" aria-hidden="true" />
-                {t("hero.cta.cv")}
-              </Button>
-            </div>
+              <Magnetic>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => {
+                    if (language === "es") {
+                      window.open("/Rafael Arraez Resumen - [ES] Software Engineer.pdf", "_blank")
+                    } else {
+                      window.open("/Rafael Arraez Resumen - [EN] Software Engineer.pdf", "_blank")
+                    }
+                  }}
+                  aria-label={language === "es" ? "Descargar currículum en PDF" : "Download resume in PDF"}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" aria-hidden="true" />
+                  {t("hero.cta.cv")}
+                </Button>
+              </Magnetic>
 
-            {/* Email Contact Section */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 justify-center lg:justify-start">
-                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-1 max-w-16"></div>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                  {language === "es" ? "Contacto directo" : "Direct contact"}
-                </span>
-                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-1 max-w-16"></div>
-              </div>
-
-              <div className="max-w-md mx-auto lg:mx-0">
-                <div className="group relative">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
-
-                  <div className="relative flex items-center bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden">
-                    <div className="flex items-center pl-4 pr-3">
-                      <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                        <Mail className="h-4 w-4 text-purple-600" />
-                      </div>
-                    </div>
-
-                    <div className="flex-1 py-4 pr-2">
-                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">
-                        {language === "es" ? "Email" : "Email"}
-                      </div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-0.5">{email}</div>
-                    </div>
-
-                    <Button
-                      onClick={copyEmail}
-                      size="sm"
-                      aria-label={copied
-                        ? (language === "es" ? "Email copiado al portapapeles" : "Email copied to clipboard")
-                        : (language === "es" ? "Copiar email al portapapeles" : "Copy email to clipboard")
-                      }
-                      className={`m-2 rounded-xl px-4 py-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 ${copied
-                        ? "bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/25"
-                        : "bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-600/25 hover:shadow-purple-600/40"
-                        }`}
-                    >
-                      {copied ? (
-                        <>
-                          <Check className="h-4 w-4 mr-2" />
-                          {language === "es" ? "¡Copiado!" : "Copied!"}
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="h-4 w-4 mr-2" />
-                          {language === "es" ? "Copiar" : "Copy"}
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Links & Remote Status */}
-            <div className="flex flex-wrap gap-6 justify-center lg:justify-start items-center">
-              <div className="flex gap-4">
+              <div className="ml-1 flex gap-2">
                 <a
                   href="https://linkedin.com/in/rafael-arraez"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={language === "es" ? "Visitar perfil de LinkedIn" : "Visit LinkedIn profile"}
-                  className="group p-3 bg-gray-100 dark:bg-gray-800 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+                  className="glass-subtle flex h-12 w-12 items-center justify-center rounded-full text-zinc-600 transition-colors hover:text-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
                 >
-                  <Linkedin className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-purple-600 transition-colors" aria-hidden="true" />
+                  <Linkedin className="h-5 w-5" aria-hidden="true" />
                 </a>
                 <a
                   href="https://github.com/rafaarraez"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={language === "es" ? "Visitar perfil de GitHub" : "Visit GitHub profile"}
-                  className="group p-3 bg-gray-100 dark:bg-gray-800 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+                  className="glass-subtle flex h-12 w-12 items-center justify-center rounded-full text-zinc-600 transition-colors hover:text-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
                 >
-                  <Github className="w-5 h-5 text-gray-600 dark:text-gray-400 group-hover:text-purple-600 transition-colors" aria-hidden="true" />
+                  <Github className="h-5 w-5" aria-hidden="true" />
                 </a>
               </div>
+            </div>
+          </Reveal>
 
-              <div className="flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                  {language === "es" ? "Disponible para trabajo remoto" : "Available for remote work"}
-                </span>
+          {/* Foto */}
+          <Reveal delay={0.15} className="order-1 lg:order-2 lg:col-span-5">
+            <div className="relative mx-auto w-56 md:w-72 lg:w-full lg:max-w-sm">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-zinc-200 dark:border-zinc-800">
+                <Image
+                  src={profilePhoto}
+                  alt="Rafael Arraez"
+                  fill
+                  sizes="(max-width: 768px) 224px, (max-width: 1024px) 288px, 384px"
+                  className="object-cover"
+                  placeholder="blur"
+                  priority
+                />
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
-
-      <button
-        onClick={scrollToNextSection}
-        className="absolute bottom-14 transform hidden xl:block -translate-x-1/2 animate-bounce focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-full p-2"
-        aria-label={language === "es" ? "Desplazar a la siguiente sección" : "Scroll to next section"}
-      >
-        <ArrowDown className="h-8 w-8 text-purple-600" aria-hidden="true" />
-      </button>
     </section>
   )
 }

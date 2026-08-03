@@ -1,15 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
 import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { FloatingParticles } from "@/components/effects/floating-particles"
-import { CustomCursor } from "@/components/effects/custom-cursor"
+import { EasterEggs } from "@/components/effects/easter-eggs"
 
-const inter = Inter({ subsets: ["latin"] })
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
   title: "Rafael Arraez - Senior Backend Engineer | NestJS, TypeScript, AWS Specialist",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Rafael Arraez Portfolio",
     images: [
       {
-        url: "/placeholder-user.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Rafael Arraez - Senior Backend Engineer"
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rafael Arraez - Senior Backend Engineer | NestJS, TypeScript, AWS Specialist",
     description: "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in NestJS, TypeScript, AWS, PostgreSQL.",
-    images: ["/placeholder-user.jpg"],
+    images: ["/og-image.png"],
     creator: "@rafaelarraez"
   },
   robots: {
@@ -81,11 +81,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1
     }
-  },
-  icons: {
-    icon: "/placeholder-logo.svg",
-    shortcut: "/placeholder-logo.svg",
-    apple: "/placeholder-logo.png"
   }
 }
 
@@ -156,11 +151,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <LanguageProvider>
-            <FloatingParticles />
-            <CustomCursor />
+            <EasterEggs />
             {children}
           </LanguageProvider>
         </ThemeProvider>

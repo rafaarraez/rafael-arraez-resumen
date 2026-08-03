@@ -10,10 +10,10 @@ export function Badge({ className, variant = "default", children, ...props }: Ba
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors",
+        "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors",
         {
-          "bg-purple-600 text-white": variant === "default",
-          "border border-purple-600 text-purple-600": variant === "outline",
+          "bg-emerald-600/10 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-400": variant === "default",
+          "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400": variant === "outline",
         },
         className,
       )}

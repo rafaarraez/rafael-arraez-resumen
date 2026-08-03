@@ -1,288 +1,114 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { Briefcase, GraduationCap, MapPin, Calendar, TrendingUp } from "lucide-react"
+import { useEffect, useRef } from "react"
+import { Briefcase, GraduationCap } from "lucide-react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui-custom/card"
-import { useMobile } from "@/hooks/use-mobile"
 import { SectionId } from "@/lib/sections"
 import { experienceData } from "@/data/experience"
 import { contentTranslations } from "@/data/translations"
+import { Reveal } from "@/components/effects/reveal"
+import { useReducedMotion } from "@/hooks/use-reduced-motion"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function Experience() {
   const { t, language } = useLanguage()
-  const isMobile = useMobile()
-  const sectionRef = useRef<HTMLElement>(null)
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+  const timelineRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
-  const [lineProgress, setLineProgress] = useState(0)
+  const reduce = useReducedMotion()
 
+  // La línea de progreso acompaña la lectura de la trayectoria
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in")
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
+    if (reduce || !timelineRef.current || !lineRef.current) return
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lineRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          transformOrigin: "top center",
+          ease: "none",
+          scrollTrigger: {
+            trigger: timelineRef.current,
+            start: "top 75%",
+            end: "bottom 60%",
+            scrub: 0.5,
+          },
+        },
+      )
+    }, timelineRef)
 
-    itemRefs.current.forEach((item) => {
-      if (item) observer.observe(item)
-    })
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-      itemRefs.current.forEach((item) => {
-        if (item) observer.unobserve(item)
-      })
-    }
-  }, [])
-
-  // Experience animation effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return
-
-      const sectionRect = sectionRef.current.getBoundingClientRect()
-      const sectionTop = sectionRect.top
-      const sectionHeight = sectionRect.height
-      const windowHeight = window.innerHeight
-
-      const startOffset = windowHeight * 0.8
-      const endOffset = windowHeight * 0.2
-
-      let progress = 0
-
-      if (sectionTop <= startOffset && sectionTop >= -sectionHeight + endOffset) {
-        const visibleHeight = Math.min(startOffset - sectionTop, sectionHeight - endOffset)
-        const totalScrollableHeight = sectionHeight - endOffset
-        progress = Math.max(0, Math.min(1, visibleHeight / totalScrollableHeight))
-      } else if (sectionTop < -sectionHeight + endOffset) {
-        progress = 1
-      }
-
-      setLineProgress(progress)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const renderMobileExperience = () => {
-    return (
-      <div className="space-y-8 relative">
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700" />
-        <div
-          ref={lineRef}
-          className="absolute left-4 top-0 w-0.5 bg-gradient-to-b from-purple-600/80 via-purple-600/50 to-purple-600/20 transition-all duration-300 ease-out"
-          style={{ height: `${lineProgress * 100}%` }}
-        />
-
-        {experienceData.map((item, index) => {
-          const content = contentTranslations[language].experience[item.id as keyof typeof contentTranslations.es.experience]
-
-          return (
-            <div
-              key={item.id}
-              ref={(el) => { itemRefs.current[index] = el }}
-              className="opacity-0 relative pl-12"
-              style={{ animationDelay: `${0.2 + index * 0.1}s`, animationFillMode: "forwards" }}
-            >
-              <div
-                className={`absolute left-0 top-3 w-8 h-8 rounded-full bg-white dark:bg-gray-950 border-2 flex items-center justify-center z-10 transition-all duration-500 ${lineProgress > (index + 0.5) / experienceData.length
-                  ? "border-purple-600 scale-110"
-                  : "border-gray-300 dark:border-gray-600"
-                  }`}
-              >
-                {item.type === "work" ? (
-                  <Briefcase
-                    className={`h-4 w-4 transition-colors duration-500 ${lineProgress > (index + 0.5) / experienceData.length ? "text-purple-600" : "text-gray-400"
-                      }`}
-                  />
-                ) : (
-                  <GraduationCap
-                    className={`h-4 w-4 transition-colors duration-500 ${lineProgress > (index + 0.5) / experienceData.length ? "text-purple-600" : "text-gray-400"
-                      }`}
-                  />
-                )}
-              </div>
-
-              <Card className="overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500 z-10" />
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg">{content.title}</CardTitle>
-                  <CardDescription className="space-y-1">
-                    <div className="flex items-center gap-2 text-sm font-medium text-purple-600">
-                      <Briefcase className="h-3 w-3" />
-                      {item.company}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <Calendar className="h-3 w-3" />
-                      {item.period[language]}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <MapPin className="h-3 w-3" />
-                      {item.location}
-                    </div>
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{content.description}</p>
-
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t("experience.achievements")}</h4>
-                    <ul className="space-y-1">
-                      {content.achievements.map((achievement, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400 group/achievement">
-                          <TrendingUp className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0 transition-all duration-300 group-hover/achievement:scale-125 group-hover/achievement:text-green-600" />
-                          <span className="group-hover/achievement:text-gray-900 dark:group-hover/achievement:text-gray-200 transition-colors">{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t("experience.technologies")}</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {item.technologies.map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-xs px-2 py-0.5">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
-
-  const renderDesktopExperience = () => {
-    return (
-      <div className="relative max-w-6xl mx-auto">
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-200 dark:bg-gray-700" />
-        <div
-          ref={lineRef}
-          className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-purple-600/80 via-purple-600/50 to-purple-600/20 transition-all duration-300 ease-out"
-          style={{ height: `${lineProgress * 100}%` }}
-        />
-
-        {experienceData.map((item, index) => {
-          const content = contentTranslations[language].experience[item.id as keyof typeof contentTranslations.es.experience]
-
-          return (
-            <div
-              key={item.id}
-              ref={(el) => { itemRefs.current[index] = el }}
-              className={`relative flex items-center mb-12 opacity-0`}
-              style={{ animationDelay: `${0.2 + index * 0.1}s`, animationFillMode: "forwards" }}
-            >
-              <div className={`w-1/2 ${index % 2 === 0 ? "pr-8 text-right" : "pl-8 ml-auto"}`}>
-                <Card className="overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500 z-10" />
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-xl text-left">{content.title}</CardTitle>
-                    <CardDescription className="space-y-2">
-                      <div className="flex text-left items-center gap-2 text-sm font-medium text-purple-600">
-                        <Briefcase className="h-4 w-4" />
-                        {item.company}
-                      </div>
-                      <div className="flex text-left items-center gap-2 text-sm text-gray-500">
-                        <Calendar className="h-4 w-4" />
-                        {item.period[language]}
-                      </div>
-                      <div className="flex text-left items-center gap-2 text-sm text-gray-500">
-                        <MapPin className="h-4 w-4" />
-                        {item.location}
-                      </div>
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-gray-600 text-left dark:text-gray-400 leading-relaxed">{content.description}</p>
-
-                    <div>
-                      <h4 className="text-sm text-left font-semibold mb-3 text-gray-700 dark:text-gray-300">{t("experience.achievements")}</h4>
-                      <ul className="space-y-2">
-                        {content.achievements.map((achievement, idx) => (
-                          <li key={idx} className="flex text-left items-start gap-2 text-sm text-gray-600 dark:text-gray-400 group/achievement">
-                            <TrendingUp className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0 transition-all duration-300 group-hover/achievement:scale-125 group-hover/achievement:text-green-600" />
-                            <span className="group-hover/achievement:text-gray-900 dark:group-hover/achievement:text-gray-200 transition-colors">{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm text-left font-semibold mb-3 text-gray-700 dark:text-gray-300">{t("experience.technologies")}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {item.technologies.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div
-                className={`absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white dark:bg-gray-950 border-2 flex items-center justify-center z-10 transition-all duration-500 ${lineProgress > (index + 0.5) / experienceData.length
-                  ? "border-purple-600 scale-110"
-                  : "border-gray-300 dark:border-gray-600"
-                  }`}
-              >
-                {item.type === "work" ? (
-                  <Briefcase
-                    className={`h-5 w-5 transition-colors duration-500 ${lineProgress > (index + 0.5) / experienceData.length ? "text-purple-600" : "text-gray-400"
-                      }`}
-                  />
-                ) : (
-                  <GraduationCap
-                    className={`h-5 w-5 transition-colors duration-500 ${lineProgress > (index + 0.5) / experienceData.length ? "text-purple-600" : "text-gray-400"
-                      }`}
-                  />
-                )}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
+    return () => ctx.revert()
+  }, [reduce])
 
   return (
-    <section
-      id={SectionId.experience}
-      ref={sectionRef}
-      className="py-20 opacity-0"
-      style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-    >
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-2">
-            {t("experience.badge")}
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("experience.title")}</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("experience.description")}</p>
-        </div>
+    <section id={SectionId.experience} className="border-t border-zinc-200 py-24 dark:border-zinc-800">
+      <div className="container mx-auto max-w-4xl px-4">
+        <Reveal className="max-w-2xl">
+          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{t("experience.title")}</h2>
+          <p className="mt-4 text-zinc-600 dark:text-zinc-400">{t("experience.description")}</p>
+        </Reveal>
 
-        {isMobile ? renderMobileExperience() : renderDesktopExperience()}
+        <div ref={timelineRef} className="relative mt-14">
+          {/* Riel + progreso */}
+          <div className="absolute bottom-0 left-[15px] top-0 w-px bg-zinc-200 dark:bg-zinc-800" aria-hidden="true" />
+          <div
+            ref={lineRef}
+            className="absolute bottom-0 left-[15px] top-0 w-px bg-emerald-600 dark:bg-emerald-400"
+            style={reduce ? undefined : { transform: "scaleY(0)" }}
+            aria-hidden="true"
+          />
+
+          <div className="space-y-12">
+            {experienceData.map((item) => {
+              const content =
+                contentTranslations[language].experience[item.id as keyof typeof contentTranslations.es.experience]
+
+              return (
+                <Reveal key={item.id} className="relative pl-14">
+                  <div className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300 bg-background dark:border-zinc-700">
+                    {item.type === "work" ? (
+                      <Briefcase className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400" aria-hidden="true" />
+                    ) : (
+                      <GraduationCap className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400" aria-hidden="true" />
+                    )}
+                  </div>
+
+                  <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
+                    {item.period[language]} · {item.location}
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight">{content.title}</h3>
+                  <p className="mt-0.5 text-sm font-medium text-emerald-700 dark:text-emerald-400">{item.company}</p>
+
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {content.description}
+                  </p>
+
+                  <ul className="mt-4 space-y-2">
+                    {content.achievements.map((achievement) => (
+                      <li key={achievement} className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                        <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-600 dark:bg-emerald-400" aria-hidden="true" />
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {item.technologies.map((tech) => (
+                      <Badge key={tech} variant="outline">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -24,7 +24,7 @@ const translations = {
     // Hero
     "hero.name": "Rafael Arraez",
     "hero.title": "Software Backend Engineer",
-    "hero.subtitle": "TypeScript, NestJS, AWS, PostgreSQL | Remote-first",
+    "hero.subtitle": "TypeScript · NestJS · AWS · PostgreSQL",
     "hero.description":
       "Ingeniero de Software con +7 años de experiencia desarrollando y escalando plataformas backend. Especialista en integraciones complejas y arquitecturas serverless de alto rendimiento, gestionando sistemas de +1M transacciones mensuales.",
     "hero.cta.projects": "Ver Proyectos",
@@ -130,7 +130,7 @@ const translations = {
     // Hero
     "hero.name": "Rafael Arraez",
     "hero.title": "Software Backend Engineer",
-    "hero.subtitle": "TypeScript, NestJS, AWS, PostgreSQL | Remote-first",
+    "hero.subtitle": "TypeScript · NestJS · AWS · PostgreSQL",
     "hero.description":
       "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
     "hero.cta.projects": "View Projects",

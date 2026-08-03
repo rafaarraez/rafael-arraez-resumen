@@ -1,34 +1,38 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Menu } from "lucide-react"
-import { Home } from "lucide-react"
-import { Clock } from "lucide-react"
-import { Code2 } from "lucide-react"
-import { Briefcase } from "lucide-react"
-import { Mail } from "lucide-react"
-import { Button } from "@/components/ui-custom/button"
+import { Home, FolderGit2, Briefcase, Code2, Mail } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
 import { SectionId } from "@/lib/sections"
+import { cn } from "@/lib/utils"
 
 export function Header() {
   const { t, mounted, language } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>("")
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
-
+  // Resalta en la nav la sección que cruza la banda central del viewport
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
+    const sections = Object.values(SectionId)
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id)
+        })
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
   }, [])
 
   // Bloquear el scroll cuando el menú está abierto
@@ -48,14 +52,12 @@ export function Header() {
     if (!isMenuOpen) return
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Cerrar con Escape
       if (e.key === "Escape") {
         setIsMenuOpen(false)
         menuButtonRef.current?.focus()
         return
       }
 
-      // Focus trap con Tab
       if (e.key === "Tab") {
         const focusableElements = mobileMenuRef.current?.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -67,13 +69,11 @@ export function Header() {
         const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
 
         if (e.shiftKey) {
-          // Shift + Tab: ir hacia atrás
           if (document.activeElement === firstElement) {
             e.preventDefault()
             lastElement?.focus()
           }
         } else {
-          // Tab: ir hacia adelante
           if (document.activeElement === lastElement) {
             e.preventDefault()
             firstElement?.focus()
@@ -89,23 +89,22 @@ export function Header() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-  const scrollToNextSection = (section: string) => {
-    const nextSection = document.getElementById(section)
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" })
+
+  const scrollToSection = (section: string) => {
+    const target = document.getElementById(section)
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" })
     }
   }
 
-  // Mapeo de iconos para los elementos de navegación
   const navIcons = {
     home: <Home className="w-5 h-5" />,
-    projects: <Clock className="w-5 h-5" />,
-    experience: <Clock className="w-5 h-5" />,
+    projects: <FolderGit2 className="w-5 h-5" />,
+    experience: <Briefcase className="w-5 h-5" />,
     skills: <Code2 className="w-5 h-5" />,
     contact: <Mail className="w-5 h-5" />,
   }
 
-  // Elementos de navegación
   const navItems = [
     { key: "home", href: SectionId.home, label: t("nav.home"), icon: navIcons.home },
     { key: "projects", href: SectionId.projects, label: t("nav.projects"), icon: navIcons.projects },
@@ -114,52 +113,39 @@ export function Header() {
     { key: "contact", href: SectionId.contact, label: t("nav.contact"), icon: navIcons.contact },
   ]
 
+  const brand = (
+    <button
+      onClick={() => scrollToSection(SectionId.home)}
+      className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+      aria-label={language === "es" ? "Ir al inicio" : "Go to home"}
+    >
+      <span className="relative h-9 w-9 overflow-hidden rounded-full">
+        <Image src="/rafael-arraez.png" alt="" fill className="object-cover" priority />
+      </span>
+      <span className="font-semibold tracking-tight">Rafael Arraez</span>
+    </button>
+  )
+
+  // Renderizado inicial que coincide con el servidor
   if (!mounted) {
-    // Renderizado inicial que coincide con el servidor
     return (
-      <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-          ? "bg-white/90 dark:bg-gray-950/90 backdrop-blur-md py-2 border-b border-gray-200 dark:border-gray-800"
-          : "bg-transparent py-4"
-          }`}
-      >
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <button
-            onClick={() => { scrollToNextSection(SectionId.home); }}
-            className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg"
-            aria-label={language === "es" ? "Ir al inicio" : "Go to home"}
-          >
-            <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-                <Image
-                  src="/rafael-arraez.png"
-                  alt="Profile Photo"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
-            <span className="font-bold text-xl">Rafael Arraez</span>
-          </button>
-
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <LanguageToggle />
-
-            {/* Botón de menú móvil - siempre visible en el renderizado inicial */}
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-6 w-6" />
-            </Button>
-
-            {/* Navegación desktop - oculta en móvil usando CSS */}
-            <nav className="hidden md:flex items-center gap-6 ml-6">
-              {navItems.map((item) => (
-                <button onClick={() => { scrollToNextSection(item.href); }} key={item.key} className="hover:text-purple-600 transition-colors">
+      <header className="fixed top-3 inset-x-0 z-50 px-3">
+        <div className="glass mx-auto flex h-14 max-w-4xl items-center justify-between rounded-full pl-1.5 pr-2">
+          {brand}
+          <div className="flex items-center gap-1">
+            <nav className="hidden md:flex items-center mr-1">
+              {navItems.slice(1).map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => scrollToSection(item.href)}
+                  className="rounded-full px-3 py-1.5 text-sm text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
+                >
                   {item.label}
                 </button>
               ))}
             </nav>
+            <ThemeToggle />
+            <LanguageToggle />
           </div>
         </div>
       </header>
@@ -167,33 +153,33 @@ export function Header() {
   }
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? "bg-white/90 dark:bg-gray-950/90 backdrop-blur-md py-2 border-b border-gray-200 dark:border-gray-800"
-        : "bg-transparent py-4"
-        }`}
-    >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <button
-          onClick={() => { scrollToNextSection(SectionId.home); }}
-          className="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded-lg"
-          aria-label={language === "es" ? "Ir al inicio" : "Go to home"}
-        >
-          <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-purple-600">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-              <Image
-                src="/rafael-arraez.png"
-                alt="Profile Photo"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-          <span className="font-bold text-xl">Rafael Arraez</span>
-        </button>
+    <header className="fixed top-3 inset-x-0 z-50 px-3">
+      <div className="glass mx-auto flex h-14 max-w-4xl items-center justify-between rounded-full pl-1.5 pr-2">
+        {brand}
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          {/* Navegación desktop */}
+          <nav
+            className="hidden md:flex items-center mr-1"
+            aria-label={language === "es" ? "Navegación principal" : "Main navigation"}
+          >
+            {navItems.slice(1).map((item) => (
+              <button
+                key={item.key}
+                onClick={() => scrollToSection(item.href)}
+                aria-current={activeSection === item.href ? "true" : undefined}
+                className={cn(
+                  "rounded-full px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600",
+                  activeSection === item.href
+                    ? "bg-zinc-950/[0.06] text-zinc-950 dark:bg-white/10 dark:text-white"
+                    : "text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white",
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
           <ThemeToggle />
           <LanguageToggle />
 
@@ -201,7 +187,7 @@ export function Header() {
           <button
             ref={menuButtonRef}
             onClick={toggleMenu}
-            className="md:hidden z-[60] relative overflow-hidden group w-10 h-10 inline-flex items-center justify-center rounded-md bg-transparent text-foreground hover:bg-purple-100 dark:hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 transition-colors"
+            className="md:hidden z-[60] relative w-10 h-10 inline-flex items-center justify-center rounded-full text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
             aria-label={isMenuOpen
               ? (language === "es" ? "Cerrar menú" : "Close menu")
               : (language === "es" ? "Abrir menú" : "Open menu")
@@ -209,139 +195,63 @@ export function Header() {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
-            <div
-              className={`absolute inset-0 bg-purple-600/10 dark:bg-purple-600/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 ${isMenuOpen ? "scale-100" : ""
+            <span className="relative w-5 h-5 flex items-center justify-center">
+              <span
+                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${
+                  isMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5"
                 }`}
-            />
-            <div className="relative w-6 h-6 flex items-center justify-center">
-              <span
-                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen
-                  ? "rotate-45 translate-y-0"
-                  : "-translate-y-1.5"
-                  }`}
               />
               <span
-                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen
-                  ? "opacity-0 scale-0"
-                  : "opacity-100 scale-100"
-                  }`}
+                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${
+                  isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+                }`}
               />
               <span
-                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen
-                  ? "-rotate-45 translate-y-0"
-                  : "translate-y-1.5"
-                  }`}
+                className={`absolute w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out ${
+                  isMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5"
+                }`}
               />
-            </div>
+            </span>
           </button>
 
-          {/* Navegación desktop */}
-          <nav className="hidden md:flex items-center gap-6" aria-label={language === "es" ? "Navegación principal" : "Main navigation"}>
-            {navItems.map((item) => (
-              <button
-                onClick={() => { scrollToNextSection(item.href); }}
-                key={item.key}
-                className="hover:text-purple-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 rounded px-2 py-1"
-                aria-label={`${item.label}`}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 group-hover:w-full transition-all duration-300" />
-              </button>
-            ))}
-          </nav>
-
-          {/* Menú móvil overlay con animaciones */}
+          {/* Menú móvil overlay */}
           <div
             ref={mobileMenuRef}
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
             aria-label={language === "es" ? "Menú de navegación principal" : "Main navigation menu"}
-            className={`fixed inset-0 md:hidden z-50 transition-all duration-500 h-screen ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none delay-300"
-              }`}
+            className={`fixed inset-0 md:hidden z-50 h-[100dvh] transition-all duration-300 ${
+              isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
           >
-            {/* Fondo con blur y gradiente */}
             <div
-              className={`absolute inset-0 bg-white/80 dark:bg-gray-950/90 backdrop-blur-lg transition-opacity duration-500 ${isMenuOpen ? "opacity-100" : "opacity-0"
-                }`}
+              className={`absolute inset-0 bg-white/85 backdrop-blur-xl transition-opacity duration-300 dark:bg-zinc-950/90 ${
+                isMenuOpen ? "opacity-100" : "opacity-0"
+              }`}
             />
 
-            {/* Formas decorativas */}
-            <div
-              className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-purple-500/20 to-blue-500/20 rounded-full blur-3xl transition-all duration-700 ${isMenuOpen
-                ? "opacity-70 translate-x-1/3 -translate-y-1/3"
-                : "opacity-0 translate-x-full -translate-y-full"
-                }`}
-            />
-            <div
-              className={`absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-pink-500/20 to-purple-500/20 rounded-full blur-3xl transition-all duration-700 ${isMenuOpen
-                ? "opacity-70 -translate-x-1/3 translate-y-1/3"
-                : "opacity-0 -translate-x-full translate-y-full"
-                }`}
-            />
-
-            {/* Contenido del menú */}
             <div className="relative h-full flex flex-col justify-center items-center p-8">
-              {/* Logo pequeño en la parte superior */}
-              <div
-                className={`absolute top-8 left-1/2 transform -translate-x-1/2 transition-all duration-500 ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
-                  }`}
+              <nav
+                className="flex flex-col items-stretch gap-2 w-full max-w-xs"
+                aria-label={language === "es" ? "Navegación principal móvil" : "Mobile main navigation"}
               >
-                <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-purple-600">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-                    <Image
-                      src="/rafael-arraez.png"
-                      alt="Profile Photo"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Navegación MOVIL */}
-              <nav className="flex flex-col items-center gap-6 w-full max-w-xs" aria-label={language === "es" ? "Navegación principal móvil" : "Mobile main navigation"}>
                 {navItems.map((item, index) => (
                   <button
-                    onClick={() => { scrollToNextSection(item.href); toggleMenu(); }}
+                    onClick={() => { scrollToSection(item.href); toggleMenu(); }}
                     key={item.key}
-                    className={`flex items-center gap-3 text-xl font-medium w-full px-6 py-3 rounded-xl relative overflow-hidden group transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                      }`}
+                    className={`flex items-center gap-4 text-lg font-medium w-full px-5 py-3.5 rounded-2xl transition-all duration-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 ${
+                      isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                    }`}
                     style={{
-                      transitionDelay: isMenuOpen ? `${index * 100}ms` : "0ms",
+                      transitionDelay: isMenuOpen ? `${index * 60}ms` : "0ms",
                     }}
-                    aria-label={`${item.label}`}
                   >
-                    {/* Fondo hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 rounded-xl scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-
-                    {/* Icono con círculo */}
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-purple-600 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
-                      <div className="relative z-10 w-10 h-10 flex items-center justify-center rounded-full bg-purple-100 dark:bg-gray-800 text-purple-600 dark:text-purple-400 group-hover:text-white transition-colors duration-300">
-                        {item.icon}
-                      </div>
-                    </div>
-
-                    {/* Texto */}
-                    <span className="relative z-10 transition-colors duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">
-                      {item.label}
-                    </span>
-
-                    {/* Indicador de flecha */}
-                    <span className="ml-auto opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      →
-                    </span>
+                    <span className="text-emerald-700 dark:text-emerald-400">{item.icon}</span>
+                    {item.label}
                   </button>
                 ))}
               </nav>
-
-              {/* Decoración inferior */}
-              <div
-                className={`absolute bottom-8 w-32 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-700 ${isMenuOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
-                  }`}
-              />
             </div>
           </div>
         </div>

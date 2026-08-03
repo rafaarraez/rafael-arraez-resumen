@@ -22,7 +22,7 @@ export function LanguageToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+          className="rounded-full"
           aria-haspopup="menu"
           aria-expanded={isOpen}
           aria-controls={menuId}

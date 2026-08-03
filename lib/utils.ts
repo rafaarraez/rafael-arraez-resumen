@@ -11,6 +11,6 @@ export const celebrate = () => {
     particleCount: 150,
     spread: 80,
     origin: { y: 0.6 },
-    colors: ['#00bfff', '#ff69b4', '#f9c80e', '#a259ff']
+    colors: ['#10b981', '#34d399', '#a7f3d0', '#fafafa']
   });
 };

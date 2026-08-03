@@ -1,12 +1,10 @@
 'use client'
 
 import type React from "react"
-import { useState, useRef, useEffect } from "react"
-import { Send } from "lucide-react"
+import { useState } from "react"
+import { Send, Mail, Copy, Check, Github, Linkedin } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-import { Badge } from "@/components/ui-custom/badge"
 import { Button } from "@/components/ui-custom/button"
-import { Card, CardContent } from "@/components/ui-custom/card"
 import { Input } from "@/components/ui-custom/input"
 import { Label } from "@/components/ui-custom/label"
 import { Textarea } from "@/components/ui-custom/textarea"
@@ -14,6 +12,9 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import { celebrate } from "@/lib/utils"
 import { SectionId } from "@/lib/sections"
+import { Reveal } from "@/components/effects/reveal"
+
+const EMAIL = "rafa.arraez.gue@gmail.com"
 
 interface ContactFormState {
   name: string;
@@ -30,7 +31,7 @@ interface ContactFormState {
 }
 
 export function ContactForm() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const initialState = {
     name: '',
     email: '',
@@ -40,46 +41,18 @@ export function ContactForm() {
     submitted: false,
   }
   const [formData, setFormData] = useState<ContactFormState>(initialState);
-
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
-  const infoRef = useRef<HTMLDivElement>(null)
+  const [copied, setCopied] = useState(false)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in")
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error("Error al copiar:", err)
     }
-    if (formRef.current) {
-      observer.observe(formRef.current)
-    }
-    if (infoRef.current) {
-      observer.observe(infoRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-      if (formRef.current) {
-        observer.unobserve(formRef.current)
-      }
-      if (infoRef.current) {
-        observer.unobserve(infoRef.current)
-      }
-    }
-  }, [])
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -90,7 +63,6 @@ export function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    e.preventDefault();
     const newErrors: ContactFormState['errors'] = {};
 
     if (!formData.name) {
@@ -113,6 +85,7 @@ export function ContactForm() {
 
     if (Object.keys(newErrors).length > 0) {
       setFormData({ ...formData, errors: newErrors, submitted: false });
+      setIsSubmitting(false)
     } else {
       try {
         const response = await axios.post('/api/send', {
@@ -137,29 +110,83 @@ export function ContactForm() {
   }
 
   return (
-    <section
-      id={SectionId.contact}
-      ref={sectionRef}
-      className="py-20 bg-gray-100 dark:bg-gray-900 opacity-0"
-      style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-    >
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-2">
-            {t("contact.badge")}
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("contact.title")}</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-3">{t("contact.description")}</p>
-          <p className="text-purple-600 dark:text-purple-400 font-medium max-w-2xl mx-auto">
-            {t("contact.subtitle")}
-          </p>
-        </div>
+    <section id={SectionId.contact} className="relative overflow-hidden border-t border-zinc-200 py-24 dark:border-zinc-800">
+      {/* Eco del glow del hero para cerrar la página */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-48 left-1/2 h-[30rem] w-[50rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px] dark:bg-emerald-500/[0.06]"
+      />
 
-        <div className="max-w-5xl mx-auto">
-          <div ref={formRef} className="opacity-0" style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}>
-            <Card>
-              <CardContent className="pt-6">
-                <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          {/* Texto + contacto directo */}
+          <Reveal className="lg:col-span-5">
+            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{t("contact.title")}</h2>
+            <p className="mt-4 text-zinc-600 dark:text-zinc-400">{t("contact.description")}</p>
+            <p className="mt-3 text-zinc-600 dark:text-zinc-400">{t("contact.subtitle")}</p>
+
+            {/* Email directo */}
+            <div className="glass mt-8 flex items-center gap-3 rounded-2xl p-3">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-600/10 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-400">
+                <Mail className="h-4 w-4" aria-hidden="true" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-sm font-medium">{EMAIL}</div>
+              </div>
+              <Button
+                onClick={copyEmail}
+                size="sm"
+                variant={copied ? "default" : "outline"}
+                aria-label={copied
+                  ? (language === "es" ? "Email copiado al portapapeles" : "Email copied to clipboard")
+                  : (language === "es" ? "Copiar email al portapapeles" : "Copy email to clipboard")
+                }
+              >
+                {copied ? (
+                  <>
+                    <Check className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                    {language === "es" ? "Copiado" : "Copied"}
+                  </>
+                ) : (
+                  <>
+                    <Copy className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                    {language === "es" ? "Copiar" : "Copy"}
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* Redes */}
+            <div className="mt-8">
+              <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{t("contact.info.follow")}</p>
+              <div className="mt-3 flex gap-2">
+                <a
+                  href="https://linkedin.com/in/rafael-arraez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="glass-subtle flex h-11 w-11 items-center justify-center rounded-full text-zinc-600 transition-colors hover:text-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
+                >
+                  <Linkedin className="h-5 w-5" aria-hidden="true" />
+                </a>
+                <a
+                  href="https://github.com/rafaarraez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="glass-subtle flex h-11 w-11 items-center justify-center rounded-full text-zinc-600 transition-colors hover:text-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
+                >
+                  <Github className="h-5 w-5" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Formulario */}
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <div className="glass rounded-3xl p-6 md:p-8">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="name">{t("contact.form.name")}</Label>
                     <Input
@@ -167,9 +194,11 @@ export function ContactForm() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder={t("contact.form.name")}
                       required
                     />
+                    {formData.errors.name && (
+                      <p className="text-sm text-red-600 dark:text-red-400">{formData.errors.name}</p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">{t("contact.form.email")}</Label>
@@ -179,104 +208,56 @@ export function ContactForm() {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder={t("contact.form.email")}
                       required
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">{t("contact.form.subject")}</Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder={t("contact.form.subject")}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">{t("contact.form.message")}</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder={t("contact.form.message")}
-                      required
-                      className="min-h-[120px]"
-                    />
-                  </div>
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
-                        {t("contact.form.sending")}
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        <Send className="h-4 w-4" />
-                        {t("contact.form.submit")}
-                      </span>
+                    {formData.errors.email && (
+                      <p className="text-sm text-red-600 dark:text-red-400">{formData.errors.email}</p>
                     )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div ref={infoRef} className="opacity-0 text-center" style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}>
-            <Card className="h-full">
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4">{t("contact.info.follow")}</h3>
-                <div className="flex gap-4 justify-center">
-                  <a
-                    href="https://linkedin.com/in/rafael-arraez"
-                    target="_blank"
-                    className="bg-gray-200 dark:bg-gray-800 p-3 rounded-full hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors"
-                    aria-label="LinkedIn"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-purple-600"
-                    >
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                      <rect x="2" y="9" width="4" height="12"></rect>
-                      <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                  </a>
-                  <a
-                    href="https://github.com/rafaarraez"
-                    target="_blank"
-                    className="bg-gray-200 dark:bg-gray-800 p-3 rounded-full hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors"
-                    aria-label="GitHub"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-purple-600"
-                    >
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                  </a>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">{t("contact.form.subject")}</Label>
+                  <Input
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                  {formData.errors.subject && (
+                    <p className="text-sm text-red-600 dark:text-red-400">{formData.errors.subject}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">{t("contact.form.message")}</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="min-h-[140px]"
+                  />
+                  {formData.errors.message && (
+                    <p className="text-sm text-red-600 dark:text-red-400">{formData.errors.message}</p>
+                  )}
+                </div>
+                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                      {t("contact.form.sending")}
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <Send className="h-4 w-4" aria-hidden="true" />
+                      {t("contact.form.submit")}
+                    </span>
+                  )}
+                </Button>
+              </form>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
