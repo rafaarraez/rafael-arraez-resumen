@@ -12,11 +12,31 @@ export interface ExperienceItem {
 
 export const experienceData: ExperienceItem[] = [
   {
+    id: 8,
+    company: "WeSpeak",
+    period: {
+      es: "Abril 2026 - Actualidad",
+      en: "April 2026 - Present",
+    },
+    location: "Remoto",
+    technologies: [
+      "Node.js",
+      "Express.js",
+      "Next.js",
+      "PostgreSQL",
+      "AWS",
+      "Cloud Run",
+      "Upstash",
+      "Inngest",
+    ],
+    type: "work",
+  },
+  {
     id: 1,
     company: "SilverConnect",
     period: {
-      es: "Octubre 2025 - Actualidad",
-      en: "October 2025 - Present",
+      es: "Octubre 2025 - Abril 2026",
+      en: "October 2025 - April 2026",
     },
     location: "USA, Remoto",
     technologies: [

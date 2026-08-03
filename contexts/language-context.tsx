@@ -43,7 +43,7 @@ const translations = {
     // Experience
     "experience.badge": "Experiencia Profesional",
     "experience.title": "Mi Trayectoria",
-    "experience.description": "6+ años construyendo sistemas backend escalables en empresas de USA, Chile y Venezuela.",
+    "experience.description": "7+ años construyendo sistemas backend escalables en empresas de USA, Chile y Venezuela.",
     "experience.achievements": "Logros Clave:",
     "experience.technologies": "Tecnologías:",
 
@@ -150,7 +150,7 @@ const translations = {
     "experience.badge": "Professional Experience",
     "experience.title": "My Journey",
     "experience.description":
-      "6+ years building scalable backend systems in companies across USA, Chile, and Venezuela.",
+      "7+ years building scalable backend systems in companies across USA, Chile, and Venezuela.",
     "experience.achievements": "Key Achievements:",
     "experience.technologies": "Technologies:",
 

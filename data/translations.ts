@@ -2,6 +2,17 @@ export const contentTranslations = {
   es: {
     // Experience content
     experience: {
+      8: {
+        title: "Software Engineer",
+        description:
+          "Desarrollo backend de una plataforma de IA conversacional para hotelería que automatiza reservas por WhatsApp, integrada con PMS, CRM y business intelligence.",
+        achievements: [
+          "Desarrollé integraciones backend entre el asistente de IA y servicios externos del ecosistema hotelero, ampliando las capacidades del producto",
+          "Lideré el refactor de Knowledge v2, mejorando los tiempos de carga y la mantenibilidad del módulo de conocimiento del asistente",
+          "Implementé el envío de ubicaciones con pin de Google Maps dentro de las conversaciones del asistente",
+          "Optimicé consultas y procesos backend en PostgreSQL, reduciendo tiempos de respuesta en flujos críticos de reservas",
+        ],
+      },
       1: {
         title: "Senior Backend Software Engineer",
         description:
@@ -258,6 +269,17 @@ export const contentTranslations = {
   en: {
     // Experience content
     experience: {
+      8: {
+        title: "Software Engineer",
+        description:
+          "Backend development for a conversational AI platform for the hospitality industry that automates bookings via WhatsApp, integrated with PMS, CRM, and business intelligence.",
+        achievements: [
+          "Built backend integrations between the AI assistant and external services in the hospitality ecosystem, expanding product capabilities",
+          "Led the Knowledge v2 refactor, improving load times and the maintainability of the assistant's knowledge module",
+          "Implemented Google Maps location pins within assistant conversations",
+          "Optimized PostgreSQL queries and backend processes, reducing response times in critical booking flows",
+        ],
+      },
       1: {
         title: "Senior Backend Software Engineer",
         description:
