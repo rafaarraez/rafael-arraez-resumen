@@ -8,7 +8,7 @@ import { SectionId } from "@/lib/sections"
 import { projectsData } from "@/data/projects"
 import { contentTranslations } from "@/data/translations"
 import { Reveal } from "@/components/effects/reveal"
-import { cn } from "@/lib/utils"
+import { cn, setSpotlightPosition } from "@/lib/utils"
 
 const iconMap = {
   Activity: Activity,
@@ -20,14 +20,6 @@ const iconMap = {
 
 export function Projects() {
   const { t, language } = useLanguage()
-
-  // Escribe las coords del cursor como CSS vars; el borde spotlight vive en CSS
-  const handleSpotlight = (e: React.MouseEvent<HTMLElement>) => {
-    const el = e.currentTarget
-    const rect = el.getBoundingClientRect()
-    el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`)
-    el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`)
-  }
 
   return (
     <section id={SectionId.projects} className="border-t border-zinc-200 py-24 dark:border-zinc-800">
@@ -47,7 +39,7 @@ export function Projects() {
             return (
               <article
                 key={project.id}
-                onMouseMove={handleSpotlight}
+                onMouseMove={setSpotlightPosition}
                 className={cn(
                   "spotlight-card group relative flex flex-col rounded-2xl border border-zinc-200 bg-white p-7 transition-transform duration-300 hover:-translate-y-1 dark:border-zinc-800 dark:bg-zinc-900/60",
                   featured && "lg:col-span-2",

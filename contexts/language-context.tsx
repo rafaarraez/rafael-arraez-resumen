@@ -77,6 +77,14 @@ const translations = {
     "services.title": "¿Cómo puedo ayudarte?",
     "services.description": "Arquitectura backend, APIs y microservicios, e integración full-stack para productos escalables.",
 
+    // Side Projects
+    "sideProjects.title": "Proyectos Personales",
+    "sideProjects.description": "Cosas que construí por mi cuenta, de idea a producción, los fines de semana.",
+    "sideProjects.live": "En vivo",
+    "sideProjects.visit": "Visitar",
+    "sideProjects.code": "Código",
+    "sideProjects.credit": "Interfaz con una ayudita de IA. La lógica, los datos y los bugs son 100% míos.",
+
     // Contact
     "contact.badge": "Contacto",
     "contact.title": "¿Hablamos de tu próximo proyecto?",
@@ -183,6 +191,14 @@ const translations = {
     "services.badge": "Services",
     "services.title": "How can I help?",
     "services.description": "Backend architecture, APIs and microservices, and full-stack integration for scalable products.",
+
+    // Side Projects
+    "sideProjects.title": "Side Projects",
+    "sideProjects.description": "Things I built on my own, from idea to production, on weekends.",
+    "sideProjects.live": "Live",
+    "sideProjects.visit": "Visit",
+    "sideProjects.code": "Code",
+    "sideProjects.credit": "UI with a little AI help. The logic, the data, and the bugs are 100% mine.",
 
     // Contact
     "contact.badge": "Contact",

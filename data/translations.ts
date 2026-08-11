@@ -171,6 +171,21 @@ export const contentTranslations = {
         },
       },
     },
+    // Side Projects content
+    sideProjects: {
+      1: {
+        title: "¿A Cómo?",
+        tagline: "Calculadora de ahorro en USDT, al toque",
+        description:
+          "PWA que compara la tasa oficial del BCV contra el precio del USDT en Binance P2P y te dice cuánto te ahorras pagando en cripto. Convierte entre 4 monedas, comparte el resultado por WhatsApp y funciona sin conexión.",
+      },
+      2: {
+        title: "Sismos Venezuela",
+        tagline: "Monitor sísmico en tiempo real",
+        description:
+          "Agrega datos de FUNVISIS, USGS, EMSC y SGC para visualizar la actividad sísmica del país en un mapa interactivo, con filtros, gráficos de magnitud y energía, y exportación a CSV y Excel.",
+      },
+    },
     // About section
     about: {
       title: "Sobre Mí",
@@ -436,6 +451,21 @@ export const contentTranslations = {
           latency: "latency",
           automation: "automation",
         },
+      },
+    },
+    // Side Projects content
+    sideProjects: {
+      1: {
+        title: "¿A Cómo?",
+        tagline: "USDT savings calculator, one tap away",
+        description:
+          "A PWA that compares Venezuela's official BCV rate against the USDT price on Binance P2P and shows how much you save paying in crypto. Converts between 4 currencies, shares the result via WhatsApp, and works offline.",
+      },
+      2: {
+        title: "Sismos Venezuela",
+        tagline: "Real-time seismic activity monitor",
+        description:
+          "Aggregates data from FUNVISIS, USGS, EMSC, and SGC to visualize the country's seismic activity on an interactive map, with filters, magnitude and energy charts, and CSV/Excel export.",
       },
     },
     // About section
