@@ -65,9 +65,9 @@ export function Hero() {
                   variant="outline"
                   onClick={() => {
                     if (language === "es") {
-                      window.open("/Rafael Arraez Resumen - [ES] Software Engineer.pdf", "_blank")
+                      window.open("/Rafael-Arraez-CV-ES.pdf", "_blank")
                     } else {
-                      window.open("/Rafael Arraez Resumen - [EN] Software Engineer.pdf", "_blank")
+                      window.open("/Rafael-Arraez-CV-EN.pdf", "_blank")
                     }
                   }}
                   aria-label={language === "es" ? "Descargar currículum en PDF" : "Download resume in PDF"}

@@ -5,25 +5,25 @@ export const contentTranslations = {
       8: {
         title: "Software Engineer",
         description:
-          "Desarrollo backend de una plataforma de IA conversacional para hotelería que automatiza reservas por WhatsApp, integrada con PMS, CRM y business intelligence.",
+          "Plataforma de ventas por WhatsApp con IA para más de 700 hoteles en 20 países.",
         achievements: [
-          "Desarrollé integraciones backend entre el asistente de IA y servicios externos del ecosistema hotelero, ampliando las capacidades del producto",
-          "Lideré el refactor de Knowledge v2, mejorando los tiempos de carga y la mantenibilidad del módulo de conocimiento del asistente",
-          "Implementé el envío de ubicaciones con pin de Google Maps dentro de las conversaciones del asistente",
-          "Optimicé consultas y procesos backend en PostgreSQL, reduciendo tiempos de respuesta en flujos críticos de reservas",
+          "Desarrollé más de 10 integraciones con PMS y motores de reserva (Lobby PMS, Silbeck, Niara, Anfy, OYO, GuruHotel, Paraty Tech y Tuzgle) para que el asistente cotice y reserve en tiempo real",
+          "Construí de punta a punta el sistema de atribución de conversiones (pixel): tag JavaScript embebible, tracking de UTM, eventos en TinyBird y dashboard de ROI, con paso automático de leads a la etapa ganada que eliminó la carga manual del equipo comercial",
+          "Desarrollé el canal Chat Web: widget embebible conectado al asistente de IA, con links de pago y precios en la moneda del visitante",
+          "Implementé el flujo de cashback con TravelCash, disparado por webhooks de la pasarela de pago, con tres capas de idempotencia y jobs durables en Inngest",
+          "Mejoré la precisión del agente conversacional en LangGraph: cotizaciones, cálculo de ocupación y derivación a asesores humanos en el mismo turno",
         ],
       },
       1: {
-        title: "Senior Backend Software Engineer",
+        title: "Lead Backend Engineer",
         description:
-          "Diseño y desarrollo de microservicios backend de alta disponibilidad para una aplicación de asistencia en tiempo real.",
+          "Startup AgeTech: app móvil (iOS y Android) de soporte tecnológico remoto para personas mayores.",
         achievements: [
-          "Diseñé y desarrollé microservicios backend en NestJS aplicando Clean Architecture, DDD y patrones de diseño, reduciendo incidentes operativos en ≈30%",
-          "Implementé APIs REST escalables y flujos event-driven asegurando integridad de datos, control de accesos (JWT, roles) y trazabilidad completa de eventos de negocio",
-          "Desarrollé comunicación en tiempo real con WebSockets para sincronización de estados y gestión de sesiones activas en flujos críticos de negocio",
-          "Optimicé consultas y modelos de datos en PostgreSQL usando TypeORM, reduciendo hasta 40% los tiempos de respuesta en endpoints críticos",
-          "Implementé observabilidad y auditoría mediante logs estructurados y métricas, facilitando monitoreo proactivo y detección temprana de incidentes",
-          "Containericé servicios con Docker y gestioné pipelines CI/CD con GitHub Actions, mejorando la confiabilidad y velocidad de despliegue en cloud",
+          "Diseñé y construí desde cero el backend en NestJS con Clean Architecture y DDD, y el panel de administración en Next.js, hasta el lanzamiento del MVP en App Store y Google Play",
+          "Desarrollé la asistencia remota en tiempo real: señalización WebRTC sobre WebSockets (Socket.IO) para compartir pantalla y control remoto, con recuperación de sesión ante desconexiones",
+          "Implementé APIs REST con autenticación JWT y refresh tokens rotativos, 2FA (TOTP), login con Google, control de acceso por roles y notificaciones push con Firebase",
+          "Diseñé el modelo de datos en PostgreSQL con TypeORM, con índices en las consultas frecuentes, y eliminé consultas N+1 en endpoints de métricas (de 2 consultas por usuario a una sola agrupada)",
+          "Desplegué en Google Cloud Run con Docker y CI/CD en GitHub Actions (tests, lint y rollback), con observabilidad en New Relic y Cloud Logging, alertas y dashboards",
         ],
       },
       2: {
@@ -32,9 +32,9 @@ export const contentTranslations = {
           "Desarrollo de integraciones a gran escala y sistemas backend orientados a marketing automation y business analytics.",
         achievements: [
           "Diseñé e implementé integraciones a gran escala entre HubSpot, Salesforce y SalesLoft, sincronizando millones de registros de marketing y ventas",
-          "Optimicé consultas complejas en PostgreSQL, reduciendo en 15% el tiempo de respuesta de dashboards críticos de business analytics",
-          "Desarrollé módulos backend con Django + OpenAI API para automatización de campañas de email marketing, logrando +25% de conversión",
-          "Implementé CI/CD con GitHub Actions y Docker, reduciendo fallos de despliegue en ≈40%",
+          "Diseñé APIs en NestJS y Django para una plataforma SaaS de personalización de emails con más de 200K usuarios activos mensuales",
+          "Desarrollé módulos backend con Django y OpenAI API para automatizar campañas de email marketing, aumentando la conversión un 25%",
+          "Optimicé consultas complejas en PostgreSQL, reduciendo un 60% los tiempos de respuesta, e implementé pipelines de CI/CD en AWS con Docker que redujeron los despliegues de 2 h a 15 min",
         ],
       },
       3: {
@@ -42,39 +42,36 @@ export const contentTranslations = {
         description:
           "Desarrollo de sistemas backend escalables para e-commerce y liderazgo técnico de equipo.",
         achievements: [
-          "Implementé un sistema de control de pedidos multi-tienda en NestJS y AWS, procesando +1M transacciones por mes",
+          "Implementé un sistema de gestión de pedidos multitienda en NestJS y AWS (Lambda, API Gateway, DynamoDB), dentro de la migración de un monolito a microservicios, procesando más de 1M de transacciones al mes",
+          "Reduje un 20% los costos de infraestructura optimizando servicios en AWS",
           "Aumenté la cobertura de pruebas al 85% con Jest en backend (NestJS) y frontend (Next.js)",
-          "Diseñé autenticación basada en roles y trazabilidad avanzada, fortaleciendo la seguridad del sistema",
-          "Mentoricé a un equipo de 3 desarrolladores junior, mejorando sus prácticas de desarrollo y acelerando su rampa de aprendizaje en 40%",
+          "Mentoricé a 3 desarrolladores junior en code reviews y buenas prácticas con NestJS y AWS, acelerando su curva de aprendizaje un 40%",
         ],
       },
       4: {
-        title: "FullStack Developer",
+        title: "Full Stack Developer",
         description:
           "Desarrollo de plataformas web y APIs REST para productos digitales y redes sociales.",
         achievements: [
-          "Construí APIs REST en NestJS para plataformas inmobiliarias y de contenido viral",
-          "Lideré el desarrollo de una red social en Next.js y NestJS con notificaciones en tiempo real y roles administrativos",
-          "Implementé autenticación JWT y middleware dinámico de permisos",
+          "Lideré el desarrollo de una red social en Next.js y NestJS con notificaciones en tiempo real, roles administrativos, autenticación JWT y middleware dinámico de permisos",
+          "Implementé SSR y SSG en Next.js, mejorando un 40% el SEO y el tiempo de carga",
         ],
       },
       5: {
-        title: "FullStack Developer",
+        title: "Full Stack Developer",
         description:
           "Desarrollo de sistemas fintech y plataformas de comunicación omnicanal.",
         achievements: [
-          "Creé un sistema omnicanal de soporte técnico en Laravel y Vue.js, automatizando la asignación de tickets",
-          "Desarrollé backend para envíos masivos SMS y email, aumentando la entregabilidad en 35%",
-          "Refactoricé PostgreSQL, reduciendo la latencia de consultas en 30%",
+          "Integré pagos con Stripe para más de 50K usuarios activos y desarrollé envíos masivos de SMS y email con Twilio y Mailgun, aumentando la entregabilidad un 35%",
+          "Creé un sistema omnicanal de soporte técnico en Laravel, Vue.js y PostgreSQL y refactoricé sus consultas, reduciendo la latencia un 30%",
         ],
       },
       6: {
-        title: "FullStack Developer",
+        title: "Full Stack Developer",
         description:
           "Desarrollo de soluciones web para campañas digitales y plataformas e-commerce.",
         achievements: [
-          "Desarrollé landing pages interactivas en Vue.js para campañas digitales con mayor conversión",
-          "Construí APIs REST en Laravel para e-commerce B2B y B2C",
+          "Construí APIs REST en Laravel para e-commerce y landing pages en Vue.js",
         ],
       },
       7: {
@@ -89,21 +86,37 @@ export const contentTranslations = {
     },
     // Projects content
     projects: {
-      1: {
-        title: "Plataforma de Asistencia en Tiempo Real",
+      6: {
+        title: "Agente de IA para Ventas Hoteleras",
         description:
-          "Plataforma de asistencia y gestión de sesiones en tiempo real, diseñada con microservicios backend de alta disponibilidad y flujos event-driven.",
+          "Asistente de IA con LLMs (LangGraph) que atiende, cotiza y reserva por WhatsApp y chat web para más de 700 hoteles en 20 países, conectado en tiempo real a PMS y motores de reserva.",
         achievements: [
-          "Reducción de ≈30% en incidentes operativos mediante arquitectura modular y validaciones robustas",
-          "Gestión de sesiones de asistencia en tiempo real con sincronización inmediata de estados",
-          "Implementación de APIs REST seguras con JWT y control de acceso por roles",
-          "Optimización de consultas PostgreSQL reduciendo hasta 40% los tiempos de respuesta",
-          "Observabilidad y auditoría completa mediante logs estructurados y métricas",
+          "Más de 10 integraciones con PMS y motores de reserva para cotizar y reservar en tiempo real",
+          "Canal Chat Web construido de punta a punta, con links de pago y precios en la moneda del visitante",
+          "Pixel de conversión que atribuye cada reserva a su conversación y mide el retorno de inversión",
+          "Mejoras de precisión del agente: cotizaciones, cálculo de ocupación y derivación a asesores humanos",
         ],
         metricsLabels: {
-          stability: "incidentes",
-          performance: "latencia",
-          realtime: "WebSockets",
+          hotels: "hoteles",
+          integrations: "integraciones",
+          channels: "canales",
+        },
+      },
+      1: {
+        title: "App de Asistencia Remota en Tiempo Real",
+        description:
+          "Backend construido desde cero para una app móvil AgeTech (iOS y Android) que permite a las familias dar soporte tecnológico remoto a personas mayores, hasta el lanzamiento del MVP.",
+        achievements: [
+          "Asistencia remota en tiempo real con WebRTC sobre WebSockets (Socket.IO): pantalla compartida y control remoto",
+          "APIs REST con JWT y refresh tokens rotativos, 2FA (TOTP), login con Google y control de acceso por roles",
+          "Modelo de datos en PostgreSQL con índices y eliminación de consultas N+1 en endpoints de métricas",
+          "Despliegue continuo en Google Cloud Run con Docker y GitHub Actions, con observabilidad en New Relic",
+          "Panel de administración en Next.js para operaciones: métricas, usuarios, sesiones en vivo y auditoría",
+        ],
+        metricsLabels: {
+          launch: "MVP lanzado",
+          realtime: "tiempo real",
+          security: "autenticación",
         },
       },
       2: {
@@ -112,14 +125,14 @@ export const contentTranslations = {
           "Integraciones en tiempo real entre HubSpot, Salesforce y SalesLoft, sincronizando millones de contactos mediante una arquitectura event-driven.",
         achievements: [
           "Sincronización en tiempo real de +1M contactos",
-          "Reducción del 15% en el tiempo de respuesta de dashboards",
+          "Reducción del 60% en los tiempos de respuesta optimizando consultas en PostgreSQL",
           "Arquitectura event-driven altamente escalable",
-          "Despliegues sin downtime (zero downtime deployments)",
+          "Despliegues de 2 h a 15 min con pipelines de CI/CD en AWS y Docker",
         ],
         metricsLabels: {
           performance: "tiempo respuesta",
           scale: "contactos",
-          uptime: "uptime",
+          deploys: "despliegues",
         },
       },
       3: {
@@ -191,7 +204,7 @@ export const contentTranslations = {
       title: "Sobre Mí",
       greeting: "¡Hola! Soy Rafael",
       bio1:
-        "Soy un ingeniero de software apasionado por construir sistemas backend robustos y escalables. Con más de 7 años de experiencia, me especializo en arquitecturas distribuidas, integraciones complejas y automatización de procesos que generan impacto real en el negocio.",
+        "Soy Senior Backend Engineer con más de 8 años diseñando, construyendo y escalando plataformas backend con Node.js, NestJS, TypeScript y Python/Django. Me especializo en agentes de IA con LLMs (LangGraph) que cotizan y reservan para más de 700 hoteles, y en llevar backends desde cero hasta producción: arquitectura, tiempo real (WebSockets y WebRTC), seguridad, CI/CD y observabilidad en AWS y Google Cloud.",
       bio2:
         "Me motiva resolver problemas técnicos desafiantes, desde optimizar consultas que procesan millones de registros hasta diseñar APIs que escalan sin esfuerzo. Creo firmemente en el código limpio, las buenas prácticas y la colaboración en equipo.",
       bio3:
@@ -209,9 +222,9 @@ export const contentTranslations = {
       highlights: {
         title: "Destacados Profesionales",
         items: [
-          "+7 años construyendo sistemas backend escalables",
+          "+8 años construyendo sistemas backend escalables",
+          "Agentes de IA en producción para más de 700 hoteles",
           "+1M transacciones/mes procesadas en producción",
-          "Reducción promedio de 30% en costos operativos",
           "Liderazgo técnico y mentoría de equipos junior",
         ],
       },
@@ -287,25 +300,25 @@ export const contentTranslations = {
       8: {
         title: "Software Engineer",
         description:
-          "Backend development for a conversational AI platform for the hospitality industry that automates bookings via WhatsApp, integrated with PMS, CRM, and business intelligence.",
+          "AI-powered WhatsApp sales platform for 700+ hotels in 20 countries.",
         achievements: [
-          "Built backend integrations between the AI assistant and external services in the hospitality ecosystem, expanding product capabilities",
-          "Led the Knowledge v2 refactor, improving load times and the maintainability of the assistant's knowledge module",
-          "Implemented Google Maps location pins within assistant conversations",
-          "Optimized PostgreSQL queries and backend processes, reducing response times in critical booking flows",
+          "Built 10+ integrations with PMSs and booking engines (Lobby PMS, Silbeck, Niara, Anfy, OYO, GuruHotel, Paraty Tech and Tuzgle) so the assistant can quote and book in real time",
+          "Built the conversion attribution system (pixel) end to end: embeddable JavaScript tag, UTM tracking, events in TinyBird and an ROI dashboard, with automatic promotion of leads to the won stage that removed manual work for the sales team",
+          "Developed the Web Chat channel: an embeddable widget connected to the AI assistant, with payment links and prices in the visitor's local currency",
+          "Implemented the TravelCash cashback flow, triggered by payment gateway webhooks, with three layers of idempotency and durable jobs in Inngest",
+          "Improved the accuracy of the LangGraph conversational agent: quotes, occupancy calculation and same-turn handoff to human agents",
         ],
       },
       1: {
-        title: "Senior Backend Software Engineer",
+        title: "Lead Backend Engineer",
         description:
-          "Design and development of high-availability backend microservices for a real-time assistance application.",
+          "AgeTech startup: mobile app (iOS and Android) providing remote tech support for older adults.",
         achievements: [
-          "Designed and developed backend microservices in NestJS applying Clean Architecture, DDD, and design patterns, reducing operational incidents by ~30%",
-          "Implemented scalable REST APIs and event-driven flows ensuring data integrity, access control (JWT, role-based authorization), and full business-event traceability",
-          "Developed real-time communication using WebSockets for state synchronization and active session management in critical business workflows",
-          "Optimized PostgreSQL queries and data models using TypeORM, reducing response times by up to 40% on critical endpoints",
-          "Implemented observability and audit logging with structured logs and metrics, enabling proactive monitoring and early incident detection",
-          "Containerized services with Docker and managed CI/CD pipelines using GitHub Actions, improving deployment reliability and speed in cloud environments",
+          "Designed and built the NestJS backend from scratch with Clean Architecture and DDD, plus the Next.js admin dashboard, through the MVP launch on the App Store and Google Play",
+          "Built real-time remote assistance: WebRTC signaling over WebSockets (Socket.IO) for screen sharing and remote control, with session recovery after disconnections",
+          "Implemented REST APIs with JWT authentication and rotating refresh tokens, 2FA (TOTP), Google sign-in, role-based access control and push notifications with Firebase",
+          "Designed the PostgreSQL data model with TypeORM, indexing frequent queries, and removed N+1 queries in metrics endpoints (from 2 queries per user to a single grouped query)",
+          "Deployed to Google Cloud Run with Docker and CI/CD on GitHub Actions (tests, lint and rollback), with observability in New Relic and Cloud Logging, alerts and dashboards",
         ],
       },
       2: {
@@ -313,10 +326,10 @@ export const contentTranslations = {
         description:
           "Development of large-scale integrations and backend systems for marketing automation and business analytics.",
         achievements: [
-          "Designed and implemented large-scale integrations between HubSpot, Salesforce, and SalesLoft, synchronizing millions of marketing and sales records",
-          "Optimized complex PostgreSQL queries, reducing response times by 15% on critical business analytics dashboards",
-          "Developed backend modules using Django and the OpenAI API for email marketing automation, achieving a +25% conversion increase",
-          "Implemented CI/CD pipelines with GitHub Actions and Docker, reducing deployment failures by ~40%",
+          "Designed and implemented large-scale integrations between HubSpot, Salesforce and SalesLoft, syncing millions of marketing and sales records",
+          "Designed NestJS and Django APIs for an email personalization SaaS platform with 200K+ monthly active users",
+          "Built backend modules with Django and the OpenAI API to automate email marketing campaigns, increasing conversion by 25%",
+          "Optimized complex PostgreSQL queries, cutting response times by 60%, and built CI/CD pipelines on AWS with Docker that reduced deployments from 2 h to 15 min",
         ],
       },
       3: {
@@ -324,39 +337,36 @@ export const contentTranslations = {
         description:
           "Development of scalable backend systems for e-commerce platforms and technical leadership.",
         achievements: [
-          "Implemented a multi-store order management system using NestJS and AWS, processing over 1M transactions per month",
-          "Increased test coverage to 85% using Jest across backend (NestJS) and frontend (Next.js)",
-          "Designed role-based authentication and advanced traceability, significantly strengthening system security",
-          "Mentored a team of 3 junior developers, improving engineering practices and accelerating ramp-up time by 40%",
+          "Implemented a multi-store order management system in NestJS and AWS (Lambda, API Gateway, DynamoDB) as part of a monolith-to-microservices migration, processing 1M+ transactions per month",
+          "Cut infrastructure costs by 20% by optimizing AWS services",
+          "Raised test coverage to 85% with Jest across backend (NestJS) and frontend (Next.js)",
+          "Mentored 3 junior developers on code reviews and NestJS and AWS best practices, shortening their ramp-up by 40%",
         ],
       },
       4: {
-        title: "FullStack Developer",
+        title: "Full Stack Developer",
         description:
           "Development of web platforms and REST APIs for digital products and social applications.",
         achievements: [
-          "Built REST APIs in NestJS for real estate platforms and viral content products",
-          "Led the development of a social network using Next.js and NestJS with real-time notifications and administrative roles",
-          "Implemented JWT authentication and dynamic permission-based middleware",
+          "Led development of a social network in Next.js and NestJS with real-time notifications, admin roles, JWT authentication and dynamic permission middleware",
+          "Implemented SSR and SSG in Next.js, improving SEO and load time by 40%",
         ],
       },
       5: {
-        title: "FullStack Developer",
+        title: "Full Stack Developer",
         description:
           "Development of fintech systems and omnichannel communication platforms.",
         achievements: [
-          "Built an omnichannel customer support system using Laravel and Vue.js with automated ticket assignment",
-          "Developed backend services for bulk SMS and email delivery, increasing deliverability by 35%",
-          "Refactored PostgreSQL queries and schema, reducing query latency by 30%",
+          "Integrated Stripe payments for 50K+ active users and built bulk SMS and email delivery with Twilio and Mailgun, improving deliverability by 35%",
+          "Built an omnichannel support system in Laravel, Vue.js and PostgreSQL and refactored its queries, reducing latency by 30%",
         ],
       },
       6: {
-        title: "FullStack Developer",
+        title: "Full Stack Developer",
         description:
           "Development of web solutions for digital campaigns and e-commerce platforms.",
         achievements: [
-          "Developed interactive landing pages using Vue.js for digital marketing campaigns with high conversion rates",
-          "Built REST APIs in Laravel for B2B and B2C e-commerce platforms",
+          "Built REST APIs in Laravel for e-commerce and landing pages in Vue.js",
         ],
       },
       7: {
@@ -371,21 +381,37 @@ export const contentTranslations = {
     },
     // Projects content
     projects: {
-      1: {
-        title: "Real-Time Attendance Platform",
+      6: {
+        title: "AI Sales Agent for Hotels",
         description:
-          "Real-time attendance and session management platform built with high-availability backend microservices and event-driven workflows.",
+          "LLM-powered AI assistant (LangGraph) that answers, quotes and books over WhatsApp and web chat for 700+ hotels in 20 countries, connected in real time to PMSs and booking engines.",
         achievements: [
-          "≈30% reduction in operational incidents through modular architecture and robust validations",
-          "Real-time attendance session management with immediate state synchronization",
-          "Secure REST APIs implementation using JWT and role-based access control",
-          "PostgreSQL query optimization reducing response times by up to 40%",
-          "Full observability and auditing via structured logs and metrics",
+          "10+ integrations with PMSs and booking engines to quote and book in real time",
+          "Web Chat channel built end to end, with payment links and prices in the visitor's local currency",
+          "Conversion pixel that attributes each booking to its conversation and measures ROI",
+          "Agent accuracy improvements: quotes, occupancy calculation and handoff to human agents",
         ],
         metricsLabels: {
-          stability: "incidents",
-          performance: "latency",
-          realtime: "WebSockets",
+          hotels: "hotels",
+          integrations: "integrations",
+          channels: "channels",
+        },
+      },
+      1: {
+        title: "Real-Time Remote Assistance App",
+        description:
+          "Backend built from scratch for an AgeTech mobile app (iOS and Android) that lets families provide remote tech support to older adults, through the MVP launch.",
+        achievements: [
+          "Real-time remote assistance with WebRTC over WebSockets (Socket.IO): screen sharing and remote control",
+          "REST APIs with JWT and rotating refresh tokens, 2FA (TOTP), Google sign-in and role-based access control",
+          "PostgreSQL data model with indexes and N+1 queries removed from metrics endpoints",
+          "Continuous delivery to Google Cloud Run with Docker and GitHub Actions, with observability in New Relic",
+          "Next.js admin dashboard for operations: metrics, users, live sessions and audit log",
+        ],
+        metricsLabels: {
+          launch: "MVP launched",
+          realtime: "real-time",
+          security: "authentication",
         },
       },
       2: {
@@ -394,14 +420,14 @@ export const contentTranslations = {
           "Real-time integrations between HubSpot, Salesforce, and SalesLoft, synchronizing millions of contacts using an event-driven architecture.",
         achievements: [
           "Real-time synchronization of 1M+ contacts",
-          "15% reduction in dashboard response times",
+          "60% reduction in response times by optimizing PostgreSQL queries",
           "Highly scalable event-driven architecture",
-          "Zero-downtime deployments",
+          "Deployments cut from 2 h to 15 min with CI/CD pipelines on AWS and Docker",
         ],
         metricsLabels: {
           performance: "response time",
           scale: "contacts",
-          uptime: "uptime",
+          deploys: "deployments",
         },
       },
       3: {
@@ -473,7 +499,7 @@ export const contentTranslations = {
       title: "About Me",
       greeting: "Hi! I'm Rafael",
       bio1:
-        "I'm a software engineer passionate about building robust and scalable backend systems. With over 7 years of experience, I specialize in distributed architectures, complex integrations, and process automation that generate real business impact.",
+        "I'm a Senior Backend Engineer with 8+ years designing, building and scaling backend platforms with Node.js, NestJS, TypeScript and Python/Django. I specialize in LLM-powered AI agents (LangGraph) that quote and book for 700+ hotels, and in taking backends from zero to production: architecture, real-time (WebSockets and WebRTC), security, CI/CD and observability on AWS and Google Cloud.",
       bio2:
         "I'm motivated by solving challenging technical problems, from optimizing queries that process millions of records to designing APIs that scale effortlessly. I strongly believe in clean code, best practices, and team collaboration.",
       bio3:
@@ -491,9 +517,9 @@ export const contentTranslations = {
       highlights: {
         title: "Professional Highlights",
         items: [
-          "+7 years building scalable backend systems",
+          "+8 years building scalable backend systems",
+          "AI agents in production for 700+ hotels",
           "+1M transactions/month processed in production",
-          "Average 30% reduction in operational costs",
           "Technical leadership and mentorship of junior teams",
         ],
       },
