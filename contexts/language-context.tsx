@@ -112,17 +112,6 @@ const translations = {
     "contact.info.availability": "Disponibilidad",
     "contact.info.follow": "Sígueme en mis redes sociales",
 
-    // Testimonials
-    "testimonials.badge": "Testimonios",
-    "testimonials.title": "Lo que dicen de mí",
-    "testimonials.description": "Testimonios de colegas y líderes técnicos con quienes he trabajado.",
-
-    // Certifications
-    "certifications.badge": "Certificaciones",
-    "certifications.title": "Certificaciones Profesionales",
-    "certifications.description": "Certificaciones y capacitaciones en tecnologías backend y cloud.",
-    "certifications.viewCredential": "Ver Credencial",
-
     // Footer
     "footer.rights": "Todos los derechos reservados.",
   },
@@ -226,17 +215,6 @@ const translations = {
     "contact.info.location": "Location",
     "contact.info.availability": "Availability",
     "contact.info.follow": "Follow me on social media",
-
-    // Testimonials
-    "testimonials.badge": "Testimonials",
-    "testimonials.title": "What Others Say",
-    "testimonials.description": "Testimonials from colleagues and technical leaders I've worked with.",
-
-    // Certifications
-    "certifications.badge": "Certifications",
-    "certifications.title": "Professional Certifications",
-    "certifications.description": "Certifications and training in backend and cloud technologies.",
-    "certifications.viewCredential": "View Credential",
 
     // Footer
     "footer.rights": "All rights reserved.",

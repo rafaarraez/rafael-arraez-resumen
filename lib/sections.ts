@@ -3,9 +3,7 @@ export const SectionId = {
   home: "home",
   projects: "projects",
   experience: "experience",
-  testimonials: "testimonials",
   skills: "skills",
-  certifications: "certifications",
   contact: "contact",
 } as const
 

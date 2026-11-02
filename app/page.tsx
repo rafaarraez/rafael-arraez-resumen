@@ -7,8 +7,6 @@ import { Projects } from "@/components/projects"
 import { SideProjects } from "@/components/side-projects"
 import { Skills } from "@/components/skills"
 import { Experience } from "@/components/experience"
-import { Testimonials } from "@/components/testimonials"
-import { Certifications } from "@/components/certifications"
 
 export default function Home() {
   return (
@@ -28,8 +26,6 @@ export default function Home() {
         <Experience />
         <Skills />
         <SideProjects />
-        {/* <Testimonials />
-        <Certifications /> */}
         <ContactForm />
       </main>
       <Footer />
