@@ -26,6 +26,8 @@ const skillsData: Record<SkillCategory, Skill[]> = {
     { name: "React", years: 4, level: "advanced" },
     { name: "Vue.js", years: 3, level: "advanced" },
     { name: "Redis", years: 3, level: "intermediate" },
+    { name: "LangGraph (LLMs)", years: 1, level: "intermediate" },
+    { name: "WebRTC / Socket.IO", years: 1, level: "intermediate" },
   ],
   cloud: [
     { name: "AWS Lambda", years: 3, level: "advanced" },
@@ -36,6 +38,7 @@ const skillsData: Record<SkillCategory, Skill[]> = {
     { name: "SQS/SNS", years: 2, level: "intermediate" },
     { name: "Docker", years: 4, level: "advanced" },
     { name: "GitHub Actions", years: 3, level: "advanced" },
+    { name: "Google Cloud Run", years: 1, level: "intermediate" },
   ],
   tools: [
     { name: "Jest", years: 4, level: "advanced" },

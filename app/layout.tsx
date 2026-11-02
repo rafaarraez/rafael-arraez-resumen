@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
@@ -8,16 +9,18 @@ import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { EasterEggs } from "@/components/effects/easter-eggs"
 
-const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
-
 export const metadata: Metadata = {
-  title: "Rafael Arraez - Senior Backend Engineer | NestJS, TypeScript, AWS Specialist",
-  description: "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions. Expert in NestJS, TypeScript, AWS, PostgreSQL, and microservices.",
+  title: "Rafael Arraez - Senior Backend Engineer | AI Agents & LLMs, Node.js, NestJS",
+  description: "Senior Backend Engineer with 8+ years designing, building and scaling backend platforms with Node.js, NestJS, TypeScript and Python/Django. Specialized in LLM-powered AI agents that quote and book for 700+ hotels, and in taking backends from zero to production on AWS and Google Cloud.",
   keywords: [
     "Rafael Arraez",
     "Backend Engineer",
     "Software Engineer",
+    "AI Agents",
+    "LLM",
+    "LangGraph",
+    "WebRTC",
+    "Google Cloud",
     "NestJS",
     "TypeScript",
     "AWS",
@@ -52,8 +55,8 @@ export const metadata: Metadata = {
     locale: "es_ES",
     alternateLocale: ["en_US"],
     url: "https://rafael-arraez.vercel.app",
-    title: "Rafael Arraez - Senior Backend Engineer | NestJS, TypeScript, AWS Specialist",
-    description: "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
+    title: "Rafael Arraez - Senior Backend Engineer | AI Agents & LLMs, Node.js, NestJS",
+    description: "Senior Backend Engineer with 8+ years designing, building and scaling backend platforms. Specialized in LLM-powered AI agents for 700+ hotels and in taking backends from zero to production.",
     siteName: "Rafael Arraez Portfolio",
     images: [
       {
@@ -66,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rafael Arraez - Senior Backend Engineer | NestJS, TypeScript, AWS Specialist",
-    description: "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in NestJS, TypeScript, AWS, PostgreSQL.",
+    title: "Rafael Arraez - Senior Backend Engineer | AI Agents & LLMs, Node.js, NestJS",
+    description: "Senior Backend Engineer with 8+ years building backend platforms. AI agents & LLMs, Node.js, NestJS, PostgreSQL, AWS and Google Cloud.",
     images: ["/og-image.png"],
     creator: "@rafaelarraez"
   },
@@ -95,7 +98,7 @@ export default function RootLayout({
     "@type": "Person",
     "name": "Rafael Arraez",
     "jobTitle": "Senior Backend Engineer",
-    "description": "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures.",
+    "description": "Senior Backend Engineer with 8+ years designing, building and scaling backend platforms. Specialized in LLM-powered AI agents and in taking backends from zero to production.",
     "url": "https://rafael-arraez.vercel.app",
     "address": {
       "@type": "PostalAddress",
@@ -107,6 +110,8 @@ export default function RootLayout({
     ],
     "knowsAbout": [
       "Backend Development",
+      "AI Agents",
+      "Large Language Models",
       "NestJS",
       "TypeScript",
       "AWS",
@@ -123,7 +128,7 @@ export default function RootLayout({
     },
     "hasOccupation": {
       "@type": "Occupation",
-      "name": "Software Backend Engineer",
+      "name": "Senior Backend Engineer",
       "occupationLocation": {
         "@type": "Country",
         "name": "Remote"
@@ -151,7 +156,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
+      <body className={`${GeistSans.variable} ${GeistMono.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <LanguageProvider>
             <EasterEggs />

@@ -5,7 +5,10 @@ export interface ExperienceItem {
     es: string
     en: string
   }
-  location: string
+  location: {
+    es: string
+    en: string
+  }
   technologies: string[]
   type: "work" | "education"
 }
@@ -18,16 +21,20 @@ export const experienceData: ExperienceItem[] = [
       es: "Abril 2026 - Actualidad",
       en: "April 2026 - Present",
     },
-    location: "Remoto",
+    location: {
+      es: "EE. UU. (Remoto)",
+      en: "USA (Remote)",
+    },
     technologies: [
+      "TypeScript",
       "Node.js",
-      "Express.js",
       "Next.js",
-      "PostgreSQL",
-      "AWS",
-      "Cloud Run",
-      "Upstash",
+      "LangGraph",
+      "WhatsApp Cloud API",
+      "MySQL",
+      "Redis",
       "Inngest",
+      "Vercel",
     ],
     type: "work",
   },
@@ -35,19 +42,23 @@ export const experienceData: ExperienceItem[] = [
     id: 1,
     company: "SilverConnect",
     period: {
-      es: "Octubre 2025 - Abril 2026",
-      en: "October 2025 - April 2026",
+      es: "Octubre 2025 - Actualidad",
+      en: "October 2025 - Present",
     },
-    location: "USA, Remoto",
+    location: {
+      es: "Valencia, España (Remoto, contrato)",
+      en: "Valencia, Spain (Remote, Contract)",
+    },
     technologies: [
       "NestJS",
       "TypeScript",
       "PostgreSQL",
-      "TypeORM",
-      "AWS",
+      "MongoDB",
+      "Socket.IO",
+      "WebRTC",
       "Docker",
-      "WebSockets",
-      "GitHub Actions",
+      "Google Cloud",
+      "New Relic",
     ],
     type: "work",
   },
@@ -58,8 +69,12 @@ export const experienceData: ExperienceItem[] = [
       es: "Febrero 2024 - Octubre 2025",
       en: "February 2024 - October 2025",
     },
-    location: "USA, Remoto",
+    location: {
+      es: "EE. UU. (Remoto)",
+      en: "USA (Remote)",
+    },
     technologies: [
+      "NestJS",
       "Django",
       "Python",
       "PostgreSQL",
@@ -77,7 +92,10 @@ export const experienceData: ExperienceItem[] = [
       es: "Noviembre 2022 - Febrero 2024",
       en: "November 2022 - February 2024",
     },
-    location: "Chile, Remoto",
+    location: {
+      es: "Chile (Remoto)",
+      en: "Chile (Remote)",
+    },
     technologies: [
       "NestJS",
       "AWS",
@@ -95,7 +113,10 @@ export const experienceData: ExperienceItem[] = [
       es: "Febrero 2021 - Noviembre 2022",
       en: "February 2021 - November 2022",
     },
-    location: "USA, Remoto",
+    location: {
+      es: "EE. UU. (Remoto)",
+      en: "USA (Remote)",
+    },
     technologies: [
       "NestJS",
       "Next.js",
@@ -112,8 +133,11 @@ export const experienceData: ExperienceItem[] = [
       es: "Enero 2020 - Febrero 2021",
       en: "January 2020 - February 2021",
     },
-    location: "USA, Remoto",
-    technologies: ["Laravel", "Vue.js", "PostgreSQL"],
+    location: {
+      es: "EE. UU. (Remoto)",
+      en: "USA (Remote)",
+    },
+    technologies: ["Laravel", "Vue.js", "PostgreSQL", "Stripe", "Twilio", "Mailgun"],
     type: "work",
   },
   {
@@ -123,7 +147,10 @@ export const experienceData: ExperienceItem[] = [
       es: "Julio 2018 - Diciembre 2019",
       en: "July 2018 - December 2019",
     },
-    location: "Valencia, Venezuela",
+    location: {
+      es: "Valencia, Venezuela",
+      en: "Valencia, Venezuela",
+    },
     technologies: ["Laravel", "Vue.js", "MySQL", "JavaScript", "CSS3"],
     type: "work",
   },
@@ -134,7 +161,10 @@ export const experienceData: ExperienceItem[] = [
       es: "2014 - Julio 2019",
       en: "2014 - July 2019",
     },
-    location: "Valencia, Venezuela",
+    location: {
+      es: "Valencia, Venezuela",
+      en: "Valencia, Venezuela",
+    },
     technologies: ["Java", "Python", "PHP", "MySQL", "JavaScript", "HTML/CSS"],
     type: "education",
   },

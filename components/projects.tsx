@@ -1,6 +1,6 @@
 "use client"
 
-import { Database, Cloud, Zap, Users, Activity, ArrowUpRight } from "lucide-react"
+import { Database, Cloud, Zap, Users, Activity, Bot, ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { Badge } from "@/components/ui-custom/badge"
 import { Button } from "@/components/ui-custom/button"
@@ -16,6 +16,7 @@ const iconMap = {
   Cloud: Cloud,
   Zap: Zap,
   Users: Users,
+  Bot: Bot,
 }
 
 export function Projects() {

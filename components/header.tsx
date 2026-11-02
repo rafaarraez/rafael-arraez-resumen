@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
+import profilePhoto from "@/public/rafael-arraez.png"
 import { SectionId } from "@/lib/sections"
 import { cn } from "@/lib/utils"
 
@@ -120,7 +121,7 @@ export function Header() {
       aria-label={language === "es" ? "Ir al inicio" : "Go to home"}
     >
       <span className="relative h-9 w-9 overflow-hidden rounded-full">
-        <Image src="/rafael-arraez.png" alt="" fill className="object-cover" priority />
+        <Image src={profilePhoto} alt="" fill sizes="36px" className="object-cover" priority />
       </span>
       <span className="font-semibold tracking-tight">Rafael Arraez</span>
     </button>

@@ -2,7 +2,7 @@ export interface ProjectItem {
   id: number
   company: string
   period: string
-  iconName: "Activity" | "Database" | "Cloud" | "Zap" | "Users"
+  iconName: "Activity" | "Database" | "Cloud" | "Zap" | "Users" | "Bot"
   technologies: string[]
   metrics: {
     [key: string]: string
@@ -11,23 +11,45 @@ export interface ProjectItem {
 
 export const projectsData: ProjectItem[] = [
   {
+    id: 6,
+    company: "WeSpeak",
+    period: "2026",
+    iconName: "Bot",
+    technologies: [
+      "TypeScript",
+      "Node.js",
+      "Next.js",
+      "LangGraph",
+      "WhatsApp Cloud API",
+      "MySQL",
+      "Redis",
+      "Inngest",
+    ],
+    metrics: {
+      hotels: "700+",
+      integrations: "10+",
+      channels: "WhatsApp + Web",
+    },
+  },
+  {
     id: 1,
     company: "SilverConnect",
-    period: "2025",
+    period: "2025 - 2026",
     iconName: "Activity",
     technologies: [
       "NestJS",
       "TypeScript",
       "PostgreSQL",
-      "WebSockets",
+      "MongoDB",
+      "Socket.IO",
+      "WebRTC",
       "Docker",
-      "GitHub Actions",
-      "GCP",
+      "Google Cloud",
     ],
     metrics: {
-      stability: "-30%",
-      performance: "-40%",
-      realtime: "WebSockets",
+      launch: "iOS + Android",
+      realtime: "WebRTC",
+      security: "2FA",
     },
   },
   {
@@ -45,9 +67,9 @@ export const projectsData: ProjectItem[] = [
       "Salesforce API",
     ],
     metrics: {
-      performance: "-15%",
-      scale: "2M+",
-      uptime: "99.9%",
+      performance: "-60%",
+      scale: "1M+",
+      deploys: "2h → 15m",
     },
   },
   {

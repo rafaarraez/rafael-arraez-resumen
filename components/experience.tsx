@@ -79,7 +79,7 @@ export function Experience() {
                   </div>
 
                   <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
-                    {item.period[language]} · {item.location}
+                    {item.period[language]} · {item.location[language]}
                   </p>
                   <h3 className="mt-2 text-xl font-semibold tracking-tight">{content.title}</h3>
                   <p className="mt-0.5 text-sm font-medium text-emerald-700 dark:text-emerald-400">{item.company}</p>

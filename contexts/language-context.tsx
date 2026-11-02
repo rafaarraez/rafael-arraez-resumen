@@ -23,15 +23,15 @@ const translations = {
 
     // Hero
     "hero.name": "Rafael Arraez",
-    "hero.title": "Software Backend Engineer",
-    "hero.subtitle": "TypeScript · NestJS · AWS · PostgreSQL",
+    "hero.title": "Senior Backend Engineer",
+    "hero.subtitle": "Agentes de IA y LLMs · Node.js · NestJS · PostgreSQL",
     "hero.description":
-      "Ingeniero de Software con +7 años de experiencia desarrollando y escalando plataformas backend. Especialista en integraciones complejas y arquitecturas serverless de alto rendimiento, gestionando sistemas de +1M transacciones mensuales.",
+      "Más de 8 años diseñando y escalando plataformas backend con Node.js, NestJS, TypeScript y Python/Django. Especializado en agentes de IA con LLMs que cotizan y reservan para más de 700 hoteles, y en llevar backends desde cero hasta producción.",
     "hero.cta.projects": "Ver Proyectos",
     "hero.cta.cv": "Descargar CV",
-    "hero.experience": "+7 años de experiencia",
+    "hero.experience": "+8 años de experiencia",
     "hero.transactions": "+1M transacciones/mes",
-    "hero.cost_optimization": "30% reducción de costos",
+    "hero.cost_optimization": "20% reducción de costos",
 
     // Projects
     "projects.badge": "Proyectos Destacados",
@@ -43,7 +43,7 @@ const translations = {
     // Experience
     "experience.badge": "Experiencia Profesional",
     "experience.title": "Mi Trayectoria",
-    "experience.description": "7+ años construyendo sistemas backend escalables en empresas de USA, Chile y Venezuela.",
+    "experience.description": "8+ años construyendo sistemas backend escalables en empresas de EE. UU., España, Chile y Venezuela.",
     "experience.achievements": "Logros Clave:",
     "experience.technologies": "Tecnologías:",
 
@@ -112,17 +112,6 @@ const translations = {
     "contact.info.availability": "Disponibilidad",
     "contact.info.follow": "Sígueme en mis redes sociales",
 
-    // Testimonials
-    "testimonials.badge": "Testimonios",
-    "testimonials.title": "Lo que dicen de mí",
-    "testimonials.description": "Testimonios de colegas y líderes técnicos con quienes he trabajado.",
-
-    // Certifications
-    "certifications.badge": "Certificaciones",
-    "certifications.title": "Certificaciones Profesionales",
-    "certifications.description": "Certificaciones y capacitaciones en tecnologías backend y cloud.",
-    "certifications.viewCredential": "Ver Credencial",
-
     // Footer
     "footer.rights": "Todos los derechos reservados.",
   },
@@ -137,15 +126,15 @@ const translations = {
 
     // Hero
     "hero.name": "Rafael Arraez",
-    "hero.title": "Software Backend Engineer",
-    "hero.subtitle": "TypeScript · NestJS · AWS · PostgreSQL",
+    "hero.title": "Senior Backend Engineer",
+    "hero.subtitle": "AI Agents & LLMs · Node.js · NestJS · PostgreSQL",
     "hero.description":
-      "Software Engineer with +7 years of experience developing and scaling backend platforms. Specialist in complex integrations and high-performance serverless architectures, managing systems with +1M monthly transactions.",
+      "8+ years designing and scaling backend platforms with Node.js, NestJS, TypeScript and Python/Django. Specialized in LLM-powered AI agents that quote and book for 700+ hotels, and in taking backends from zero to production.",
     "hero.cta.projects": "View Projects",
     "hero.cta.cv": "Download CV",
-    "hero.experience": "+7 years experience",
+    "hero.experience": "+8 years experience",
     "hero.transactions": "+1M transactions/month",
-    "hero.cost_optimization": "30% cost reduction",
+    "hero.cost_optimization": "20% cost reduction",
 
     // Projects
     "projects.badge": "Featured Projects",
@@ -158,7 +147,7 @@ const translations = {
     "experience.badge": "Professional Experience",
     "experience.title": "My Journey",
     "experience.description":
-      "7+ years building scalable backend systems in companies across USA, Chile, and Venezuela.",
+      "8+ years building scalable backend systems in companies across the USA, Spain, Chile, and Venezuela.",
     "experience.achievements": "Key Achievements:",
     "experience.technologies": "Technologies:",
 
@@ -226,17 +215,6 @@ const translations = {
     "contact.info.location": "Location",
     "contact.info.availability": "Availability",
     "contact.info.follow": "Follow me on social media",
-
-    // Testimonials
-    "testimonials.badge": "Testimonials",
-    "testimonials.title": "What Others Say",
-    "testimonials.description": "Testimonials from colleagues and technical leaders I've worked with.",
-
-    // Certifications
-    "certifications.badge": "Certifications",
-    "certifications.title": "Professional Certifications",
-    "certifications.description": "Certifications and training in backend and cloud technologies.",
-    "certifications.viewCredential": "View Credential",
 
     // Footer
     "footer.rights": "All rights reserved.",
